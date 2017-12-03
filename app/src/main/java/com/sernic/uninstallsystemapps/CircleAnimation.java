@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.ConditionVariable;
 import android.os.Handler;
+import android.view.View;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
@@ -62,13 +63,15 @@ public class CircleAnimation extends AsyncTask<Boolean, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean status) {
-
+    protected void onPostExecute(final Boolean status) {
 
         if(status)
             mCircleView.stopSpinning();
         else
             mCircleView.setValueAnimated(100);
+
+
+        mCircleView.setVisibility(View.INVISIBLE);
     }
 }
 

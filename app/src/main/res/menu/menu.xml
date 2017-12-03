@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/import_menu"
+        android:title="Import remove"/>
+    <item
+        android:id="@+id/export_menu"
+        android:title="Export remove"/>
+</menu>
