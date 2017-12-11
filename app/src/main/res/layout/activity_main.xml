@@ -11,12 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"> <!-- Altezza della riga -->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:paddingTop="60dp"/>
+
 
     <at.grabner.circleprogress.CircleProgressView
         android:id="@+id/circleView"
@@ -54,4 +49,14 @@
         app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:paddingTop="60dp"
+        android:visibility="invisible"/>
+
 </RelativeLayout>
+
+
