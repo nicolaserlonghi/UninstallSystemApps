@@ -35,8 +35,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        System.out.println("pos:" + position);
-
         final App app = mApps.get(position);
 
         holder.name_text_view.setText(app.getName());
@@ -44,6 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.icon_image_view.setImageDrawable(app.getIcon());
         holder.checkBox_image_view.setOnCheckedChangeListener(null);
 
+        //Gestione delle checkbox
         if(mAppsChecked.containsKey(app.getPath())) {
             holder.checkBox_image_view.setChecked(mAppsChecked.get(app.getPath()));
         } else {
@@ -53,11 +52,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.checkBox_image_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean Checked) {
                 if(buttonView.isChecked()) {
-                    System.out.println("pos int:" + position);
                     mAppsChecked.put(app.getPath(), true);
                     app.setSelected(true);
                 } else {
-                    System.out.println("pos int:" + position);
                     mAppsChecked.put(app.getPath(), false);
                     app.setSelected(false);
                 }

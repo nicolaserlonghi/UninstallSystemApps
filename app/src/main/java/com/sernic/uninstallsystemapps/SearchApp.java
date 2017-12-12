@@ -36,14 +36,14 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
+        //Imposto i parametri dell'animazione iniziale
         mCircleProgressView = (CircleProgressView)mActivity.findViewById(R.id.circleView);
         mCircleProgressView.setSeekModeEnabled(false);
         mCircleProgressView.setSpinningBarLength(80);
         mCircleProgressView.setSpinSpeed(2);
         mCircleProgressView.setShowTextWhileSpinning(true);
-
+        //Imposto l'animazione loading
         mCircleProgressView.setText("Loading...");
         mCircleProgressView.setTextMode(TextMode.TEXT);
         mCircleProgressView.setUnitVisible(false);
@@ -55,11 +55,13 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         List<ApplicationInfo> apps = mPackageManager.getInstalledApplications(0);
         Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Pone in ordine alfabetico le app
         publishProgress(0);
-
+        //Cerco le app installate e estrapolo i dati che mi servono
         float count = 0;
         for (ApplicationInfo applicationInfo : apps) {
+            System.out.println(mPackageManager.getApplicationLabel(applicationInfo));
             App app = new App(
-                    applicationInfo.name,
+
+                    (String) mPackageManager.getApplicationLabel(applicationInfo),
                     applicationInfo.publicSourceDir
             );
             try {
@@ -69,7 +71,6 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                 e.printStackTrace();
             }
             count++;
-            System.out.println((int)(count/apps.size()*100));
             publishProgress((int)(count/apps.size()*100));
             mApps.add(app);
         }
@@ -81,11 +82,13 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         if(values[0] == 0) {
+            //Setto l'animazione percent
             mCircleProgressView.stopSpinning();
             mCircleProgressView.setTextMode(TextMode.PERCENT);
             mCircleProgressView.setUnitVisible(true);
             mCircleProgressView.setValue(0);
         } else {
+            //Incremento l'animazione
             mCircleProgressView.setValueAnimated(values[0]);
         }
     }
@@ -93,6 +96,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        //Controllo che l'animazione abbbia finito prima di nasconderla
         mCircleProgressView.setOnAnimationStateChangedListener(
                 new AnimationStateChangedListener() {
                     @Override

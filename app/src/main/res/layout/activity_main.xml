@@ -37,6 +37,17 @@
         CircleProgressView:cpv_unitScale="1"
         CircleProgressView:cpv_value="10" />
 
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:paddingTop="60dp"
+        android:visibility="invisible"/>
+
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/floating_search_view"
         android:layout_width="match_parent"
@@ -47,15 +58,6 @@
         app:floatingSearch_leftActionMode="showHamburger"
         app:floatingSearch_menu="@menu/menu"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:paddingTop="60dp"
-        android:visibility="invisible"/>
 
 </RelativeLayout>
 

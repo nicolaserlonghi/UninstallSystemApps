@@ -1,25 +1,28 @@
 package com.sernic.uninstallsystemapps;
 
+import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private FloatingSearchView mSearchView;
     private ArrayList<App> mApps;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Load apps
-        SearchApp sa = new SearchApp(this);
-        sa.execute();
+        SearchApp searchApp = new SearchApp(this);
+        searchApp.execute();
         // execute...
 
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-       /* mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+       mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
 
@@ -47,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 filter(newQuery);
                 //mSearchView.swapSuggestions();
             }
-        });*/
+        });
+
 
         mSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
             @Override
@@ -69,5 +73,22 @@ public class MainActivity extends AppCompatActivity {
         mApps = apps;
 
         // Do other stuff
+    }
+
+
+    void filter(String text) {
+
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        ArrayList<App> temp = new ArrayList();
+        for(App app: mApps){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(app.getName().toLowerCase().contains(text.toLowerCase()))
+                temp.add(app);
+        }
+        //update recyclerview
+        mSearchView.hideProgress();
+
+        ((MyAdapter)mRecyclerView.getAdapter()).updateList(temp);
     }
 }
