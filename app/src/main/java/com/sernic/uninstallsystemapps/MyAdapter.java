@@ -17,11 +17,9 @@ import java.util.HashMap;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<App> mApps;
-    private HashMap<String, Boolean> mAppsChecked = new HashMap<>();
 
     public MyAdapter(ArrayList<App> apps) {
         mApps = apps;
-        mAppsChecked = new HashMap<>();
     }
 
     @Override
@@ -31,45 +29,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        final App app = mApps.get(position);
-
-        holder.name_text_view.setText(app.getName());
-        holder.path_text_view.setText(app.getPath());
-        holder.icon_image_view.setImageDrawable(app.getIcon());
-        holder.checkBox_image_view.setOnCheckedChangeListener(null);
-
-        //Gestione delle checkbox
-        if(mAppsChecked.containsKey(app.getPath())) {
-            holder.checkBox_image_view.setChecked(mAppsChecked.get(app.getPath()));
-        } else {
-            holder.checkBox_image_view.setChecked(false);
-        }
-
-        holder.checkBox_image_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            public void onCheckedChanged(CompoundButton buttonView, boolean Checked) {
-                if(buttonView.isChecked()) {
-                    mAppsChecked.put(app.getPath(), true);
-                    app.setSelected(true);
-                } else {
-                    mAppsChecked.put(app.getPath(), false);
-                    app.setSelected(false);
-                }
-            }
-        });
-    }
-
-    public void updateList(ArrayList<App> apps){
-        mApps = apps;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        return mApps.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,5 +44,45 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             icon_image_view = (ImageView) v.findViewById(R.id.imageView);
             checkBox_image_view = (CheckBox) v.findViewById(R.id.checkbox);
         }
+    }
+
+    private int checkOneApp = 0;
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final App app = mApps.get(position);
+
+        holder.name_text_view.setText(app.getName());
+        holder.path_text_view.setText(app.getPath());
+        holder.icon_image_view.setImageDrawable(app.getIcon());
+
+        //Gestione delle checkbox
+        holder.checkBox_image_view.setOnCheckedChangeListener(null);
+        holder.checkBox_image_view.setChecked(app.isSelected());
+        holder.checkBox_image_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            public void onCheckedChanged(CompoundButton buttonView, boolean Checked) {
+                if(buttonView.isChecked()) {
+                    app.setSelected(true);
+                    checkOneApp++;
+                } else {
+                    app.setSelected(false);
+                    checkOneApp--;
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return mApps.size();
+    }
+
+    public int getCheckOneApp() {
+        return checkOneApp;
+    }
+
+    public void updateList(ArrayList<App> apps){
+        mApps = apps;
+        notifyDataSetChanged();
     }
 }

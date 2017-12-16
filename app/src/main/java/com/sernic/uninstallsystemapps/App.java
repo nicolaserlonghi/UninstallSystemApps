@@ -9,12 +9,14 @@ import android.graphics.drawable.Drawable;
 public class App {
     private String name;
     private String path;
+    private String packageName;
     private Drawable icon;
     private boolean isSelected;
 
-    public App(String name, String path) {
+    public App(String name, String path, String packageName) {
         this.name = name;
         this.path = path;
+        this.packageName = packageName;
     }
 
     public boolean isSelected() {
@@ -45,5 +47,13 @@ public class App {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

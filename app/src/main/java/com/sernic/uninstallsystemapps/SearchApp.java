@@ -58,11 +58,11 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         //Cerco le app installate e estrapolo i dati che mi servono
         float count = 0;
         for (ApplicationInfo applicationInfo : apps) {
-            System.out.println(mPackageManager.getApplicationLabel(applicationInfo));
             App app = new App(
 
                     (String) mPackageManager.getApplicationLabel(applicationInfo),
-                    applicationInfo.publicSourceDir
+                    applicationInfo.publicSourceDir,
+                    applicationInfo.packageName
             );
             try {
                 app.setIcon(mPackageManager.getApplicationIcon(applicationInfo.processName));

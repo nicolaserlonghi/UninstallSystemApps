@@ -30,9 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/primaryText"
-        android:layout_toRightOf="@id/imageView"
         android:layout_marginRight="5dp"
-        android:textSize="12dp"/>
+        android:layout_toRightOf="@id/imageView"
+        android:textSize="12dp" />
 
     <CheckBox
         android:id="@+id/checkbox"
