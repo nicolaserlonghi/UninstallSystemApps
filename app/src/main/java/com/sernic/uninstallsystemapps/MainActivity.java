@@ -6,11 +6,13 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.LinearLayout;
 import com.arlib.floatingsearchview.FloatingSearchView;
 
 import java.io.BufferedReader;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingSearchView mSearchView;
     private ArrayList<App> mApps;
     private RecyclerView mRecyclerView;
+    private View view;
     // Unique request code.
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        view = findViewById(android.R.id.content);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // Load apps
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.export_menu:
                         if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
-                            Toast.makeText(getApplicationContext(), "Nessuna app selezionata!", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             break;
                         } else {
                             SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
@@ -205,9 +209,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
         if(count == 0) {
-            Toast.makeText(getApplicationContext(), "Nessuna app selezionata presente!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, "Nessuna app selezionata presente!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else {
-            Toast.makeText(getApplicationContext(), count + " importate!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, count + " importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
 }
