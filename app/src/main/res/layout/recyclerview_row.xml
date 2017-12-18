@@ -41,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/primaryText"
+        android:layout_toLeftOf="@id/secondaryText"
         android:checked="false" />
 
 </RelativeLayout>

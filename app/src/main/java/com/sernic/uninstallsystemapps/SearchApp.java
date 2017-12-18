@@ -3,6 +3,7 @@ package com.sernic.uninstallsystemapps;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +27,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private RecyclerView mRecyclerView;
     private CircleProgressView mCircleProgressView;
     private ArrayList<App> mApps;
+    FloatingActionButton fab;
 
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
@@ -36,6 +38,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
         //Imposto i parametri dell'animazione iniziale
         mCircleProgressView = (CircleProgressView)mActivity.findViewById(R.id.circleView);
@@ -104,6 +107,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                         if(_animationState == AnimationState.IDLE) {
                             mCircleProgressView.setVisibility(View.INVISIBLE);
                             mRecyclerView.setVisibility(View.VISIBLE);
+                            fab.setVisibility(View.VISIBLE);
                         }
                     }
                 }

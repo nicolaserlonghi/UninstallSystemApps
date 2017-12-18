@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.chrisplus.rootmanager.RootManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -46,14 +48,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = findViewById(android.R.id.content);
+        view = findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         // Load apps
         SearchApp searchApp = new SearchApp(this);
         searchApp.execute();
         // execute...
 
+        if(RootManager.getInstance().hasRooted()) {
+            Snackbar.make(view, "hai il root", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        } else {
+            Snackbar.make(view, "Non hai il root", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+
+        // Animazione del floatingActionButton durante lo scroll
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
+                    fab.hide();
+                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+                    fab.show();
+                }
+            }
+        });
 
         // Search view
         mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
@@ -166,9 +194,11 @@ public class MainActivity extends AppCompatActivity {
     private void writeFileContent(Uri uri) {
         String selectedApp = "";
 
+        int count = 0;
         for(App app: mApps) {
             if(app.isSelected()) {
                 selectedApp = selectedApp + app.getPackageName() + ",";
+                count++;
             }
         }
         try{
@@ -182,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Snackbar.make(view, "Esportazione di " + count + " app completata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     
@@ -211,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         if(count == 0) {
             Snackbar.make(view, "Nessuna app selezionata presente!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else {
-            Snackbar.make(view, count + " importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, count + " app importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
 }

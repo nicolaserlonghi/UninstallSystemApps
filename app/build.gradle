@@ -30,4 +30,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3' //Circle progres animation
     compile 'com.github.arimorty:floatingsearchview:2.1.1'    //Floating search bar
+    compile 'com.chrisplus.rootmanager:library:2.0.5@aar'     //Root manager
+
 }
