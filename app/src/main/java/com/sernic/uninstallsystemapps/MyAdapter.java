@@ -9,7 +9,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by nicola on 03/12/17.
@@ -33,14 +32,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name_text_view;
-        private TextView path_text_view;
+        private TextView packageName_text_view;
         private ImageView icon_image_view;
         private CheckBox checkBox_image_view;
 
         public ViewHolder(View v) {
             super(v);
             name_text_view = (TextView) v.findViewById(R.id.primaryText);
-            path_text_view = (TextView) v.findViewById(R.id.secondaryText);
+            packageName_text_view = (TextView) v.findViewById(R.id.secondaryText);
             icon_image_view = (ImageView) v.findViewById(R.id.imageView);
             checkBox_image_view = (CheckBox) v.findViewById(R.id.checkbox);
         }
@@ -52,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         final App app = mApps.get(position);
 
         holder.name_text_view.setText(app.getName());
-        holder.path_text_view.setText(app.getPath());
+        holder.packageName_text_view.setText(app.getPackageName());
         holder.icon_image_view.setImageDrawable(app.getIcon());
 
         //Gestione delle checkbox

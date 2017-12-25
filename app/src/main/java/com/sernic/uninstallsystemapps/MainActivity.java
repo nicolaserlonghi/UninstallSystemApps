@@ -54,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(RootManager.getInstance().obtainPermission())
+                    Snackbar.make(view, "root ottenuto", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                else
+                    Snackbar.make(view, "Non ho ottenuto l'acceso root", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             }
         });
 
