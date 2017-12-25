@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<App> mApps;
     private RecyclerView mRecyclerView;
     private View view;
+    private Boolean rootAccess;
     // Unique request code.
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
@@ -55,23 +56,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                if(RootManager.getInstance().obtainPermission())
-                    Snackbar.make(view, "root ottenuto", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                else
-                    Snackbar.make(view, "Non ho ottenuto l'acceso root", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+
             }
         });
 
         // Load apps
         SearchApp searchApp = new SearchApp(this);
         searchApp.execute();
-        // execute...
 
-        if(RootManager.getInstance().hasRooted()) {
-            Snackbar.make(view, "hai il root", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        } else {
-            Snackbar.make(view, "Non hai il root", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        }
+        // Obtain root
+        ObtainRoot obtainRoot = new ObtainRoot(this);
+        obtainRoot.execute();
+        // execute...
 
         // Animazione del floatingActionButton durante lo scroll
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -131,10 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setApplicationList(ArrayList<App> apps) {
         mApps = apps;
-
-        // Do other stuff
     }
 
+    public void setRootAccess(Boolean rootAccess) {
+        this.rootAccess = rootAccess;
+    }
 
     // Filtra le app e aggiorna la recyclerView per la floatingSearchBar
     void filter(String text) {
