@@ -61,21 +61,31 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         //Cerco le app installate e estrapolo i dati che mi servono
         float count = 0;
         for (ApplicationInfo applicationInfo : apps) {
-            App app = new App(
-
-                    (String) mPackageManager.getApplicationLabel(applicationInfo),
-                    applicationInfo.publicSourceDir,
-                    applicationInfo.packageName
-            );
-            try {
-                app.setIcon(mPackageManager.getApplicationIcon(applicationInfo.processName));
-            } catch (PackageManager.NameNotFoundException e) {
-                app.setIcon(mPackageManager.getDefaultActivityIcon());
-                e.printStackTrace();
+            Boolean systemApp;
+            if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
+                //App di sistema
+                systemApp = true;
+            } else {
+                //App utente
+                systemApp = false;
             }
-            count++;
-            publishProgress((int)(count/apps.size()*100));
-            mApps.add(app);
+                App app = new App(
+
+                        (String) mPackageManager.getApplicationLabel(applicationInfo),
+                        applicationInfo.publicSourceDir,
+                        applicationInfo.packageName,
+                        systemApp
+                );
+                try {
+                    app.setIcon(mPackageManager.getApplicationIcon(applicationInfo.processName));
+                } catch (PackageManager.NameNotFoundException e) {
+                    app.setIcon(mPackageManager.getDefaultActivityIcon());
+                    e.printStackTrace();
+                }
+                count++;
+                publishProgress((int) (count / apps.size() * 100));
+                mApps.add(app);
+
         }
 
         return null;

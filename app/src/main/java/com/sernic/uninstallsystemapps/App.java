@@ -12,11 +12,13 @@ public class App {
     private String packageName;
     private Drawable icon;
     private boolean isSelected;
+    private boolean systemApp;
 
-    public App(String name, String path, String packageName) {
+    public App(String name, String path, String packageName, Boolean systemApp) {
         this.name = name;
         this.path = path;
         this.packageName = packageName;
+        this.systemApp = systemApp;
     }
 
     public boolean isSelected() {
@@ -55,5 +57,13 @@ public class App {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public boolean isSystemApp() {
+        return systemApp;
+    }
+
+    public void setSystemApp(boolean systemApp) {
+        this.systemApp = systemApp;
     }
 }
