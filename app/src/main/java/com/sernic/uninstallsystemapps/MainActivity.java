@@ -52,22 +52,40 @@ public class MainActivity extends AppCompatActivity {
         view = findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-            }
-        });
 
         // Load apps
         SearchApp searchApp = new SearchApp(this);
         searchApp.execute();
 
         // Obtain root
-        ObtainRoot obtainRoot = new ObtainRoot(this);
+        final ObtainRoot obtainRoot = new ObtainRoot(this);
         obtainRoot.execute();
         // execute...
+
+        // Azioni floating button
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(rootAccess) {
+                    // Elimino le app se almeno una è selezionata
+                    if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
+                        Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    } else {
+                        RemoveApps removeApps = new RemoveApps(MainActivity.this);
+                        removeApps.execute();
+                    }
+                } else {
+                    Snackbar.make(view, "Non posso eliminare le app senza i permessi di root!", Snackbar.LENGTH_LONG).setAction("Ottieni", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ObtainRoot obtainRoot = new ObtainRoot(MainActivity.this);
+                                    obtainRoot.execute();
+                                }
+                            }).show();
+                }
+            }
+        });
 
         // Animazione del floatingActionButton durante lo scroll
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -127,6 +145,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setApplicationList(ArrayList<App> apps) {
         mApps = apps;
+    }
+
+    public ArrayList<App> getApplicationList() {
+        return mApps;
     }
 
     public void setRootAccess(Boolean rootAccess) {

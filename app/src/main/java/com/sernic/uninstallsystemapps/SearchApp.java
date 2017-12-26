@@ -27,7 +27,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private RecyclerView mRecyclerView;
     private CircleProgressView mCircleProgressView;
     private ArrayList<App> mApps;
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
 
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
@@ -69,10 +69,11 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                 //App utente
                 systemApp = false;
             }
+                System.out.println("scan: " + applicationInfo.sourceDir);
                 App app = new App(
 
                         (String) mPackageManager.getApplicationLabel(applicationInfo),
-                        applicationInfo.publicSourceDir,
+                        applicationInfo.sourceDir,
                         applicationInfo.packageName,
                         systemApp
                 );
