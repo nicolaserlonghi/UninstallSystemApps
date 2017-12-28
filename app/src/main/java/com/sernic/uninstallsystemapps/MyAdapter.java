@@ -80,6 +80,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return checkOneApp;
     }
 
+    public void increaseCheckOneApp() {
+        checkOneApp++;
+    }
+
     public void updateList(ArrayList<App> apps){
         mApps = apps;
         notifyDataSetChanged();

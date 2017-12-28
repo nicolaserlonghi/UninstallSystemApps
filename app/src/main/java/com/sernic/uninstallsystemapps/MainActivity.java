@@ -1,6 +1,7 @@
 package com.sernic.uninstallsystemapps;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
@@ -11,9 +12,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.chrisplus.rootmanager.RootManager;
 
@@ -67,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //ShowPopup("ciaooo mondo dei popUP :)");
                 if(rootAccess) {
                     // Elimino le app se almeno una è selezionata
                     if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
@@ -254,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         for(App app : mApps) {
             if(selectedApp.contains(app.getPackageName())) {
                 app.setSelected(true);
+                ((MyAdapter)mRecyclerView.getAdapter()).increaseCheckOneApp();
                 count++;
             } else {
                 app.setSelected(false);
@@ -266,5 +276,58 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Snackbar.make(view, count + " app importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
+    }
+
+    private PopupWindow POPUP_WINDOW_SCORE = null;
+    private void ShowPopup(String message)
+    {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+        // Inflate the popup_layout.xml
+        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = layoutInflater.inflate(R.layout.layout_popup, null);
+
+        // Creating the PopupWindow
+        POPUP_WINDOW_SCORE = new PopupWindow(this);
+        POPUP_WINDOW_SCORE.setContentView(layout);
+        POPUP_WINDOW_SCORE.setWidth(width);
+        POPUP_WINDOW_SCORE.setHeight(height);
+        POPUP_WINDOW_SCORE.setFocusable(true);
+
+        // prevent clickable background
+        POPUP_WINDOW_SCORE.setBackgroundDrawable(null);
+
+        POPUP_WINDOW_SCORE.showAtLocation(layout, Gravity.CENTER, 1, 1);
+
+
+        // Getting a reference to button one and do something
+        Button butOne = (Button) layout.findViewById(R.id.layout_popup_butOne);
+        butOne.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Do Something
+
+                //Close Window
+                POPUP_WINDOW_SCORE.dismiss();
+            }
+        });
+
+        // Getting a reference to button two and do something
+        Button butTwo = (Button) layout.findViewById(R.id.layout_popup_butTwo);
+        butTwo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Do Something
+
+                //Close Window
+                POPUP_WINDOW_SCORE.dismiss();
+            }
+        });
     }
 }
