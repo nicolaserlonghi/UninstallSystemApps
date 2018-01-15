@@ -1,11 +1,8 @@
 package com.sernic.uninstallsystemapps;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -13,8 +10,6 @@ import com.chrisplus.rootmanager.RootManager;
 import com.chrisplus.rootmanager.container.Result;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import at.grabner.circleprogress.AnimationState;
 import at.grabner.circleprogress.AnimationStateChangedListener;
@@ -69,6 +64,7 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
         for(App app : mApps) {
             if(app.isSelected()) {
                 if (app.isSystemApp()) {
+
                     Result result = RootManager.getInstance().uninstallSystemApp(app.getPath());
                     System.out.println("result: " + result.getResult());
                     System.out.println("result: " + result.getMessage());

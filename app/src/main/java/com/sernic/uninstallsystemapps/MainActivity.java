@@ -3,7 +3,6 @@ package com.sernic.uninstallsystemapps;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -18,12 +17,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.chrisplus.rootmanager.RootManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -31,15 +27,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
