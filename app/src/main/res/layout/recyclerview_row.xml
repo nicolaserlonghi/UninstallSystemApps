@@ -3,36 +3,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:background="#FFFFFF"
-    android:layout_marginBottom="1dp"> <!-- Altezza della riga -->
+    android:layout_height="72dp"
+    android:background="#FFFFFF"> <!-- Altezza della riga -->
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
         android:layout_centerVertical="true"/> <!-- Centra verticalmente l'ImageView-->
 
-    <!-- Testo principale -->
-    <TextView
-        android:id="@+id/primaryText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_toRightOf="@id/imageView"
         android:layout_toLeftOf="@+id/checkbox"
-        android:textStyle="bold"
-        android:textSize="16dp"/>
+        android:layout_centerVertical="true">
 
-    <!-- Testo secondario -->
-    <TextView
-        android:id="@+id/secondaryText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/primaryText"
-        android:layout_marginRight="5dp"
-        android:layout_toRightOf="@id/imageView"
-        android:textSize="12dp" />
+        <!-- Testo principale -->
+        <TextView
+            android:id="@+id/primaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <!-- Testo secondario -->
+        <TextView
+            android:id="@+id/secondaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/primaryText"
+            android:layout_toRightOf="@id/imageView"
+            android:textSize="13sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+    </LinearLayout>
+
 
     <CheckBox
         android:id="@+id/checkbox"
@@ -40,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="16dp"
         android:layout_toLeftOf="@id/secondaryText"
-        android:checked="false" />
+        android:checked="false"/>
 
 </RelativeLayout>

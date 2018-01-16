@@ -64,12 +64,9 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
         for(App app : mApps) {
             if(app.isSelected()) {
                 if (app.isSystemApp()) {
-
-                    Result result = RootManager.getInstance().uninstallSystemApp(app.getPath());
-                    System.out.println("result: " + result.getResult());
-                    System.out.println("result: " + result.getMessage());
+                    RootManager.getInstance().uninstallSystemApp(app.getPath());
                 } else {
-                    Result result = RootManager.getInstance().uninstallPackage(app.getPackageName());
+                    RootManager.getInstance().uninstallPackage(app.getPackageName());
                 }
                 count++;
                 publishProgress((int) (count / mApps.size() * 100));
