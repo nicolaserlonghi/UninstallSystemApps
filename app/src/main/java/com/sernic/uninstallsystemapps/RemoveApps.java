@@ -1,8 +1,10 @@
 package com.sernic.uninstallsystemapps;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -107,5 +109,20 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
         mActivity.setApplicationList(temp);
         View view = mActivity.findViewById(R.id.coordinatorLayout);
         Snackbar.make(view, "Le app selezionate sono state rimosse!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        // Creo l'allert per riavviare il telefono
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.AppCompatAlertDialogStyle);
+        builder.setTitle("Riavviare ora per completare la disinstallazione?")
+                .setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with reboot
+                        RootManager.getInstance().restartDevice();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
     }
 }

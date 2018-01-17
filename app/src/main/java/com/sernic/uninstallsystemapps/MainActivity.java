@@ -3,12 +3,15 @@ package com.sernic.uninstallsystemapps;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -272,58 +275,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Snackbar.make(view, count + " app importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
-    }
-
-    private PopupWindow POPUP_WINDOW_SCORE = null;
-    private void ShowPopup(String message)
-    {
-        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        int height = displayMetrics.heightPixels;
-
-        // Inflate the popup_layout.xml
-        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.layout_popup, null);
-
-        // Creating the PopupWindow
-        POPUP_WINDOW_SCORE = new PopupWindow(this);
-        POPUP_WINDOW_SCORE.setContentView(layout);
-        POPUP_WINDOW_SCORE.setWidth(width);
-        POPUP_WINDOW_SCORE.setHeight(height);
-        POPUP_WINDOW_SCORE.setFocusable(true);
-
-        // prevent clickable background
-        POPUP_WINDOW_SCORE.setBackgroundDrawable(null);
-
-        POPUP_WINDOW_SCORE.showAtLocation(layout, Gravity.CENTER, 1, 1);
-
-
-        // Getting a reference to button one and do something
-        Button butOne = (Button) layout.findViewById(R.id.layout_popup_butOne);
-        butOne.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //Do Something
-
-                //Close Window
-                POPUP_WINDOW_SCORE.dismiss();
-            }
-        });
-
-        // Getting a reference to button two and do something
-        Button butTwo = (Button) layout.findViewById(R.id.layout_popup_butTwo);
-        butTwo.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //Do Something
-
-                //Close Window
-                POPUP_WINDOW_SCORE.dismiss();
-            }
-        });
     }
 }

@@ -127,7 +127,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                     }
                 }
         );
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL)); // Metto una riga tra due elementi della lista
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(new MyAdapter(mApps));
 

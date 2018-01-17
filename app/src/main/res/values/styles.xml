@@ -12,4 +12,11 @@
         <item name="@android:windowLightStatusBar">true</item>
     </style>
 
+    <!-- Alert Dialog style-->
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/primary_dark</item>
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
 </resources>
