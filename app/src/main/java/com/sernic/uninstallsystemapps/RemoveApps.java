@@ -40,7 +40,6 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         temp = new ArrayList<>();
-        //totalAppSelected = ((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp();
         fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
         // Imposto i parametri dell'animazione iniziale

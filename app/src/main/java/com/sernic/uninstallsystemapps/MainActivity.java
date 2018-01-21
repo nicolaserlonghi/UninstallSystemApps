@@ -16,15 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 
-import com.arlib.floatingsearchview.FloatingSearchView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -42,7 +46,6 @@ import static android.widget.GridLayout.HORIZONTAL;
 import static android.widget.GridLayout.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
-    private FloatingSearchView mSearchView;
     private ArrayList<App> mApps;
     private RecyclerView mRecyclerView;
     private View view;
@@ -51,10 +54,13 @@ public class MainActivity extends AppCompatActivity {
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         view = findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -74,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ShowPopup("ciaooo mondo dei popUP :)");
                 if(rootAccess) {
                     // Elimino le app se almeno una è selezionata
                     if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
@@ -107,47 +112,61 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        // Search view
-        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        mSearchView.setBackgroundColor(Color.parseColor("#787878"));
-        mSearchView.setViewTextColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setHintTextColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setActionMenuOverflowColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setMenuItemIconColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setClearBtnColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setDividerColor(Color.parseColor("#BEBEBE"));
-        mSearchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
-        mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+
+
+    // Search view
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
-            public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                mSearchView.showProgress();
-                filter(newQuery);
-                //mSearchView.swapSuggestions();
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
-        });
-        mSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
+
             @Override
-            public void onActionMenuItemSelected(MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.import_menu:
-                        performFileSearch();
-                        break;
-                    case R.id.export_menu:
-                        if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
-                            Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            break;
-                        } else {
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
-                            Date now = new Date();
-                            createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
-                            break;
-                        }
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    filter("");
+                    //listView.clearTextFilter();
+                } else {
+                    filter(newText);
                 }
+                return true;
             }
         });
+
+        return true;
+    }
+
+
+    // Menu item
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        switch (id) {
+            case R.id.import_menu:
+                performFileSearch();
+                break;
+            case R.id.export_menu:
+                if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
+                    Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    break;
+                } else {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
+                    Date now = new Date();
+                    createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
+                    break;
+                }
+        }
+        return false;
     }
 
 
@@ -172,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
                 temp.add(app);
         }
         // Update recyclerview
-        mSearchView.hideProgress();
         ((MyAdapter)mRecyclerView.getAdapter()).updateList(temp);
     }
 
