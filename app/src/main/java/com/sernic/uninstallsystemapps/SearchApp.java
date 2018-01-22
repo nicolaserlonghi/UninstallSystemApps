@@ -103,7 +103,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
             //Setto l'animazione percent
             mCircleProgressView.stopSpinning();
             mCircleProgressView.setTextMode(TextMode.PERCENT);
-            mCircleProgressView.setUnitVisible(true);
+            mCircleProgressView.setUnitVisible(false);
             mCircleProgressView.setValue(0);
         } else {
             //Incremento l'animazione
