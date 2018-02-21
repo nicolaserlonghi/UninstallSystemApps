@@ -60,7 +60,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         List<ApplicationInfo> apps = mPackageManager.getInstalledApplications(0);
-        Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Pone in ordine alfabetico le app
+        Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Sort apps in alphabetical order
         publishProgress(0);
         //Cerco le app installate e estrapolo i dati che mi servono
         float count = 0;

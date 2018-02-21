@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -27,10 +30,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+
+import com.chrisplus.rootmanager.RootManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -41,6 +47,8 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -48,14 +56,14 @@ import static android.widget.GridLayout.HORIZONTAL;
 import static android.widget.GridLayout.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<App> mApps;
+    private ArrayList<App> mApps, tempMApps;
     private RecyclerView mRecyclerView;
     private View view;
     private Boolean rootAccess;
     // Unique request code.
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
-
+    private static final String KEY_PREF_HIDE_SYSTEM_APPS = "hide_system_apps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Load apps
         SearchApp searchApp = new SearchApp(this);
@@ -118,13 +127,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     // Search view
     @Override
     public boolean onCreateOptionsMenu( Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        MenuItem actionSearch = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) actionSearch.getActionView();
         searchView.setIconifiedByDefault(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -144,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        // setto la checkBox con il valore memorizzato
+        MenuItem hideSystemApps = menu.findItem(R.id.hide_system_apps);
+        hideSystemApps.setChecked(readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false));
 
         return true;
     }
@@ -160,20 +173,76 @@ public class MainActivity extends AppCompatActivity {
             case R.id.export_menu:
                 if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
                     Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    break;
                 } else {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
                     Date now = new Date();
                     createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
-                    break;
                 }
+                break;
+            case R.id.hide_system_apps:
+                if(item.isChecked()){
+                    item.setChecked(false);
+                    hideApp(true, false);
+                    saveBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false);
+                } else {
+                    item.setChecked(true);
+                    hideApp(true, true);
+                    saveBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, true);
+                }
+                break;
+            case R.id.settings_menu:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+
         }
         return false;
     }
 
+    // Toglie dalla recyclerView la tipologia di app indicata nei parametri
+    private void hideApp(Boolean toSystem, Boolean toHide) {
+        if(toHide) {
+            for(App app : mApps) {
+                if (toSystem == app.isSystemApp()) {
+                    app.setSelected(false);
+                    tempMApps.remove(app);
+                }
+            }
+        } else if(mApps.size() != tempMApps.size()){
+            for(App app : mApps) {
+                if (toSystem == app.isSystemApp()) {
+                    tempMApps.add(app);
+                }
+            }
+        }
+
+        // Sort apps in alphabetical order
+        Collections.sort(tempMApps, new Comparator<App>() {
+            @Override
+            public int compare(App app, App t1) {
+                return app.getName().compareToIgnoreCase(t1.getName());
+            }
+        });
+        ((MyAdapter)mRecyclerView.getAdapter()).updateList(tempMApps);
+    }
+
+    private void saveBooleanPreference(String key, Boolean value) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    private Boolean readBooleanPreference(String key, Boolean defaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getBoolean(key, defaultValue);
+    }
 
     public void setApplicationList(ArrayList<App> apps) {
-        mApps = apps;
+        mApps = new ArrayList<>(apps);
+        tempMApps = new ArrayList<>(apps);
+        // Nascondo le app in base al valore della checkbox salvato
+        hideApp(true, readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false));
     }
 
     public ArrayList<App> getApplicationList() {
@@ -188,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     void filter(String text) {
         ArrayList<App> temp = new ArrayList();
 
-        for(App app: mApps){
+        for(App app: tempMApps){
             if(app.getName().toLowerCase().contains(text.toLowerCase()))
                 temp.add(app);
         }
@@ -199,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Apra il browser per far selezionare all'utente il file
     public void performFileSearch() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         // Filter to show only images, using the image MIME data type.
         intent.setType("text/uninsSystemApp");

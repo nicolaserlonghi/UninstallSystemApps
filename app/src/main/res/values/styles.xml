@@ -25,4 +25,8 @@
         <item name="android:background">#FFFFFF</item>
     </style>
 
+    <style name="AppTheme.SettingsTheme" parent="AppTheme">
+        <item name="preferenceTheme">@style/PreferenceFragment</item>
+    </style>
+
 </resources>

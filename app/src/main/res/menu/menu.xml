@@ -3,16 +3,25 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 tools:context=".MainActivity">
-<item
-    android:id="@+id/action_search"
-    android:icon="@drawable/search_white"
-    app:showAsAction="always|collapseActionView"
-    app:actionViewClass="android.support.v7.widget.SearchView"
-    android:title="Search"/>
-<item
-    android:id="@+id/import_menu"
-    android:title="Import remove"/>
-<item
-    android:id="@+id/export_menu"
-    android:title="Export remove"/>
+        <item
+            android:id="@+id/action_search"
+            android:icon="@drawable/search_white"
+            app:showAsAction="always|collapseActionView"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            android:title="Search" />
+        <item
+            android:id="@+id/import_menu"
+            android:title="Import remove"/>
+        <item
+            android:id="@+id/export_menu"
+            android:title="Export remove"/>
+        <item
+            android:id="@+id/hide_system_apps"
+            android:title="Nasc. app sistema"
+            app:showAsAction="never"
+            android:visible="true"
+            android:checkable="true"/>
+        <item
+        android:id="@+id/settings_menu"
+        android:title="Impostazioni"/>
 </menu>

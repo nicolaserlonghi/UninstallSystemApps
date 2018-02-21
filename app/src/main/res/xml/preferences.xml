@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="leave_feedback"
+        android:title="Dubbi, domande, angoscie, perplessità?"
+        android:summary="Vuoi segnalare un malfunzionamento o hai un idea per migliorare l'app? Mandami un email!">
+    </Preference>
+
+    <Preference
+        android:title="Info"
+        android:summary="Unistall system apps è stata creata da Nicola Serlonghi.">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/Sernic" />
+    </Preference>
+
+    <Preference
+        android:key="app_version"
+        android:title="Versione App"
+        android:summary="0.1">
+    </Preference>
+
+</PreferenceScreen>
