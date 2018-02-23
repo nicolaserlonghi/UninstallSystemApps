@@ -1,42 +1,27 @@
 package com.sernic.uninstallsystemapps;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.chrisplus.rootmanager.RootManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -52,15 +37,18 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
-import static android.widget.GridLayout.HORIZONTAL;
-import static android.widget.GridLayout.VERTICAL;
-
 public class MainActivity extends AppCompatActivity {
     private ArrayList<App> mApps, tempMApps;
     private RecyclerView mRecyclerView;
     private View view;
     private Boolean rootAccess;
-    // Unique request code.
+    private FloatingActionButton fab;
+    private TextView numApps;
+    private ImageButton selectAll;
+    private int selectApps = 0;
+    private Boolean busyBox = true;
+
+    // Unique request code
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
     private static final String KEY_PREF_HIDE_SYSTEM_APPS = "hide_system_apps";
@@ -74,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
 
         view = findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        numApps = (TextView) findViewById(R.id.num_apps);
+        selectAll = (ImageButton) findViewById(R.id.select_all);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Load apps
-        SearchApp searchApp = new SearchApp(this);
+        final SearchApp searchApp = new SearchApp(this);
         searchApp.execute();
 
         // Obtain root
@@ -87,20 +77,29 @@ public class MainActivity extends AppCompatActivity {
         obtainRoot.execute();
         // execute...
 
-        // Azioni floating button
+        // floating button action
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(rootAccess) {
                     // Elimino le app se almeno una è selezionata
-                    if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
-                        Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(selectApps == 0) {
+                        Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
+                        if(!busyBox)
+                            Snackbar.make(view, getResources().getString(R.string.snanckBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_install), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse("market://details?id=stericson.busybox"));
+                                    startActivity(intent);
+                                }
+                            }).show();
                         RemoveApps removeApps = new RemoveApps(MainActivity.this);
                         removeApps.execute();
                     }
                 } else {
-                    Snackbar.make(view, "Non posso eliminare le app senza i permessi di root!", Snackbar.LENGTH_LONG).setAction("Ottieni", new View.OnClickListener() {
+                    Snackbar.make(view, getResources().getString(R.string.snackBar_no_root_remove_apps), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_obtain), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     ObtainRoot obtainRoot = new ObtainRoot(MainActivity.this);
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Animazione del floatingActionButton durante lo scroll
+        // floatingActionButton scroll animation
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -123,10 +122,47 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        selectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selectApps == tempMApps.size()) {
+                    for(App app:tempMApps) {
+                        app.setSelected(false);
+                    }
+                    selectAll.setImageResource(R.drawable.select_all_white_24px);
+                    selectApps = 0;
+                } else {
+                    for(App app:tempMApps) {
+                        app.setSelected(true);
+                    }
+                    selectAll.setImageResource(R.drawable.deselect_all_white_24px);
+                    selectApps = tempMApps.size();
+                }
+                numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " "+ tempMApps.size());
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
+    // App counter utility selected
+    public void addSelectApp() {
+        selectApps++;
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
+        if(selectApps == tempMApps.size())
+            selectAll.setImageResource(R.drawable.deselect_all_white_24px);
+        if(fab.getVisibility() != View.VISIBLE)
+            fab.show();
+    }
 
-
+    public void remSelectApp() {
+        if(selectApps == tempMApps.size())
+            selectAll.setImageResource(R.drawable.select_all_white_24px);
+        selectApps--;
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
+        if(fab.getVisibility() != View.VISIBLE)
+            fab.show();
+    }
 
     // Search view
     @Override
@@ -147,14 +183,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
                     filter("");
-                    //listView.clearTextFilter();
+                    // listView.clearTextFilter();
                 } else {
                     filter(newText);
                 }
                 return true;
             }
         });
-        // setto la checkBox con il valore memorizzato
+        // Set the checkBox with saved value
         MenuItem hideSystemApps = menu.findItem(R.id.hide_system_apps);
         hideSystemApps.setChecked(readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false));
 
@@ -171,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
                 performFileSearch();
                 break;
             case R.id.export_menu:
-                if(((MyAdapter)mRecyclerView.getAdapter()).getCheckOneApp() == 0) {
-                    Snackbar.make(view, "Nessuna app selezionata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(selectApps == 0) {
+                    Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
                     Date now = new Date();
@@ -199,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    // Toglie dalla recyclerView la tipologia di app indicata nei parametri
+    // Remove from the recyclerView type of app indicated by the parameters
     private void hideApp(Boolean toSystem, Boolean toHide) {
         if(toHide) {
             for(App app : mApps) {
@@ -223,6 +259,13 @@ public class MainActivity extends AppCompatActivity {
                 return app.getName().compareToIgnoreCase(t1.getName());
             }
         });
+        for(App app:mApps) {
+            app.setSelected(false);
+        }
+        selectApps = 0;
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
+        if(fab.getVisibility() != View.VISIBLE)
+            fab.show();
         ((MyAdapter)mRecyclerView.getAdapter()).updateList(tempMApps);
     }
 
@@ -241,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
     public void setApplicationList(ArrayList<App> apps) {
         mApps = new ArrayList<>(apps);
         tempMApps = new ArrayList<>(apps);
-        // Nascondo le app in base al valore della checkbox salvato
+        // Hide the apps based on checkbox stored value
         hideApp(true, readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false));
     }
 
@@ -253,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         this.rootAccess = rootAccess;
     }
 
-    // Filtra le app e aggiorna la recyclerView per la floatingSearchBar
+    // Filter the apps and update the recyclerView for the floatingSearchBar
     void filter(String text) {
         ArrayList<App> temp = new ArrayList();
 
@@ -266,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Apra il browser per far selezionare all'utente il file
+    // Open browser to have the user select the file
     public void performFileSearch() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -276,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Apre il browser per salvare il file
+    // Open browser to save the file
     private void createFile(String mimeType, String fileName) {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 
@@ -289,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Crea o carica il file in base al codice che gli arriva
+    // Create or upload the file according to the code shown
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if(resultCode == Activity.RESULT_OK && resultData != null) {
@@ -309,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Scrivo all'inerno del file appena creato le app selezionate
+    // I write the selected apps within the newly created file
     private void writeFileContent(Uri uri) {
         String selectedApp = "";
 
@@ -331,11 +374,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Snackbar.make(view, "Esportazione di " + count + " app completata!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Snackbar.make(view, count + " " + getResources().getString(R.string.snackBar_export), Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     
-    // Leggo le app selezionate all'interno del file che mi viene passato e aggiorno la recyclerView
+    // I read the selected apps in the file that is passed to me and update the recyclerView
     private void readFileContent(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -348,10 +391,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> selectedApp = new ArrayList<String>(Arrays.asList(stringBuilder.toString().split(",")));
 
         int count = 0;
+        selectApps = 0;
         for(App app : mApps) {
             if(selectedApp.contains(app.getPackageName())) {
                 app.setSelected(true);
-                ((MyAdapter)mRecyclerView.getAdapter()).increaseCheckOneApp();
+                addSelectApp();
                 count++;
             } else {
                 app.setSelected(false);
@@ -360,9 +404,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
         if(count == 0) {
-            Snackbar.make(view, "Nessuna app selezionata presente!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected_present), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         } else {
-            Snackbar.make(view, count + " app importate!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, count + " " + getResources().getString(R.string.snackBar_import), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
     }
 
@@ -376,12 +420,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Premi due volte per uscire!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.toast_to_exit), Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2500);
+    }
+
+    public void setBusyBox(Boolean busyBox) {
+        this.busyBox = busyBox;
     }
 }

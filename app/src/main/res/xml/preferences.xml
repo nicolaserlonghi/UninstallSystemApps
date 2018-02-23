@@ -3,13 +3,14 @@
 
     <Preference
         android:key="leave_feedback"
-        android:title="Dubbi, domande, angoscie, perplessità?"
-        android:summary="Vuoi segnalare un malfunzionamento o hai un idea per migliorare l'app? Mandami un email!">
+        android:title="@string/settings_leave_feedback_title"
+        android:summary="@string/settings_leave_feedback_summary">
     </Preference>
 
     <Preference
-        android:title="Info"
-        android:summary="Unistall system apps è stata creata da Nicola Serlonghi.">
+        android:key="info"
+        android:title="@string/settings_info_title"
+        android:summary="@string/settings_info_summary">
         <intent
             android:action="android.intent.action.VIEW"
             android:data="https://github.com/Sernic" />
@@ -17,8 +18,8 @@
 
     <Preference
         android:key="app_version"
-        android:title="Versione App"
-        android:summary="0.1">
+        android:title="@string/settings_app_version_title"
+        android:summary="@string/settings_app_version_summary">
     </Preference>
 
 </PreferenceScreen>

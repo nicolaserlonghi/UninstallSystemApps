@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="snackBar_no_app_selected">Nessuna app selezionata!</string>
+    <string name="snackBar_no_app_selected_present">Nessuna app selezionata presente!</string>
+    <string name="snackBar_no_root_remove_apps">Non posso eliminare le app senza i permessi di root!</string>
+    <string name="snackBar_export">app sono state esportate correttamente!</string>
+    <string name="snackBar_import">app importate!</string>
+    <string name="snackBar_yes_root">Root ottenuto!</string>
+    <string name="snackBar_no_root">Non ho ottenuto i privilegi di root!</string>
+    <string name="snanckBar_no_busyBox">Non ho individuato busybox quindi l\'app potrebbe non funzionare correttamente!</string>
+    <string name="snackBar_ok_remove_apps">Le app selezionate sono state rimosse!</string>
+    <string name="reboot_now">Riavviare ora per completare la disinstallazione?</string>
+    <string name="button_install">Installa!</string>
+    <string name="button_obtain">Ottieni</string>
+    <string name="button_yes">Sì</string>
+    <string name="button_no">No</string>
+    <string name="num_apps_of"> di </string>
+    <string name="toast_to_exit">Premi ancora una volta per uscire!</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="menu_hide_system_apps">Nasc. app sistema</string>
+    <string name="menu_export">Esporta selezionati</string>
+    <string name="menu_import">Importa selezionati</string>
+    <string name="settings_leave_feedback_title">Dubbi, domande, angosce, perplessità?</string>
+    <string name="settings_leave_feedback_summary">Vuoi segnalare un malfunzionamento o hai un idea per migliorare l'app? Clicca e mandami un email!</string>
+    <string name="settings_info_title">Info</string>
+    <string name="settings_info_summary">Unistall system apps è stata creata da Nicola Serlonghi</string>
+    <string name="settings_app_version_title">Versione applicazione</string>
+    <string name="title_actionBar_settings">Impostazioni</string>
+</resources>

@@ -11,17 +11,17 @@ tools:context=".MainActivity">
             android:title="Search" />
         <item
             android:id="@+id/import_menu"
-            android:title="Import remove"/>
+            android:title="@string/menu_import"/>
         <item
             android:id="@+id/export_menu"
-            android:title="Export remove"/>
+            android:title="@string/menu_export"/>
         <item
             android:id="@+id/hide_system_apps"
-            android:title="Nasc. app sistema"
+            android:title="@string/menu_hide_system_apps"
             app:showAsAction="never"
             android:visible="true"
             android:checkable="true"/>
         <item
         android:id="@+id/settings_menu"
-        android:title="Impostazioni"/>
+        android:title="@string/menu_settings"/>
 </menu>

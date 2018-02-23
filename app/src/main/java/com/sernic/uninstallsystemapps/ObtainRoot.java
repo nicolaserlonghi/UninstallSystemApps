@@ -1,6 +1,7 @@
 package com.sernic.uninstallsystemapps;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -42,11 +43,11 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
 
         View view = mActivity.findViewById(R.id.coordinatorLayout);
         if (aBoolean) {
-            Snackbar.make(view, "Root ottenuto!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_yes_root), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         } else if(busybox) {
-            Snackbar.make(view, "Non ho ottenuto i privilegi di root!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_no_root), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         } else {
-            Snackbar.make(view, "Non ho individuato la busybox e l'app potrebbe non funzionare correttamente!", Snackbar.LENGTH_LONG).setAction("Installa!", new View.OnClickListener() {
+            Snackbar.make(view, mActivity.getResources().getString(R.string.snanckBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(mActivity.getResources().getString(R.string.button_install), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -54,6 +55,8 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
                     mActivity.startActivity(intent);
                 }
             }).show();
+            aBoolean = true;
+            mActivity.setBusyBox(false);
         }
 
 

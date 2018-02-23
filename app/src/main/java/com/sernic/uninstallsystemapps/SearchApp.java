@@ -8,6 +8,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +20,6 @@ import at.grabner.circleprogress.AnimationStateChangedListener;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 
-import static android.widget.GridLayout.HORIZONTAL;
 import static android.widget.GridLayout.VERTICAL;
 
 /**
@@ -32,6 +33,8 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private CircleProgressView mCircleProgressView;
     private ArrayList<App> mApps;
     private FloatingActionButton fab;
+    private TextView numApps;
+    private ImageButton selectAll;
 
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
@@ -42,6 +45,8 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        selectAll = (ImageButton) mActivity.findViewById(R.id.select_all);
+        numApps = (TextView) mActivity.findViewById(R.id.num_apps);
         fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
         //Imposto i parametri dell'animazione iniziale
@@ -62,7 +67,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         List<ApplicationInfo> apps = mPackageManager.getInstalledApplications(0);
         Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Sort apps in alphabetical order
         publishProgress(0);
-        //Cerco le app installate e estrapolo i dati che mi servono
+        // I look for the installed apps and extrapolate the data I need
         float count = 0;
         for (ApplicationInfo applicationInfo : apps) {
             Boolean systemApp;
@@ -73,7 +78,6 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                 //App utente
                 systemApp = false;
             }
-                System.out.println("scan: " + applicationInfo.sourceDir);
                 App app = new App(
 
                         (String) mPackageManager.getApplicationLabel(applicationInfo),
@@ -123,13 +127,15 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                             mCircleProgressView.setVisibility(View.INVISIBLE);
                             mRecyclerView.setVisibility(View.VISIBLE);
                             fab.setVisibility(View.VISIBLE);
+                            numApps.setVisibility(View.VISIBLE);
+                            selectAll.setVisibility(View.VISIBLE);
                         }
                     }
                 }
         );
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL)); // Metto una riga tra due elementi della lista
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mRecyclerView.setAdapter(new MyAdapter(mApps));
+        mRecyclerView.setAdapter(new MyAdapter(mApps, mActivity));
 
         // Notify activity
         mActivity.setApplicationList(mApps);

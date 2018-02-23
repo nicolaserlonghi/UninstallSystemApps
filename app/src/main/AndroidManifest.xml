@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"
-            android:label="Impostazioni"
+            android:label="@string/title_actionBar_settings"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.SettingsTheme">
             <meta-data

@@ -16,9 +16,11 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<App> mApps;
+    private MainActivity mainActivity;
 
-    public MyAdapter(ArrayList<App> apps) {
+    public MyAdapter(ArrayList<App> apps, MainActivity mainActivity) {
         mApps = apps;
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -35,6 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private TextView packageName_text_view;
         private ImageView icon_image_view;
         private CheckBox checkBox_image_view;
+        private TextView textView_Selected;
 
         public ViewHolder(View v) {
             super(v);
@@ -45,26 +48,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    private int checkOneApp = 0;
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final App app = mApps.get(position);
 
         holder.name_text_view.setText(app.getName());
         holder.packageName_text_view.setText(app.getPackageName());
         holder.icon_image_view.setImageDrawable(app.getIcon());
 
-        //Gestione delle checkbox
+        // Management of the checkbox
         holder.checkBox_image_view.setOnCheckedChangeListener(null);
         holder.checkBox_image_view.setChecked(app.isSelected());
         holder.checkBox_image_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean Checked) {
                 if(buttonView.isChecked()) {
                     app.setSelected(true);
-                    checkOneApp++;
+                    mainActivity.addSelectApp();
                 } else {
                     app.setSelected(false);
-                    checkOneApp--;
+                    mainActivity.remSelectApp();
                 }
             }
         });
@@ -74,14 +76,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mApps.size();
-    }
-
-    public int getCheckOneApp() {
-        return checkOneApp;
-    }
-
-    public void increaseCheckOneApp() {
-        checkOneApp++;
     }
 
     public void updateList(ArrayList<App> apps){

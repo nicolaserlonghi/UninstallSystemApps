@@ -66,17 +66,17 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
         // Notify activity
         mActivity.setApplicationList(temp);
         View view = mActivity.findViewById(R.id.coordinatorLayout);
-        Snackbar.make(view, "Le app selezionate sono state rimosse!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-        // Creo l'allert per riavviare il telefono
+        Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_ok_remove_apps), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        // Create allert to reboot the phone
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.AppCompatAlertDialogStyle);
-        builder.setTitle("Riavviare ora per completare la disinstallazione?")
-                .setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+        builder.setTitle(mActivity.getResources().getString(R.string.reboot_now))
+                .setPositiveButton(mActivity.getResources().getString(R.string.button_yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with reboot
                         RootManager.getInstance().restartDevice();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(mActivity.getResources().getString(R.string.button_no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
                     }
