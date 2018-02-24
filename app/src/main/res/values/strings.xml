@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Uninstall system apps</string>
-    <string name="settings_app_version_summary">0.1</string> // App Version
+    <string name="settings_app_version_summary">0.1</string>
+    // App Version
 
 
     <string name="snackBar_no_app_selected">No apps selected!</string>
