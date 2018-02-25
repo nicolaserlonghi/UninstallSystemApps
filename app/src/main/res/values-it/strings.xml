@@ -26,4 +26,5 @@
     <string name="settings_info_summary">Unistall system apps è stata creata da Nicola Serlonghi</string>
     <string name="settings_app_version_title">Versione applicazione</string>
     <string name="title_actionBar_settings">Impostazioni</string>
+    <string name="loading_animation">Cerco le app installate</string>
 </resources>

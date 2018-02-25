@@ -9,7 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.RotatingCircle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,11 +34,11 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private MainActivity mActivity;
     private PackageManager mPackageManager;
     private RecyclerView mRecyclerView;
-    private CircleProgressView mCircleProgressView;
     private ArrayList<App> mApps;
     private FloatingActionButton fab;
     private TextView numApps;
     private ImageButton selectAll;
+    private ProgressBar progressBar;
 
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
@@ -49,33 +53,29 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         numApps = (TextView) mActivity.findViewById(R.id.num_apps);
         fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
-        //Imposto i parametri dell'animazione iniziale
-        mCircleProgressView = (CircleProgressView)mActivity.findViewById(R.id.circleView);
-        mCircleProgressView.setSeekModeEnabled(false);
-        mCircleProgressView.setSpinningBarLength(80);
-        mCircleProgressView.setSpinSpeed(2);
-        mCircleProgressView.setShowTextWhileSpinning(true);
-        //Imposto l'animazione loading
-        mCircleProgressView.setText("Loading...");
-        mCircleProgressView.setTextMode(TextMode.TEXT);
-        mCircleProgressView.setUnitVisible(false);
-        mCircleProgressView.spin();
+
+        //ProgressBar animation
+        progressBar = (ProgressBar) mActivity.findViewById(R.id.progress);
+        RotatingCircle rotatingCircle = new RotatingCircle();
+        rotatingCircle.setBounds(0, 0, 100, 100);
+        rotatingCircle.setColor(mActivity.getResources().getColor(R.color.primary));
+        progressBar.setIndeterminateDrawable(rotatingCircle);
+
+        numApps.setText(mActivity.getResources().getString(R.string.loading_animation));
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         List<ApplicationInfo> apps = mPackageManager.getInstalledApplications(0);
         Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Sort apps in alphabetical order
-        publishProgress(0);
         // I look for the installed apps and extrapolate the data I need
-        float count = 0;
         for (ApplicationInfo applicationInfo : apps) {
             Boolean systemApp;
             if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
-                //App di sistema
+                // System apps
                 systemApp = true;
             } else {
-                //App utente
+                // User apps
                 systemApp = false;
             }
                 App app = new App(
@@ -91,10 +91,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                     app.setIcon(mPackageManager.getDefaultActivityIcon());
                     e.printStackTrace();
                 }
-                count++;
-                publishProgress((int) (count / apps.size() * 100));
                 mApps.add(app);
-
         }
 
         return null;
@@ -103,36 +100,17 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        if(values[0] == 0) {
-            //Setto l'animazione percent
-            mCircleProgressView.stopSpinning();
-            mCircleProgressView.setTextMode(TextMode.PERCENT);
-            mCircleProgressView.setUnitVisible(false);
-            mCircleProgressView.setValue(0);
-        } else {
-            //Incremento l'animazione
-            mCircleProgressView.setValueAnimated(values[0]);
-        }
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //Controllo che l'animazione abbbia finito prima di nasconderla
-        mCircleProgressView.setOnAnimationStateChangedListener(
-                new AnimationStateChangedListener() {
-                    @Override
-                    public void onAnimationStateChanged(AnimationState _animationState) {
-                        if(_animationState == AnimationState.IDLE) {
-                            mCircleProgressView.setVisibility(View.INVISIBLE);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            fab.setVisibility(View.VISIBLE);
-                            numApps.setVisibility(View.VISIBLE);
-                            selectAll.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-        );
+
+        progressBar.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.VISIBLE);
+        selectAll.setVisibility(View.VISIBLE);
+
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL)); // Metto una riga tra due elementi della lista
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(new MyAdapter(mApps, mActivity));

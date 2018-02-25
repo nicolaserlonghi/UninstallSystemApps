@@ -18,6 +18,8 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url "https://jitpack.io" }
+
         jcenter()
         maven { url "https://jitpack.io" } //Circle project animation
         maven {

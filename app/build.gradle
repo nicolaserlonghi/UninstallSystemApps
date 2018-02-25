@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:preference-v7:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'    //Circle progres animation
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'      //Android loading animations  https://github.com/ybq/Android-SpinKit
     testCompile 'junit:junit:4.12'
 }

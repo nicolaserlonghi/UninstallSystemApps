@@ -30,4 +30,5 @@
     <string name="settings_info_summary">Uninstall system apps was created by Nicola Serlonghi</string>
     <string name="settings_app_version_title">Application Version</string>
     <string name="title_actionBar_settings">Settings</string>
+    <string name="loading_animation">I\'m looking for the installed apps</string>
 </resources>

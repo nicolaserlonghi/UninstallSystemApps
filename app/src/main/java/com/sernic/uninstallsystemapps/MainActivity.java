@@ -19,9 +19,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
