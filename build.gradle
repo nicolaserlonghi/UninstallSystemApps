@@ -18,10 +18,8 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
-
         jcenter()
-        maven { url "https://jitpack.io" } //Circle project animation
+        maven { url "https://jitpack.io" } // Android loading animations  https://github.com/ybq/Android-SpinKit
         maven {
             url 'https://maven.google.com/'
             name 'Google'

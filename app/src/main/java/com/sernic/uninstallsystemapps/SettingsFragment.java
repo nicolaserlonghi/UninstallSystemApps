@@ -22,8 +22,6 @@ import android.widget.Toast;
  */
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-
-
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -50,6 +48,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-
+        Preference appVersion = (Preference) findPreference("app_version");
+        appVersion.setSummary(BuildConfig.VERSION_NAME);
     }
 }

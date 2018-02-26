@@ -18,8 +18,6 @@
 
     <Preference
         android:key="app_version"
-        android:title="@string/settings_app_version_title"
-        android:summary="@string/settings_app_version_summary">
+        android:title="@string/settings_app_version_title">
     </Preference>
-
 </PreferenceScreen>

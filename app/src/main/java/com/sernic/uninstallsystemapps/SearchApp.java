@@ -3,6 +3,7 @@ package com.sernic.uninstallsystemapps;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.RotatingCircle;
@@ -18,11 +21,8 @@ import com.github.ybq.android.spinkit.style.RotatingCircle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import at.grabner.circleprogress.AnimationState;
-import at.grabner.circleprogress.AnimationStateChangedListener;
-import at.grabner.circleprogress.CircleProgressView;
-import at.grabner.circleprogress.TextMode;
 
 import static android.widget.GridLayout.VERTICAL;
 
@@ -36,9 +36,9 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private RecyclerView mRecyclerView;
     private ArrayList<App> mApps;
     private FloatingActionButton fab;
-    private TextView numApps;
-    private ImageButton selectAll;
     private ProgressBar progressBar;
+    private RelativeLayout infoLayout;
+    private AppBarLayout appBarLayout;
 
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
@@ -49,10 +49,10 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        selectAll = (ImageButton) mActivity.findViewById(R.id.select_all);
-        numApps = (TextView) mActivity.findViewById(R.id.num_apps);
         fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
+        infoLayout = (RelativeLayout) mActivity.findViewById(R.id.info_layout);
+        appBarLayout = (AppBarLayout) mActivity.findViewById(R.id.layout_toolbar);
 
         //ProgressBar animation
         progressBar = (ProgressBar) mActivity.findViewById(R.id.progress);
@@ -60,8 +60,6 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         rotatingCircle.setBounds(0, 0, 100, 100);
         rotatingCircle.setColor(mActivity.getResources().getColor(R.color.primary));
         progressBar.setIndeterminateDrawable(rotatingCircle);
-
-        numApps.setText(mActivity.getResources().getString(R.string.loading_animation));
     }
 
     @Override
@@ -107,9 +105,10 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         super.onPostExecute(aVoid);
 
         progressBar.setVisibility(View.GONE);
+        infoLayout.setVisibility(View.VISIBLE);
+        appBarLayout.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.VISIBLE);
         fab.setVisibility(View.VISIBLE);
-        selectAll.setVisibility(View.VISIBLE);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL)); // Metto una riga tra due elementi della lista
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));

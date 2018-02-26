@@ -16,15 +16,15 @@
     <string name="button_no">No</string>
     <string name="num_apps_of"> di </string>
     <string name="toast_to_exit">Premi ancora una volta per uscire!</string>
-    <string name="menu_settings">Impostazioni</string>
+    <string name="menu_settings">Informazioni</string>
     <string name="menu_hide_system_apps">Nasc. app sistema</string>
     <string name="menu_export">Esporta selezionati</string>
     <string name="menu_import">Importa selezionati</string>
     <string name="settings_leave_feedback_title">Dubbi, domande, angosce, perplessità?</string>
-    <string name="settings_leave_feedback_summary">Vuoi segnalare un malfunzionamento o hai un idea per migliorare l'app? Clicca e mandami un email!</string>
+    <string name="settings_leave_feedback_summary">Vuoi segnalare un malfunzionamento o hai un idea per migliorare l\'app? Clicca e mandami un email!</string>
     <string name="settings_info_title">Info</string>
     <string name="settings_info_summary">Unistall system apps è stata creata da Nicola Serlonghi</string>
     <string name="settings_app_version_title">Versione applicazione</string>
-    <string name="title_actionBar_settings">Impostazioni</string>
-    <string name="loading_animation">Cerco le app installate</string>
+    <string name="title_actionBar_settings">Informazioni</string>
+    <string name="loading_animation">Cerco le app installate...</string>
 </resources>

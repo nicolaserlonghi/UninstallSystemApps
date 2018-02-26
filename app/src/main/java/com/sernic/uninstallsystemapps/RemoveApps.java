@@ -7,16 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 
 import com.chrisplus.rootmanager.RootManager;
-import com.chrisplus.rootmanager.container.Result;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
-import at.grabner.circleprogress.AnimationState;
-import at.grabner.circleprogress.AnimationStateChangedListener;
-import at.grabner.circleprogress.CircleProgressView;
-import at.grabner.circleprogress.TextMode;
 
 /**
  * Created by nicola on 25/12/17.
@@ -28,6 +26,12 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
     private ArrayList<App> mApps;
     private ArrayList<App> temp;
 
+    private AlphaAnimation inAnimation;
+    private AlphaAnimation outAnimation;
+
+    private FrameLayout progressBarHolder;
+    private FloatingActionButton floatingActionButton;
+
     public RemoveApps(MainActivity mActivity) {
         this.mActivity = mActivity;
         mApps = mActivity.getApplicationList();
@@ -36,8 +40,20 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        progressBarHolder = (FrameLayout) mActivity.findViewById(R.id.progressBarHolder);
+        floatingActionButton = (FloatingActionButton) mActivity.findViewById(R.id.fab);
+
+        // Animation start
+        floatingActionButton.setEnabled(false);
+        inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        progressBarHolder.setAnimation(inAnimation);
+        progressBarHolder.setVisibility(View.VISIBLE);
+
         temp = new ArrayList<>();
         mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
+
     }
 
     @Override
@@ -49,10 +65,15 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
                 } else {
                     RootManager.getInstance().uninstallPackage(app.getPackageName());
                 }
-
             } else {
                 temp.add(app);
             }
+        }
+        // Wait to animation
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -60,6 +81,12 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        // Animation stop
+        outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        progressBarHolder.setAnimation(outAnimation);
+        progressBarHolder.setVisibility(View.GONE);
+        floatingActionButton.setEnabled(true);
 
         // Update recyclerView
         ((MyAdapter)mRecyclerView.getAdapter()).updateList(temp);
