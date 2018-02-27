@@ -9,19 +9,15 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.RotatingCircle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 import static android.widget.GridLayout.VERTICAL;
@@ -37,6 +33,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private ArrayList<App> mApps;
     private FloatingActionButton fab;
     private ProgressBar progressBar;
+    private TextView textSearchAnimation;
     private RelativeLayout infoLayout;
     private AppBarLayout appBarLayout;
 
@@ -50,11 +47,12 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         fab = (FloatingActionButton) mActivity.findViewById(R.id.fab);
-        mRecyclerView = (RecyclerView)mActivity.findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) mActivity.findViewById(R.id.my_recycler_view);
         infoLayout = (RelativeLayout) mActivity.findViewById(R.id.info_layout);
         appBarLayout = (AppBarLayout) mActivity.findViewById(R.id.layout_toolbar);
 
         //ProgressBar animation
+        textSearchAnimation = (TextView) mActivity.findViewById(R.id.text_search_animation);
         progressBar = (ProgressBar) mActivity.findViewById(R.id.progress);
         RotatingCircle rotatingCircle = new RotatingCircle();
         rotatingCircle.setBounds(0, 0, 100, 100);
@@ -105,6 +103,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         super.onPostExecute(aVoid);
 
         progressBar.setVisibility(View.GONE);
+        textSearchAnimation.setVisibility(View.GONE);
         infoLayout.setVisibility(View.VISIBLE);
         appBarLayout.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.VISIBLE);

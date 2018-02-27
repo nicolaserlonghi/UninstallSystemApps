@@ -44,6 +44,7 @@
             android:layout_marginBottom="80dp"/>
 
         <TextView
+            android:id="@+id/text_search_animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading_animation"

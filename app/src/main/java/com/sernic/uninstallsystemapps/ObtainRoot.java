@@ -1,14 +1,12 @@
 package com.sernic.uninstallsystemapps;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.chrisplus.rootmanager.RootManager;
-import com.chrisplus.rootmanager.container.Result;
 
 /**
  * Created by nicola on 25/12/17.

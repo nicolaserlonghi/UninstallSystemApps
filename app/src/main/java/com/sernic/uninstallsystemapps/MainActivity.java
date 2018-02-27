@@ -19,12 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -144,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " "+ tempMApps.size());
                 mRecyclerView.getAdapter().notifyDataSetChanged();
+                if(fab.getVisibility() != View.VISIBLE)
+                    fab.show();
             }
         });
     }
@@ -266,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
             app.setSelected(false);
         }
         selectApps = 0;
+        selectAll.setImageResource(R.drawable.select_all_white_24px);
         numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
         if(fab.getVisibility() != View.VISIBLE)
             fab.show();
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         // Filter to show only images, using the image MIME data type.
-        intent.setType("text/uninsSystemApp");
+        intent.setType("*/*");
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
@@ -397,9 +397,20 @@ public class MainActivity extends AppCompatActivity {
         selectApps = 0;
         for(App app : mApps) {
             if(selectedApp.contains(app.getPackageName())) {
-                app.setSelected(true);
-                addSelectApp();
-                count++;
+                if(app.isSystemApp()) {
+                    if(!readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false)) {
+                        app.setSelected(true);
+                        addSelectApp();
+                        count++;
+                    } else {
+                        app.setSelected(false);
+                    }
+                } else {
+                    app.setSelected(true);
+                    addSelectApp();
+                    count++;
+                }
+
             } else {
                 app.setSelected(false);
             }
