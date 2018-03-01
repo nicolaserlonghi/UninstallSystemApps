@@ -1,6 +1,7 @@
 package com.sernic.uninstallsystemapps;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -22,6 +24,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.chrisplus.rootmanager.RootManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
                         if(!busyBox)
-                            Snackbar.make(view, getResources().getString(R.string.snanckBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_install), new View.OnClickListener() {
+                            Snackbar.make(view, getResources().getString(R.string.snackBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_install), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -95,8 +99,23 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             }).show();
-                        RemoveApps removeApps = new RemoveApps(MainActivity.this);
-                        removeApps.execute();
+                        // Create allert to ask to remove apps
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialogStyle);
+                        builder.setTitle(getResources().getString(R.string.confirm_remove))
+                                .setPositiveButton(getResources().getString(R.string.button_yes), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with remove
+                                        RemoveApps removeApps = new RemoveApps(MainActivity.this);
+                                        removeApps.execute();
+                                    }
+                                })
+                                .setNegativeButton(getResources().getString(R.string.button_no), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .show();
+
                     }
                 } else {
                     Snackbar.make(view, getResources().getString(R.string.snackBar_no_root_remove_apps), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_obtain), new View.OnClickListener() {

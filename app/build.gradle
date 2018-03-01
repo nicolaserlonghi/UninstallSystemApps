@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
@@ -15,12 +17,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -30,6 +33,7 @@ dependencies {
     compile 'com.android.support:design:27.0.2'
     compile 'com.android.support:preference-v7:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.ybq:Android-SpinKit:1.1.0'      // Android loading animations  https://github.com/ybq/Android-SpinKit
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    // Android loading animations  https://github.com/ybq/Android-SpinKit
     testCompile 'junit:junit:4.12'
 }

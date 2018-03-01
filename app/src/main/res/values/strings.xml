@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Uninstall system apps</string>      // Name app
 
-
     <string name="snackBar_no_app_selected">No apps selected!</string>
     <string name="snackBar_no_app_selected_present">No apps selected present!</string>
     <string name="snackBar_no_root_remove_apps">I can\'t remove apps without root permission!</string>
@@ -9,9 +8,9 @@
     <string name="snackBar_import">imported apps!</string>
     <string name="snackBar_yes_root">root obtained!</string>
     <string name="snackBar_no_root">I didn\'t get root permission!</string>
-    <string name="snanckBar_no_busyBox">I haven\'t found busybox so the app may not work properly!</string>
+    <string name="snackBar_no_busyBox">I haven\'t found busybox so the app may not work properly!</string>
     <string name="snackBar_ok_remove_apps">The selected apps have been removed!</string>
-    <string name="reboot_now">reboot now to complete the uninstall?</string>
+    <string name="reboot_now">Reboot now to complete the uninstall?</string>
     <string name="button_install">Install!</string>
     <string name="button_obtain">Get!</string>
     <string name="button_yes">Yes</string>
@@ -25,8 +24,9 @@
     <string name="settings_leave_feedback_title">Doubts, questions, distresses, perplexity?</string>
     <string name="settings_leave_feedback_summary">You want to report a malfunction or you have an idea to improve the app? Click and send me an email!</string>
     <string name="settings_info_title">Info</string>
-    <string name="settings_info_summary">Uninstall system apps was created by Nicola Serlonghi</string>
+    <string name="settings_info_summary">Uninstall System Apps was created by Nicola Serlonghi</string>
     <string name="settings_app_version_title">Application Version</string>
     <string name="title_actionBar_settings">Information</string>
     <string name="loading_animation">I\'m looking for the installed apps...</string>
+    <string name="confirm_remove">Confirm remove?</string>
 </resources>
