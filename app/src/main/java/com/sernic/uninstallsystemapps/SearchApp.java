@@ -109,7 +109,8 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         mRecyclerView.setVisibility(View.VISIBLE);
         fab.setVisibility(View.VISIBLE);
 
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity.getApplicationContext(), VERTICAL)); // Metto una riga tra due elementi della lista
+        // Add divider between two element of recyclerView
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(mActivity.getApplicationContext(), mActivity.getResources().getColor(R.color.divider), 3));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(new MyAdapter(mApps, mActivity));
 
