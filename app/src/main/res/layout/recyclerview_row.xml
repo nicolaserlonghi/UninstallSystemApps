@@ -30,7 +30,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
         <!-- Testo secondario -->
         <TextView
@@ -41,7 +43,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_toRightOf="@id/imageView"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
