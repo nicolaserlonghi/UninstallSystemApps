@@ -34,11 +34,13 @@
     <string name="snackBar_no_root">I didn\'t get root permission!</string>
     <string name="snackBar_no_busyBox">I haven\'t found busybox so the app may not work properly!</string>
     <string name="snackBar_ok_remove_apps">The selected apps have been removed!</string>
+    <string name="no_busyBox_message">ATTENTION: I haven\'t found BUSYBOX so the app may not work properly! Continue with removal?</string>
     <string name="reboot_now">Reboot now to complete the uninstall?</string>
     <string name="button_install">Install!</string>
-    <string name="button_obtain">Get!</string>
+    <string name="button_obtain">Retry!</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
+    <string name="button_install_busybox">Install BusyBox</string>
     <string name="num_apps_of"> of </string>
     <string name="toast_to_exit">Press once again to exit!</string>
     <string name="menu_settings">Information</string>

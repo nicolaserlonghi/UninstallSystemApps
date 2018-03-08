@@ -75,11 +75,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton selectAll;
     private int selectApps = 0;
     private Boolean busyBox = true;
-
+    private boolean shouldExecuteOnResume = true;
     // Unique request code
     private static final int WRITE_REQUEST_CODE = 43;
     private static final int READ_REQUEST_CODE = 42;
     private static final String KEY_PREF_HIDE_SYSTEM_APPS = "hide_system_apps";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
         final SearchApp searchApp = new SearchApp(this);
         searchApp.execute();
 
-        // Obtain root
-        final ObtainRoot obtainRoot = new ObtainRoot(this);
-        obtainRoot.execute();
+
         // execute...
 
         // floating button action
@@ -114,17 +113,20 @@ public class MainActivity extends AppCompatActivity {
                     if(selectApps == 0) {
                         Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
-                        if(!busyBox)
-                            Snackbar.make(view, getResources().getString(R.string.snackBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.button_install), new View.OnClickListener() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialogStyle);
+                        if(!busyBox) {
+                            // Add message for busybox
+                            builder.setMessage(R.string.no_busyBox_message);
+                            builder.setNeutralButton(R.string.button_install_busybox, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(View view) {
+                                public void onClick(DialogInterface dialogInterface, int i) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     intent.setData(Uri.parse("market://details?id=stericson.busybox"));
                                     startActivity(intent);
                                 }
-                            }).show();
+                            });
+                        }
                         // Create allert to ask to remove apps
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialogStyle);
                         builder.setTitle(getResources().getString(R.string.confirm_remove))
                                 .setPositiveButton(getResources().getString(R.string.button_yes), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -188,6 +190,18 @@ public class MainActivity extends AppCompatActivity {
                     fab.show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecuteOnResume){
+            // Obtain root
+            ObtainRoot obtainRoot = new ObtainRoot(this);
+            obtainRoot.execute();
+        } else{
+            shouldExecuteOnResume = true;
+        }
     }
 
     // App counter utility selected
@@ -272,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.settings_menu:
+                shouldExecuteOnResume = false;
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;

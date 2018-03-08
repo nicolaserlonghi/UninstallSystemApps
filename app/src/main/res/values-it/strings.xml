@@ -33,13 +33,15 @@
     <string name="snackBar_import">app importate!</string>
     <string name="snackBar_yes_root">Root ottenuto!</string>
     <string name="snackBar_no_root">Non ho ottenuto i privilegi di root!</string>
-    <string name="snackBar_no_busyBox">Non ho individuato busybox quindi l\'app potrebbe non funzionare correttamente!</string>
     <string name="snackBar_ok_remove_apps">Le app selezionate sono state rimosse!</string>
+    <string name="snackBar_no_busyBox">Non ho individuato busybox quindi l\'app potrebbe non funzionare correttamente!</string>
+    <string name="no_busyBox_message">"ATTENZIONE: Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente! Continuare con la rimozione?"</string>
     <string name="reboot_now">Riavviare ora per completare la disinstallazione?</string>
     <string name="button_install">Installa!</string>
-    <string name="button_obtain">Ottieni</string>
+    <string name="button_obtain">Riprova</string>
     <string name="button_yes">Sì</string>
     <string name="button_no">No</string>
+    <string name="button_install_busybox">Installa BusyBox</string>
     <string name="num_apps_of"> di </string>
     <string name="toast_to_exit">Premi ancora una volta per uscire!</string>
     <string name="menu_settings">Informazioni</string>

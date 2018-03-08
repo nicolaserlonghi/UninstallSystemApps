@@ -66,8 +66,10 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
         View view = mActivity.findViewById(R.id.coordinatorLayout);
         if (aBoolean) {
             Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_yes_root), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            mActivity.setBusyBox(true);
         } else if(busybox) {
             Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_no_root), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            mActivity.setBusyBox(false);
         } else {
             Snackbar.make(view, mActivity.getResources().getString(R.string.snackBar_no_busyBox), Snackbar.LENGTH_LONG).setAction(mActivity.getResources().getString(R.string.button_install), new View.OnClickListener() {
                 @Override
@@ -85,7 +87,7 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
         mActivity.setRootAccess(aBoolean);
     }
 
-    private Boolean checkBusibox() {
+    public Boolean checkBusibox() {
         if(RootManager.getInstance().runCommand("/system/xbin/busybox ls").getMessage().length() < 100)
             if (RootManager.getInstance().runCommand("/system/bin/busybox ls").getMessage().length() < 100)
                 return false;
