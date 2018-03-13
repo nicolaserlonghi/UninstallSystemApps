@@ -32,7 +32,7 @@
     <string name="snackBar_import">imported apps!</string>
     <string name="snackBar_yes_root">root obtained!</string>
     <string name="snackBar_no_root">I didn\'t get root permission!</string>
-    <string name="snackBar_no_busyBox">I haven\'t found busybox so the app may not work properly!</string>
+    <string name="snackBar_no_busyBox">I haven\'t found BusyBox so the app may not work properly!</string>
     <string name="snackBar_ok_remove_apps">The selected apps have been removed!</string>
     <string name="no_busyBox_message">ATTENTION: I haven\'t found BUSYBOX so the app may not work properly! Continue with removal?</string>
     <string name="reboot_now">Reboot now to complete the uninstall?</string>
