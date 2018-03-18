@@ -34,8 +34,8 @@
     <string name="snackBar_yes_root">Root ottenuto!</string>
     <string name="snackBar_no_root">Non ho ottenuto i privilegi di root!</string>
     <string name="snackBar_ok_remove_apps">Le app selezionate sono state rimosse!</string>
-    <string name="snackBar_no_busyBox">Non ho individuato BusyBox quindi l\'app potrebbe non funzionare correttamente!</string>
-    <string name="no_busyBox_message">"ATTENZIONE: Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente! Continuare con la rimozione?"</string>
+    <string name="snackBar_no_busyBox">Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente!</string>
+    <string name="no_busyBox_message">ATTENZIONE: Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente! Continuare con la rimozione?</string>
     <string name="reboot_now">Riavviare ora per completare la disinstallazione?</string>
     <string name="button_install">Installa!</string>
     <string name="button_obtain">Riprova</string>
