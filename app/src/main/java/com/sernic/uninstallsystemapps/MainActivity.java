@@ -263,12 +263,14 @@ public class MainActivity extends AppCompatActivity {
         int id=item.getItemId();
         switch (id) {
             case R.id.import_menu:
+                shouldExecuteOnResume = false;
                 performFileSearch();
                 break;
             case R.id.export_menu:
                 if(selectApps == 0) {
                     Snackbar.make(view, getResources().getString(R.string.snackBar_no_app_selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else {
+                    shouldExecuteOnResume = false;
                     SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
                     Date now = new Date();
                     createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
