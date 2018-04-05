@@ -24,7 +24,7 @@
   -->
 
 <resources>
-    <string name="app_name">Uninstall system apps</string>      // Name app
+    <string name="app_name">Desinstalar Apps Del Sistema</string>      // Name app
 
     <string name="snackBar_no_app_selected">Ninguna aplicación seleccionada!</string>
     <string name="snackBar_no_app_selected_present">Ninguna aplicación seleccionada presente!</string>
@@ -51,7 +51,7 @@
     <string name="settings_leave_feedback_title">¿Dudas, preguntas, angustias, perplejidades?</string>
     <string name="settings_leave_feedback_summary">¿Quieres señalar un mal funcionamento o tienes una idea para mejorar l\'aplicación? Haz clic y envíame un e-mail!</string>
     <string name="settings_info_title">Info</string>
-    <string name="settings_info_summary">Uninstall System Apps ha sido creada por Nicola Serlonghi</string>
+    <string name="settings_info_summary">Desinstalar Apps Del Sistema ha sido creada por Nicola Serlonghi</string>
     <string name="settings_app_version_title">Versión aplicación</string>
     <string name="title_actionBar_settings">Informaciones</string>
     <string name="loading_animation">Estoy buscando las app nstaladas...</string>
