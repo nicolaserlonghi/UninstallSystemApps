@@ -1,5 +1,7 @@
 # Uninstall System Apps
 <img src="/resources_readme/Launch_icon.png" align="left" width="200" hspace="10" vspace="10">Uninstall System Apps is an application that allows you to uninstall any app on your phone, even system apps, quickly and easily! <br/>
+Your list of deleted apps can be exported and shared with your friends.<br/>
+The idea behind this project is to create a community where people share their lists of apps selected. I've created a bunch of lists [here](https://mega.nz/#F!SHZiHYpI!yI6_Xoz7gk0uXOTJ9hRsgQ) for the most popular phones. Feel free to [upload](https://mega.nz/megadrop/nXo47K2Afi4) your list, any help is always appreciated.</br>
 Uninstall System Apps is now available on the Play Store, you can join [here](https://play.google.com/store/apps/details?id=com.sernic.uninstallsystemapps)!</br>
 
 <div style="display:flex;" >
