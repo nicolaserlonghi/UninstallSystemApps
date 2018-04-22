@@ -1,4 +1,5 @@
 # Built application files
+/*/build/
 *.apk
 *.ap_
 
@@ -32,13 +33,9 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# Intellij
+# User-specific configurations
+.idea/
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
 
 # Keystore files
 *.jks
@@ -48,6 +45,9 @@ captures/
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
+
+# Release
+app/release
 
 # Freeline
 freeline.py
