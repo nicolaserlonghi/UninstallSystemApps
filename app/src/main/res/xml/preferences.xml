@@ -37,7 +37,7 @@
         android:summary="@string/settings_info_summary">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://github.com/Sernic" />
+            android:data="https://serlonghi.coml" />
     </Preference>
 
     <Preference
