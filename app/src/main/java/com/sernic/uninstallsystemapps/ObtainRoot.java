@@ -49,7 +49,7 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... voids) {
 
         if(RootManager.getInstance().obtainPermission()) {
-            if (checkBusibox()) {
+            if (checkBusybox()) {
                 return true;
             } else {
                 busybox = false;
@@ -87,10 +87,11 @@ public class ObtainRoot extends AsyncTask<Void, Void, Boolean> {
         mActivity.setRootAccess(aBoolean);
     }
 
-    public Boolean checkBusibox() {
+    public Boolean checkBusybox() {
         if(RootManager.getInstance().runCommand("/system/xbin/busybox ls").getMessage().length() < 100)
             if (RootManager.getInstance().runCommand("/system/bin/busybox ls").getMessage().length() < 100)
-                return false;
+                if (RootManager.getInstance().runCommand("/sbin/busybox ls").getMessage().length() < 100)
+                    return false;
         return true;
     }
 }
