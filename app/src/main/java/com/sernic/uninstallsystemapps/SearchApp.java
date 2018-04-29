@@ -38,6 +38,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.style.RotatingCircle;
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,6 +88,10 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        // Firebase monitoring performance
+        Trace myTrace = FirebasePerformance.getInstance().newTrace("Search_app");
+        myTrace.start();
+
         List<ApplicationInfo> apps = mPackageManager.getInstalledApplications(0);
         Collections.sort(apps, new ApplicationInfo.DisplayNameComparator(mPackageManager));   // Sort apps in alphabetical order
         // I look for the installed apps and extrapolate the data I need
@@ -113,6 +119,8 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                 }
                 mApps.add(app);
         }
+
+        myTrace.stop();
 
         return null;
     }

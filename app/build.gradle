@@ -23,6 +23,8 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.firebase-perf'  // Firebase
+
 
 android {
     compileSdkVersion 27
@@ -57,5 +59,16 @@ dependencies {
     implementation 'com.android.support:preference-v14:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation 'com.google.firebase:firebase-perf:15.0.0'
+
+
     testImplementation 'junit:junit:4.12'
 }
+
+// Firebase
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
