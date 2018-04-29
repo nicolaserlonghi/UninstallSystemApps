@@ -25,5 +25,9 @@
 #-renamesourcefileattribute SourceFile
 
 
+# Crashlytics
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
 
+# SearchView
 -keep class android.support.v7.widget.SearchView { *; }
