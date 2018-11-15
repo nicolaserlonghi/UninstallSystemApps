@@ -29,7 +29,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -40,13 +39,14 @@ import android.widget.TextView;
 import com.github.ybq.android.spinkit.style.RotatingCircle;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
+import com.sernic.uninstallsystemapps.adapters.MyAdapter;
+import com.sernic.uninstallsystemapps.helpers.SimpleDividerItemDecoration;
+import com.sernic.uninstallsystemapps.models.Application;
+import com.sernic.uninstallsystemapps.views.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-
-import static android.widget.GridLayout.VERTICAL;
 
 /**
  * Created by nicola on 11/12/17.
@@ -56,7 +56,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     private MainActivity mActivity;
     private PackageManager mPackageManager;
     private RecyclerView mRecyclerView;
-    private ArrayList<App> mApps;
+    private ArrayList<Application> mApplications;
     private FloatingActionButton fab;
     private ProgressBar progressBar;
     private TextView textSearchAnimation;
@@ -66,7 +66,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
     public SearchApp(MainActivity mActivity) {
         this.mActivity = mActivity;
         mPackageManager = this.mActivity.getPackageManager();
-        mApps = new ArrayList<>();
+        mApplications = new ArrayList<>();
     }
 
     @Override
@@ -104,7 +104,7 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                 // User apps
                 systemApp = false;
             }
-                App app = new App(
+                Application application = new Application(
 
                         (String) mPackageManager.getApplicationLabel(applicationInfo),
                         applicationInfo.sourceDir,
@@ -112,12 +112,12 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
                         systemApp
                 );
                 try {
-                    app.setIcon(mPackageManager.getApplicationIcon(applicationInfo.processName));
+                    application.setIcon(mPackageManager.getApplicationIcon(applicationInfo.processName));
                 } catch (PackageManager.NameNotFoundException e) {
-                    app.setIcon(mPackageManager.getDefaultActivityIcon());
+                    application.setIcon(mPackageManager.getDefaultActivityIcon());
                     e.printStackTrace();
                 }
-                mApps.add(app);
+                mApplications.add(application);
         }
 
         myTrace.stop();
@@ -144,9 +144,9 @@ public class SearchApp extends AsyncTask<Void, Integer, Void> {
         // Add divider between two element of recyclerView
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(mActivity.getApplicationContext(), mActivity.getResources().getColor(R.color.divider), 3));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mRecyclerView.setAdapter(new MyAdapter(mApps, mActivity));
+        mRecyclerView.setAdapter(new MyAdapter(mApplications, mActivity));
 
         // Notify activity
-        mActivity.setApplicationList(mApps);
+        mActivity.setApplicationList(mApplications);
     }
 }

@@ -24,14 +24,14 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:application="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".MainActivity">
+tools:context=".views.MainActivity">
         <item
             android:id="@+id/action_search"
             android:icon="@drawable/search_white"
-            app:showAsAction="always|collapseActionView"
-            app:actionViewClass="android.support.v7.widget.SearchView"
+            application:showAsAction="always|collapseActionView"
+            application:actionViewClass="android.support.v7.widget.SearchView"
             android:title="Search" />
         <item
             android:id="@+id/import_menu"
@@ -42,7 +42,7 @@ tools:context=".MainActivity">
         <item
             android:id="@+id/hide_system_apps"
             android:title="@string/menu_hide_system_apps"
-            app:showAsAction="never"
+            application:showAsAction="never"
             android:visible="true"
             android:checkable="true"/>
         <item

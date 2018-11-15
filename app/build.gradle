@@ -51,6 +51,9 @@ android {
             resValue("bool", "firebase_analytics_collection_enabled", "false")
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -71,6 +74,8 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
     implementation 'com.google.firebase:firebase-perf:16.2.0'
 
+    // External library
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'        // EasyPref: https://github.com/Pixplicity/EasyPrefs
 
     testImplementation 'junit:junit:4.12'
 }

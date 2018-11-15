@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.helpers;
 
 import android.content.Context;
 import android.graphics.Canvas;

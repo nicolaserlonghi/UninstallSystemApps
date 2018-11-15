@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.models;
 
 import android.graphics.drawable.Drawable;
 
@@ -30,7 +30,7 @@ import android.graphics.drawable.Drawable;
  * Created by nicola on 11/12/17.
  */
 
-public class App {
+public class Application {
     private String name;
     private String path;
     private String packageName;
@@ -38,7 +38,7 @@ public class App {
     private boolean isSelected;
     private boolean isSystemApp;
 
-    public App(String name, String path, String packageName, Boolean systemApp) {
+    public Application(String name, String path, String packageName, Boolean systemApp) {
         this.name = name;
         this.path = path;
         this.packageName = packageName;

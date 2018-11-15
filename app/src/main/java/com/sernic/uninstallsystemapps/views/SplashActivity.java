@@ -22,24 +22,35 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.views;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
-import android.support.v7.preference.SwitchPreferenceCompat;
 
-public class SettingsActivity extends AppCompatActivity {
+import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
+
+public class SplashActivity extends BaseActivity {
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void setToolbar() { }
+
+    @Override
+    protected BaseViewModel getViewModel() {
+        return null;
+    }
+
+    @Override
+    protected void setBinding() { }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
+
+        startActivity(new Intent(this, MainActivity.class));
     }
-
-
 }

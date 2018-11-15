@@ -47,7 +47,7 @@ captures/
 google-services.json
 
 # Release
-app/release
+application/release
 
 # Freeline
 freeline.py

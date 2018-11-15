@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +32,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.sernic.uninstallsystemapps.models.Application;
+import com.sernic.uninstallsystemapps.views.MainActivity;
+import com.sernic.uninstallsystemapps.R;
+
 import java.util.ArrayList;
 
 /**
@@ -39,11 +44,11 @@ import java.util.ArrayList;
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ArrayList<App> mApps;
+    private ArrayList<Application> mApplications;
     private MainActivity mainActivity;
 
-    public MyAdapter(ArrayList<App> apps, MainActivity mainActivity) {
-        mApps = apps;
+    public MyAdapter(ArrayList<Application> applications, MainActivity mainActivity) {
+        mApplications = applications;
         this.mainActivity = mainActivity;
     }
 
@@ -74,22 +79,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final App app = mApps.get(position);
+        final Application application = mApplications.get(position);
 
-        holder.name_text_view.setText(app.getName());
-        holder.packageName_text_view.setText(app.getPackageName());
-        holder.icon_image_view.setImageDrawable(app.getIcon());
+        holder.name_text_view.setText(application.getName());
+        holder.packageName_text_view.setText(application.getPackageName());
+        holder.icon_image_view.setImageDrawable(application.getIcon());
 
         // Management of the checkbox
         holder.checkBox_image_view.setOnCheckedChangeListener(null);
-        holder.checkBox_image_view.setChecked(app.isSelected());
+        holder.checkBox_image_view.setChecked(application.isSelected());
         holder.checkBox_image_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean Checked) {
                 if(buttonView.isChecked()) {
-                    app.setSelected(true);
+                    application.setSelected(true);
                     mainActivity.addSelectApp();
                 } else {
-                    app.setSelected(false);
+                    application.setSelected(false);
                     mainActivity.remSelectApp();
                 }
             }
@@ -99,11 +104,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mApps.size();
+        return mApplications.size();
     }
 
-    public void updateList(ArrayList<App> apps){
-        mApps = apps;
+    public void updateList(ArrayList<Application> applications){
+        mApplications = applications;
         notifyDataSetChanged();
     }
 }

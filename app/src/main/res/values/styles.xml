@@ -28,7 +28,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/primary</item>
-        <!--   darker variant of colorPrimary (for status bar, contextual app bars) -->
+        <!--   darker variant of colorPrimary (for status bar, contextual application bars) -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>

@@ -22,12 +22,13 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.views;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
@@ -49,7 +50,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.chrisplus.rootmanager.RootManager;
+import com.sernic.uninstallsystemapps.helpers.ObtainRoot;
+import com.sernic.uninstallsystemapps.R;
+import com.sernic.uninstallsystemapps.RemoveApps;
+import com.sernic.uninstallsystemapps.SearchApp;
+import com.sernic.uninstallsystemapps.adapters.MyAdapter;
+import com.sernic.uninstallsystemapps.models.Application;
+import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
+import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -65,8 +73,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
-    private ArrayList<App> mApps, tempMApps;
+public class MainActivity extends BaseActivity {
+    private ArrayList<Application> mApplications, tempMApplications;
     private RecyclerView mRecyclerView;
     private View view;
     private Boolean rootAccess;
@@ -81,13 +89,31 @@ public class MainActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final String KEY_PREF_HIDE_SYSTEM_APPS = "hide_system_apps";
 
+    private ActivityMainBinding binding;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void setToolbar() {
+        setSupportActionBar((Toolbar)binding.toolbar);
+    }
+
+    @Override
+    protected BaseViewModel getViewModel() {
+        return null;
+    }
+
+    @Override
+    protected void setBinding() {
+        binding = DataBindingUtil.setContentView(this, getLayoutId());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         view = findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -171,20 +197,20 @@ public class MainActivity extends AppCompatActivity {
         selectAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selectApps == tempMApps.size()) {
-                    for(App app:tempMApps) {
-                        app.setSelected(false);
+                if(selectApps == tempMApplications.size()) {
+                    for(Application application : tempMApplications) {
+                        application.setSelected(false);
                     }
                     selectAll.setImageResource(R.drawable.select_all_white_24px);
                     selectApps = 0;
                 } else {
-                    for(App app:tempMApps) {
-                        app.setSelected(true);
+                    for(Application application : tempMApplications) {
+                        application.setSelected(true);
                     }
                     selectAll.setImageResource(R.drawable.deselect_all_white_24px);
-                    selectApps = tempMApps.size();
+                    selectApps = tempMApplications.size();
                 }
-                numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " "+ tempMApps.size());
+                numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " "+ tempMApplications.size());
                 mRecyclerView.getAdapter().notifyDataSetChanged();
                 if(fab.getVisibility() != View.VISIBLE)
                     fab.show();
@@ -204,21 +230,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // App counter utility selected
+    // Application counter utility selected
     public void addSelectApp() {
         selectApps++;
-        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
-        if(selectApps == tempMApps.size())
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApplications.size());
+        if(selectApps == tempMApplications.size())
             selectAll.setImageResource(R.drawable.deselect_all_white_24px);
         if(fab.getVisibility() != View.VISIBLE)
             fab.show();
     }
 
     public void remSelectApp() {
-        if(selectApps == tempMApps.size())
+        if(selectApps == tempMApplications.size())
             selectAll.setImageResource(R.drawable.select_all_white_24px);
         selectApps--;
-        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApplications.size());
         if(fab.getVisibility() != View.VISIBLE)
             fab.show();
     }
@@ -300,36 +326,36 @@ public class MainActivity extends AppCompatActivity {
     // Remove from the recyclerView type of app indicated by the parameters
     private void hideApp(Boolean toSystem, Boolean toHide) {
         if(toHide) {
-            for(App app : mApps) {
-                if (toSystem == app.isSystemApp()) {
-                    app.setSelected(false);
-                    tempMApps.remove(app);
+            for(Application application : mApplications) {
+                if (toSystem == application.isSystemApp()) {
+                    application.setSelected(false);
+                    tempMApplications.remove(application);
                 }
             }
-        } else if(mApps.size() != tempMApps.size()){
-            for(App app : mApps) {
-                if (toSystem == app.isSystemApp()) {
-                    tempMApps.add(app);
+        } else if(mApplications.size() != tempMApplications.size()){
+            for(Application application : mApplications) {
+                if (toSystem == application.isSystemApp()) {
+                    tempMApplications.add(application);
                 }
             }
         }
 
         // Sort apps in alphabetical order
-        Collections.sort(tempMApps, new Comparator<App>() {
+        Collections.sort(tempMApplications, new Comparator<Application>() {
             @Override
-            public int compare(App app, App t1) {
-                return app.getName().compareToIgnoreCase(t1.getName());
+            public int compare(Application application, Application t1) {
+                return application.getName().compareToIgnoreCase(t1.getName());
             }
         });
-        for(App app:mApps) {
-            app.setSelected(false);
+        for(Application application : mApplications) {
+            application.setSelected(false);
         }
         selectApps = 0;
         selectAll.setImageResource(R.drawable.select_all_white_24px);
-        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApps.size());
+        numApps.setText(selectApps + " " + getResources().getString(R.string.num_apps_of) + " " + tempMApplications.size());
         if(fab.getVisibility() != View.VISIBLE)
             fab.show();
-        ((MyAdapter)mRecyclerView.getAdapter()).updateList(tempMApps);
+        ((MyAdapter)mRecyclerView.getAdapter()).updateList(tempMApplications);
     }
 
     private void saveBooleanPreference(String key, Boolean value) {
@@ -344,15 +370,15 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean(key, defaultValue);
     }
 
-    public void setApplicationList(ArrayList<App> apps) {
-        mApps = new ArrayList<>(apps);
-        tempMApps = new ArrayList<>(apps);
-        // Hide the apps based on checkbox stored value
+    public void setApplicationList(ArrayList<Application> applications) {
+        mApplications = new ArrayList<>(applications);
+        tempMApplications = new ArrayList<>(applications);
+        // Hide the applications based on checkbox stored value
         hideApp(true, readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false));
     }
 
-    public ArrayList<App> getApplicationList() {
-        return mApps;
+    public ArrayList<Application> getApplicationList() {
+        return mApplications;
     }
 
     public void setRootAccess(Boolean rootAccess) {
@@ -361,11 +387,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Filter the apps and update the recyclerView for the floatingSearchBar
     void filter(String text) {
-        ArrayList<App> temp = new ArrayList();
+        ArrayList<Application> temp = new ArrayList();
 
-        for(App app: tempMApps){
-            if(app.getName().toLowerCase().contains(text.toLowerCase()))
-                temp.add(app);
+        for(Application application : tempMApplications){
+            if(application.getName().toLowerCase().contains(text.toLowerCase()))
+                temp.add(application);
         }
         // Update recyclerview
         ((MyAdapter)mRecyclerView.getAdapter()).updateList(temp);
@@ -420,9 +446,9 @@ public class MainActivity extends AppCompatActivity {
         String selectedApp = "";
 
         int count = 0;
-        for(App app: mApps) {
-            if(app.isSelected()) {
-                selectedApp = selectedApp + app.getPackageName() + ",";
+        for(Application application : mApplications) {
+            if(application.isSelected()) {
+                selectedApp = selectedApp + application.getPackageName() + ",";
                 count++;
             }
         }
@@ -455,24 +481,24 @@ public class MainActivity extends AppCompatActivity {
 
         int count = 0;
         selectApps = 0;
-        for(App app : mApps) {
-            if(selectedApp.contains(app.getPackageName())) {
-                if(app.isSystemApp()) {
+        for(Application application : mApplications) {
+            if(selectedApp.contains(application.getPackageName())) {
+                if(application.isSystemApp()) {
                     if(!readBooleanPreference(KEY_PREF_HIDE_SYSTEM_APPS, false)) {
-                        app.setSelected(true);
+                        application.setSelected(true);
                         addSelectApp();
                         count++;
                     } else {
-                        app.setSelected(false);
+                        application.setSelected(false);
                     }
                 } else {
-                    app.setSelected(true);
+                    application.setSelected(true);
                     addSelectApp();
                     count++;
                 }
 
             } else {
-                app.setSelected(false);
+                application.setSelected(false);
             }
         }
         mRecyclerView.getAdapter().notifyDataSetChanged();

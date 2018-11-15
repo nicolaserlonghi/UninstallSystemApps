@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.helpers;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +31,8 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.chrisplus.rootmanager.RootManager;
+import com.sernic.uninstallsystemapps.R;
+import com.sernic.uninstallsystemapps.views.MainActivity;
 
 /**
  * Created by nicola on 25/12/17.

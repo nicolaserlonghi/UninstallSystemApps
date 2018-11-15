@@ -51,7 +51,7 @@ public class Result {
         INSTALL_FIALED(407, "Install Failed"),
 
         UNINSTALL_SUCCESS(70, "Application uninstall Successfully"),
-        UNINSTALL_FAILED(408, "Uninstall App Failed"),
+        UNINSTALL_FAILED(408, "Uninstall Application Failed"),
 
         FAILED(409, "Illegal Parameters or State"),
         CUSTOM(0, "");

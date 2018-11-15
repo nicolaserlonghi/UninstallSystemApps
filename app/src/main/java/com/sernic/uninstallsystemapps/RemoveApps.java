@@ -35,6 +35,9 @@ import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 
 import com.chrisplus.rootmanager.RootManager;
+import com.sernic.uninstallsystemapps.adapters.MyAdapter;
+import com.sernic.uninstallsystemapps.models.Application;
+import com.sernic.uninstallsystemapps.views.MainActivity;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -47,8 +50,8 @@ import java.util.concurrent.TimeUnit;
 public class RemoveApps extends AsyncTask <Void, Integer, Void> {
     private MainActivity mActivity;
     private RecyclerView mRecyclerView;
-    private ArrayList<App> mApps;
-    private ArrayList<App> temp;
+    private ArrayList<Application> mApplications;
+    private ArrayList<Application> temp;
 
     private AlphaAnimation inAnimation;
     private AlphaAnimation outAnimation;
@@ -58,7 +61,7 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
 
     public RemoveApps(MainActivity mActivity) {
         this.mActivity = mActivity;
-        mApps = mActivity.getApplicationList();
+        mApplications = mActivity.getApplicationList();
     }
 
     @Override
@@ -82,15 +85,15 @@ public class RemoveApps extends AsyncTask <Void, Integer, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        for(App app : mApps) {
-            if(app.isSelected()) {
-                if (app.isSystemApp()) {
-                    RootManager.getInstance().uninstallSystemApp(app.getPath());
+        for(Application application : mApplications) {
+            if(application.isSelected()) {
+                if (application.isSystemApp()) {
+                    RootManager.getInstance().uninstallSystemApp(application.getPath());
                 } else {
-                    RootManager.getInstance().uninstallPackage(app.getPackageName());
+                    RootManager.getInstance().uninstallPackage(application.getPackageName());
                 }
             } else {
-                temp.add(app);
+                temp.add(application);
             }
         }
         // Wait to animation

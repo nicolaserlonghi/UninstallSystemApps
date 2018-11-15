@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.views;
 
 
 import android.content.Intent;
@@ -31,6 +31,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+
+import com.sernic.uninstallsystemapps.BuildConfig;
+import com.sernic.uninstallsystemapps.R;
 
 /**
  * A simple {@link Fragment} subclass.
