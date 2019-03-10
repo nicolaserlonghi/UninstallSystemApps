@@ -22,39 +22,51 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.models;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.drawable.Drawable;
 
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.widget.TextView;
+public class App {
+    private String name;
+    private String path;
+    private String packageName;
+    private Drawable icon;
+    private boolean systemApp;
+    private boolean selected;
 
-import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
-import com.sernic.uninstallsystemapps.views.BaseActivity;
-
-public class MainActivity extends BaseActivity {
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
+    public App(String name, String path, String packageName, Drawable icon, boolean systemApp) {
+        this.name = name;
+        this.path = path;
+        this.packageName = packageName;
+        this.icon = icon;
+        this.systemApp = systemApp;
     }
 
-    @Override
-    protected void setToolbar() {
+    public String getName() {
+        return name;
     }
 
-    @Override
-    protected BaseViewModel getViewModel() {
-        return null;
+    public String getPath() {
+        return path;
     }
 
-    @Override
-    protected void setBinding() {
+    public String getPackageName() {
+        return packageName;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Drawable getIcon() {
+        return icon;
+    }
+
+    public boolean isSystemApp() {
+        return systemApp;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
