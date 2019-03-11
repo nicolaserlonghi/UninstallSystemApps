@@ -23,34 +23,15 @@
   ~ SOFTWARE.
   -->
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
-    <data>
-    </data>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- Other components and views -->
-        
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:navigationIcon="@drawable/ic_menu"
-            style="@style/Widget.MaterialComponents.BottomAppBar" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/accent"
-            app:layout_anchor="@id/bar"/>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+    <path
+        android:pathData="M0 0h24v24H0z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+</vector>

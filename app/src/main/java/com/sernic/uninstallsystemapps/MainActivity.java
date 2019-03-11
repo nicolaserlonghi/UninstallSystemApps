@@ -25,15 +25,24 @@
 package com.sernic.uninstallsystemapps;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
+import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 import com.sernic.uninstallsystemapps.views.BaseActivity;
 
 public class MainActivity extends BaseActivity {
+
+    private MainViewModel mainViewModel;
+    private ActivityMainBinding binding;
 
     @Override
     protected int getLayoutId() {
@@ -45,16 +54,34 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseViewModel getViewModel() {
-        return null;
+    protected MainViewModel getViewModel() {
+        if(mainViewModel == null) {
+            Application application = getApplication();
+            MainViewModel.Factory factory = new MainViewModel.Factory(application);
+            mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
+        }
+        return mainViewModel;
     }
 
     @Override
     protected void setBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BottomAppBar bar = binding.bar;
+        setSupportActionBar(bar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getViewModel().getInstalledApps(getApplicationContext()).observe(this, installedApps -> {
+            if(installedApps == null)
+                return;
+
+        });
     }
 }
