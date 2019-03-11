@@ -32,4 +32,8 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#E6E6E6</color>
+    
+    <color name="recycler_primary_text">#000000DE</color>
+    <color name="recycler_secondary_text">#00000099</color>
+
 </resources>

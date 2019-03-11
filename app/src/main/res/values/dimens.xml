@@ -25,8 +25,17 @@
 
 <resources>
     <dimen name="toolbar_heigth">76.0dp</dimen>
-    <dimen name="toolbar_title_size">28.0sp</dimen>
+    <dimen name="toolbar_title_size">28.0dp</dimen>
     <dimen name="toolbar_subtitle_size">16.0dp</dimen>
     <dimen name="toolbar_title_padding_left">64dp</dimen>
     <dimen name="toolbar_title_padding_top">26dp</dimen>
+    
+    <dimen name="recycler_row_item_heigth">72dp</dimen>
+    <dimen name="recycler_primary_text">16dp</dimen>
+    <dimen name="recycler_secondary_text">14dp</dimen>
+
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="checkbox_dimension">24dp</dimen>
+    <dimen name="image_dimension">40dp</dimen>
 </resources>
