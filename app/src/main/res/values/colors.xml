@@ -28,7 +28,7 @@
     <color name="primary_dark">#C43C00</color>
     <color name="primary_light">#FF9E40</color>
     <color name="accent">#FF6D00</color>
-    <color name="primary_text">#212121</color>
+    <color name="primary_text">@android:color/black</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#E6E6E6</color>

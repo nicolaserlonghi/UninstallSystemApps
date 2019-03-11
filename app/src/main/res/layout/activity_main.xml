@@ -35,8 +35,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Other components and views -->
-        
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_heigth">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/toolbar_title_padding_top"
+                android:paddingLeft="@dimen/toolbar_title_padding_left"
+                android:text="@string/title_main_activity"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/toolbar_title_size"
+                app:fontFamily="@font/open_sans_semibold" />
+        </LinearLayout>
+
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bar"

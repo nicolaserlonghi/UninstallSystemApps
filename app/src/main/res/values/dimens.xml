@@ -24,9 +24,9 @@
   -->
 
 <resources>
-    <dimen name="toolbar_start_spacing">8.0dip</dimen>
-    <dimen name="toolbar_end_spacing">12.0dip</dimen>
-    <dimen name="toolbar_heigth">76.0dip</dimen>
-    <dimen name="toolbar_title_size">80.0dip</dimen>
-    <dimen name="toolbar_subtitle_size">16.0dip</dimen>
+    <dimen name="toolbar_heigth">76.0dp</dimen>
+    <dimen name="toolbar_title_size">28.0sp</dimen>
+    <dimen name="toolbar_subtitle_size">16.0dp</dimen>
+    <dimen name="toolbar_title_padding_left">64dp</dimen>
+    <dimen name="toolbar_title_padding_top">26dp</dimen>
 </resources>

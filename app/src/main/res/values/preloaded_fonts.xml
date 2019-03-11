@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ The MIT License (MIT)
   ~
@@ -23,7 +24,8 @@
   -->
 
 <resources>
-    <string name="app_name">Uninstall System Apps</string>
-
-    <string name="title_main_activity">Installed apps</string>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/open_sans</item>
+        <item>@font/open_sans_semibold</item>
+    </array>
 </resources>
