@@ -22,9 +22,8 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.views;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,18 +31,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.adapters.ControllerAppsSelected;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.models.App;
-import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
+import com.sernic.uninstallsystemapps.helpers.InsetDivider;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
-import com.sernic.uninstallsystemapps.views.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -51,6 +47,8 @@ public class MainActivity extends BaseActivity {
 
     private MainViewModel mainViewModel;
     private ActivityMainBinding binding;
+    private RecyclerView recyclerView;
+    private AppRecyclerAdapter appRecyclerAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -58,7 +56,9 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void setToolbar() {
+    protected void setBottomAppBar() {
+        BottomAppBar bottomAppBar = binding.bar;
+        setSupportActionBar(bottomAppBar);
     }
 
     @Override
@@ -77,26 +77,47 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        BottomAppBar bar = binding.bar;
-        setSupportActionBar(bar);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         getViewModel().getInstalledApps(getApplicationContext()).observe(this, installedApps -> {
             if(installedApps == null)
                 return;
-            // Set RecyclerView
-            RecyclerView recyclerView = binding.recyclerView;
-            // Add divider between two lelement of recyclerView
-            //recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources().getColor(R.color.divider), 3));
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new AppRecyclerAdapter(new ControllerAppsSelected(this), (ArrayList<App>) installedApps));
-            ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+            updateRecyclerView((ArrayList<App>) installedApps);
         });
+    }
+
+    private void updateRecyclerView(ArrayList<App> installedApps) {
+        if(recyclerView == null)
+            setRecyclerView(installedApps);
+        else
+            appRecyclerAdapter.updataList(installedApps);
+    }
+
+    private void setRecyclerView(ArrayList<App> installedApps) {
+        recyclerView = binding.recyclerView;
+        RecyclerView.ItemDecoration divider = getInsetDivider();
+        recyclerView.addItemDecoration(divider);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        appRecyclerAdapter = new AppRecyclerAdapter(
+                new ControllerAppsSelected(this),
+                installedApps
+        );
+        recyclerView.setAdapter(appRecyclerAdapter);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+    }
+
+    private RecyclerView.ItemDecoration getInsetDivider() {
+        int dividerHeight = getResources().getDimensionPixelSize(R.dimen.divider_height);
+        int dividerColor = getResources().getColor(R.color.divider);
+        int marginLeft = getResources().getDimensionPixelSize(R.dimen.divider_inset);
+        RecyclerView.ItemDecoration insetDivider = new InsetDivider.Builder(this)
+                .orientation(InsetDivider.VERTICAL_LIST)
+                .dividerHeight(dividerHeight)
+                .color(dividerColor)
+                .insets(marginLeft, 0)
+                .build();
+        return insetDivider;
     }
 
     // Called by AppRecyclerAdapter when an item is selected

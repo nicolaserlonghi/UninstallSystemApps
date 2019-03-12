@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity" />
+            android:name=".views.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

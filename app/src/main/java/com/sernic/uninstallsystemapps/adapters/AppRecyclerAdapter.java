@@ -99,8 +99,8 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
         return installedApps.size();
     }
 
-    public void updataList(ArrayList<App> apps) {
-        this.installedApps = apps;
+    public void updataList(ArrayList<App> installedApps) {
+        this.installedApps = installedApps;
         notifyDataSetChanged();
     }
 }

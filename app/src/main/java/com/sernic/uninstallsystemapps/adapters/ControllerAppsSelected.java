@@ -24,7 +24,7 @@
 
 package com.sernic.uninstallsystemapps.adapters;
 
-import com.sernic.uninstallsystemapps.MainActivity;
+import com.sernic.uninstallsystemapps.views.MainActivity;
 
 public class ControllerAppsSelected {
 

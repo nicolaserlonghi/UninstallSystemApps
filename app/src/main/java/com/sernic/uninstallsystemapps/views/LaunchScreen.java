@@ -27,7 +27,6 @@ package com.sernic.uninstallsystemapps.views;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.sernic.uninstallsystemapps.MainActivity;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
 
 public class LaunchScreen extends BaseActivity {
@@ -38,7 +37,8 @@ public class LaunchScreen extends BaseActivity {
     }
 
     @Override
-    protected void setToolbar() {
+    protected void setBottomAppBar() {
+
     }
 
     @Override

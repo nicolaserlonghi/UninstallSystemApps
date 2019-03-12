@@ -60,11 +60,15 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public LiveData<List<App>> getInstalledApps(Context context) {
-        UninstallSystemApps uninstallSystemApps = getApplication();
-        AppExecutors appExecutors = uninstallSystemApps.getAppExecutors();
-
+        AppExecutors appExecutors = getAppExecutors();
         SearchApps searchApps = new SearchApps(context, appExecutors);
         LiveData<List<App>> installedApps = searchApps.getInstalledApps();
         return installedApps;
+    }
+
+    private AppExecutors getAppExecutors() {
+        UninstallSystemApps uninstallSystemApps = getApplication();
+        AppExecutors appExecutors = uninstallSystemApps.getAppExecutors();
+        return appExecutors;
     }
 }

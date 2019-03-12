@@ -35,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayoutId();
 
-    protected abstract void setToolbar();
+    protected abstract void setBottomAppBar();
 
     protected abstract BaseViewModel getViewModel();
 
@@ -53,6 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }
         setBinding();
-        setToolbar();
+        setBottomAppBar();
     }
 }
