@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
     private AppRecyclerAdapter appRecyclerAdapter;
+    private ArrayList<App> selectedApps = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity {
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
+
 
     @Override
     protected void onResume() {
@@ -121,6 +123,19 @@ public class MainActivity extends BaseActivity {
     }
 
     // Called by AppRecyclerAdapter when an item is selected
-    public void itemSelected(int appPosition, Boolean isChecked) {
+    public void isSelectedApp(App app) {
+        boolean appAlreadySelected = appIsAlreadySelected(app);
+        if(!appAlreadySelected)
+            selectedApps.add(app);
+    }
+
+    private boolean appIsAlreadySelected(App app) {
+        boolean alreadySelected = selectedApps.contains(app);
+        return alreadySelected;
+    }
+
+    // Called by AppRecyclerAdapter when an item is deselected
+    public void isDeselectedApp(App app) {
+        selectedApps.remove(app);
     }
 }

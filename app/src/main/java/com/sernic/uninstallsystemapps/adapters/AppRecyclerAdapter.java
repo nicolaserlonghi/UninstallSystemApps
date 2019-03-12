@@ -90,7 +90,10 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
         holder.appPackage.setText(app.getPackageName());
         holder.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
             app.setSelected(isChecked);
-            controllerAppsSelected.itemSelected(position, isChecked);
+            if(isChecked)
+                controllerAppsSelected.isSelectApp(app);
+            else
+                controllerAppsSelected.isDeselctApp(app);
         });
     }
 

@@ -24,6 +24,7 @@
 
 package com.sernic.uninstallsystemapps.adapters;
 
+import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.views.MainActivity;
 
 public class ControllerAppsSelected {
@@ -34,7 +35,11 @@ public class ControllerAppsSelected {
         this.mainActivity = mainActivity;
     }
 
-    public void itemSelected(int appPosition, Boolean isChecked) {
-        mainActivity.itemSelected(appPosition, isChecked);
+    public void isSelectApp(App app) {
+        mainActivity.isSelectedApp(app);
+    }
+
+    public void isDeselctApp(App app) {
+        mainActivity.isDeselectedApp(app);
     }
 }
