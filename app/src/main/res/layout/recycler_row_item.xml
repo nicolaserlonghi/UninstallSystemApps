@@ -61,6 +61,7 @@
                 android:id="@+id/secondaryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/secondary_text_margin"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/secondary_text"/>
@@ -68,12 +69,11 @@
 
         <CheckBox
             android:id="@+id/checkbox"
-            android:layout_width="@dimen/checkbox_dimension"
-            android:layout_height="@dimen/checkbox_dimension"
-            android:padding="@dimen/checkbox_dimension"
-            android:layout_marginRight="@dimen/checkbox_margin_right"
-            android:layout_marginTop="@dimen/margin_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/checkbox_margin_right"
+            android:layout_centerVertical="true"
             android:checked="false"
             tools:ignore="NotSibling" />
     </RelativeLayout>
