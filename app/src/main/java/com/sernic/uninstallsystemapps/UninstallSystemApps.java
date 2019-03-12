@@ -33,13 +33,13 @@ import com.pixplicity.easyprefs.library.Prefs;
 public class UninstallSystemApps extends Application {
 
     private AppExecutors appExecutors;
-    private Context applicationContext;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         appExecutors = new AppExecutors();
-        applicationContext = getApplicationContext();
+
 
         // Library EasyPrefs
         new Prefs.Builder()
@@ -52,11 +52,6 @@ public class UninstallSystemApps extends Application {
 
     public AppExecutors getAppExecutors() {
         return appExecutors;
-    }
-
-    @Override
-    public Context getApplicationContext() {
-        return applicationContext;
     }
 
 
