@@ -25,8 +25,11 @@
 package com.sernic.uninstallsystemapps;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
 import android.content.pm.PackageManager;
@@ -34,10 +37,15 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
+import com.sernic.uninstallsystemapps.adapters.ControllerAppsSelected;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
+import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 import com.sernic.uninstallsystemapps.views.BaseActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
@@ -81,7 +89,17 @@ public class MainActivity extends BaseActivity {
         getViewModel().getInstalledApps(getApplicationContext()).observe(this, installedApps -> {
             if(installedApps == null)
                 return;
-
+            // Set RecyclerView
+            RecyclerView recyclerView = binding.recyclerView;
+            // Add divider between two lelement of recyclerView
+            //recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources().getColor(R.color.divider), 3));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new AppRecyclerAdapter(new ControllerAppsSelected(this), (ArrayList<App>) installedApps));
+            ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         });
+    }
+
+    // Called by AppRecyclerAdapter when an item is selected
+    public void itemSelected(int appPosition, Boolean isChecked) {
     }
 }

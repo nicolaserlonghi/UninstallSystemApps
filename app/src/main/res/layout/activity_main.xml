@@ -35,23 +35,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/toolbar"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_heigth">
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
-            <TextView
-                android:id="@+id/toolbar_title"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/toolbar_title_padding_top"
-                android:paddingLeft="@dimen/toolbar_title_padding_left"
-                android:text="@string/title_main_activity"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/toolbar_title_size"
-                app:fontFamily="@font/open_sans_semibold" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_heigth"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/toolbar_title_padding_top"
+                        android:paddingLeft="@dimen/toolbar_title_padding_left"
+                        android:text="@string/title_main_activity"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/toolbar_title_size"
+                        app:fontFamily="@font/open_sans_semibold" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bar"

@@ -25,5 +25,5 @@
 <resources>
     <string name="app_name">Uninstall System Apps</string>
 
-    <string name="title_main_activity">Installed apps</string>
+    <string name="title_main_activity">Installed Apps</string>
 </resources>

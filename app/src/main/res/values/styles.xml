@@ -33,10 +33,7 @@
         <item name="android:textCursorDrawable">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="android:textColorPrimary">@color/primary_dark</item>
-        <item name="actionMenuTextColor">@color/accent</item>
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="AppTheme.NoActionBar" parent="@style/AppTheme">
         <item name="windowActionBar">false</item>
@@ -45,13 +42,6 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
-
-
-
-
-
-
-
 
 
     <!-- Settings theme-->

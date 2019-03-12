@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/recycler_primary_text"/>
+                android:textColor="@color/primary_text"/>
 
             <TextView
                 android:id="@+id/secondaryText"
@@ -63,14 +63,14 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/recycler_secondary_text"/>
+                android:textColor="@color/secondary_text"/>
         </LinearLayout>
 
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="@dimen/checkbox_dimension"
             android:layout_height="@dimen/checkbox_dimension"
-            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginRight="@dimen/checkbox_margin_right"
             android:layout_marginTop="@dimen/margin_24"
             android:layout_alignParentRight="true"
             android:checked="false"

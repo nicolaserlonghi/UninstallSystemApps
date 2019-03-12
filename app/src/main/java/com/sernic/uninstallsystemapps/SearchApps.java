@@ -24,6 +24,7 @@
 
 package com.sernic.uninstallsystemapps;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -32,6 +33,7 @@ import android.graphics.drawable.Drawable;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -42,20 +44,29 @@ public class SearchApps {
     private List<App> installedAppList = new ArrayList<>();
     private PackageManager packageManager;
 
-    public SearchApps(Context context) {
-        List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
-        appDetails(installedApplicationsInfo);
-        updateInstalledApps();
+    public SearchApps(Context context, AppExecutors appExecutors) {
+        appExecutors.mainThread().execute(() -> {
+            List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
+            appDetails(installedApplicationsInfo);
+            updateInstalledApps();
+
+        });
     }
 
     private List<ApplicationInfo> getInstalledApplication(Context context) {
         getPackageManager(context);
         List<ApplicationInfo> installedApps = packageManager.getInstalledApplications(0);
+        sortAppInAlphabeticalOrder(installedApps);
         return installedApps;
     }
 
     private void getPackageManager(Context context) {
         packageManager = context.getPackageManager();
+    }
+
+    private List<ApplicationInfo> sortAppInAlphabeticalOrder(List<ApplicationInfo> installedApps) {
+        Collections.sort(installedApps, new ApplicationInfo.DisplayNameComparator(packageManager));
+        return installedApps;
     }
 
     private void appDetails(List<ApplicationInfo> installedApplicationsInfo) {

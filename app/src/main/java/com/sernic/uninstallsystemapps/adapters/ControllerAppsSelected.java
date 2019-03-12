@@ -22,42 +22,19 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.adapters;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.ContextWrapper;
+import com.sernic.uninstallsystemapps.MainActivity;
 
-import com.pixplicity.easyprefs.library.Prefs;
+public class ControllerAppsSelected {
 
-public class UninstallSystemApps extends Application {
+    private MainActivity mainActivity;
 
-    private AppExecutors appExecutors;
-    private Context applicationContext;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        appExecutors = new AppExecutors();
-        applicationContext = getApplicationContext();
-
-        // Library EasyPrefs
-        new Prefs.Builder()
-                .setContext(this)
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(BuildConfig.APPLICATION_ID)
-                .setUseDefaultSharedPreference(true)
-                .build();
+    public ControllerAppsSelected(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
-    public AppExecutors getAppExecutors() {
-        return appExecutors;
+    public void itemSelected(int appPosition, Boolean isChecked) {
+        mainActivity.itemSelected(appPosition, isChecked);
     }
-
-    @Override
-    public Context getApplicationContext() {
-        return applicationContext;
-    }
-
-
 }

@@ -27,7 +27,9 @@ package com.sernic.uninstallsystemapps.viewmodels;
 import android.app.Application;
 import android.content.Context;
 
+import com.sernic.uninstallsystemapps.AppExecutors;
 import com.sernic.uninstallsystemapps.SearchApps;
+import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.List;
@@ -58,7 +60,10 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public LiveData<List<App>> getInstalledApps(Context context) {
-        SearchApps searchApps = new SearchApps(context);
+        UninstallSystemApps uninstallSystemApps = getApplication();
+        AppExecutors appExecutors = uninstallSystemApps.getAppExecutors();
+
+        SearchApps searchApps = new SearchApps(context, appExecutors);
         LiveData<List<App>> installedApps = searchApps.getInstalledApps();
         return installedApps;
     }
