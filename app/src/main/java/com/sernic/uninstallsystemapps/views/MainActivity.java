@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
+import android.view.Menu;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.sernic.uninstallsystemapps.R;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
     protected void setBottomAppBar() {
         BottomAppBar bottomAppBar = binding.bar;
         setSupportActionBar(bottomAppBar);
+
     }
 
     @Override
@@ -76,7 +78,6 @@ public class MainActivity extends BaseActivity {
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
-
 
     @Override
     protected void onResume() {
@@ -137,5 +138,11 @@ public class MainActivity extends BaseActivity {
     // Called by AppRecyclerAdapter when an item is deselected
     public void isDeselectedApp(App app) {
         selectedApps.remove(app);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottomappbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

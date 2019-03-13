@@ -83,7 +83,10 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/accent"
-            app:layout_anchor="@id/bar"/>
+            app:backgroundTint="@color/primary"
+            app:layout_anchor="@id/bar"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/accent"
+            app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -3,7 +3,7 @@
   ~ The MIT License (MIT)
   ~
   ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
-  ~w
+  ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
   ~ in the Software without restriction, including without limitation the rights
@@ -23,14 +23,17 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-    <color name="primary">@android:color/white</color>
-    <color name="primary_dark">#C43C00</color>
-    <color name="primary_light">#FF9E40</color>
-    <color name="accent">#FF6D00</color>
-    <color name="primary_text">@android:color/black</color>
-    <color name="secondary_text">#727272</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#E6E6E6</color>
-    <color name="icon_color">#757575</color>
-</resources>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_search"
+        android:title="search"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/app_bar_settings"
+        android:title="setting"
+        app:showAsAction="never"/>
+</menu>
