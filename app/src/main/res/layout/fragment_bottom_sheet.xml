@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.MainActivity">
+    <data>
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/bottom_sheet_vertical_padding">
+
+        <TextView
+            android:id="@+id/order_by"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
+            android:textColor="@color/secondary_text"
+            android:text="@string/order_by" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth">
+
+            <TextView
+                android:id="@+id/alphabetical_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/checkbox_alphabetical_order"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:text="@string/alphabetical_order"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_alphabetical_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/checkbox_margin_right"
+                android:layout_centerVertical="true"
+                android:button="@drawable/ic_done"
+                android:checked="false"
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth">
+
+            <TextView
+                android:id="@+id/installation_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/checkbox_installation_date"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:text="@string/installation_date"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_installation_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/checkbox_margin_right"
+                android:layout_centerVertical="true"
+                android:button="@drawable/ic_done"
+                android:checked="false"
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+
+        <include layout="@layout/horizontal_separator" />
+
+        <TextView
+            android:id="@+id/hide"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
+            android:textColor="@color/secondary_text"
+            android:text="@string/hide" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth">
+
+            <TextView
+                android:id="@+id/system_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/checkbox_system_apps"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:text="@string/system_apps"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_system_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/checkbox_margin_right"
+                android:layout_centerVertical="true"
+                android:button="@drawable/ic_done"
+                android:checked="false"
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_sheet_row_heigth">
+
+            <TextView
+                android:id="@+id/user_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/checkbox_user_apps"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
+                android:layout_centerVertical="true"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:text="@string/user_apps"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_user_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/checkbox_margin_right"
+                android:layout_centerVertical="true"
+                android:button="@drawable/ic_done"
+                android:checked="false"
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

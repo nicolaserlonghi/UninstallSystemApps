@@ -23,18 +23,11 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/menu_search"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/app_bar_settings"
-        android:icon="@drawable/ic_setting"
-        android:title="@string/menu_setting"
-        app:showAsAction="ifRoom"/>
-</menu>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:topLeftRadius="@dimen/bottom_sheet_corner_radius"
+        android:topRightRadius="@dimen/bottom_sheet_corner_radius" />
+    <padding android:top="@dimen/bottom_sheet_top_padding" />
+    <solid android:color="@color/primary" />
+</shape>

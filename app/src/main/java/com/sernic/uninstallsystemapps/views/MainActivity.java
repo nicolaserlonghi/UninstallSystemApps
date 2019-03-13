@@ -24,6 +24,7 @@
 
 package com.sernic.uninstallsystemapps.views;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -31,9 +32,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.adapters.ControllerAppsSelected;
@@ -49,6 +55,7 @@ public class MainActivity extends BaseActivity {
     private MainViewModel mainViewModel;
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
+    private BottomSheetBehavior bottomSheetBehavior;
     private AppRecyclerAdapter appRecyclerAdapter;
     private ArrayList<App> selectedApps = new ArrayList<>();
 
@@ -77,6 +84,21 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottomappbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(R.id.app_bar_settings == item.getItemId()) {
+            BottomSheetFragment fragment = new BottomSheetFragment();
+            fragment.show(getSupportFragmentManager(), "TAG");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -138,11 +160,5 @@ public class MainActivity extends BaseActivity {
     // Called by AppRecyclerAdapter when an item is deselected
     public void isDeselectedApp(App app) {
         selectedApps.remove(app);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottomappbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 }

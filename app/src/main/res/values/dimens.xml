@@ -42,4 +42,11 @@
 
     <dimen name="divider_height">0.8dp</dimen>
     <dimen name="divider_inset">72dp</dimen>
+
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_top_padding">8dp</dimen>
+    <dimen name="bottom_sheet_vertical_padding">16dp</dimen>
+    <dimen name="bottom_sheet_row_heigth">56dp</dimen>
+    <dimen name="bottom_sheet_margin_left_title">28dp</dimen>
+    <dimen name="bottom_sheet_margin_left_check_box">44dp</dimen>
 </resources>

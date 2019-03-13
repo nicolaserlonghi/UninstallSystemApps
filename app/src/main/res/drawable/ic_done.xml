@@ -23,18 +23,15 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-    <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/menu_search"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/app_bar_settings"
-        android:icon="@drawable/ic_setting"
-        android:title="@string/menu_setting"
-        app:showAsAction="ifRoom"/>
-</menu>
+    <path
+        android:pathData="M0 0h24v24H0z" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+</vector>

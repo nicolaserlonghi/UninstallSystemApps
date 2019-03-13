@@ -26,4 +26,14 @@
     <string name="app_name">Uninstall System Apps</string>
 
     <string name="title_main_activity">Installed Apps</string>
+
+    <string name="menu_setting">Other option</string>
+    <string name="menu_search">Search</string>
+    
+    <string name="order_by">Order by</string>
+    <string name="alphabetical_order">Alphabetical order</string>
+    <string name="installation_date">Installation date</string>
+    <string name="hide">Hide</string>
+    <string name="system_apps">System apps</string>
+    <string name="user_apps">User apps</string>
 </resources>
