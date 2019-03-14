@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ The MIT License (MIT)
   ~
@@ -22,23 +23,15 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-    <string name="app_name">Uninstall System Apps</string>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
 
-    <string name="title_main_activity">Installed Apps</string>
-
-    <string name="menu_setting">Other option</string>
-    <string name="menu_search">Search</string>
-    
-    <string name="title_menu_order_by">Order by</string>
-    <string name="menu_alphabetical_order">Alphabetical order</string>
-    <string name="menu_installation_date">Installation date</string>
-    <string name="title_menu_hide">Hide</string>
-    <string name="menu_system_apps">System apps</string>
-    <string name="menu_user_apps">User apps</string>
-    <string name="menu_import_selected_apps">Import selected apps</string>
-    <string name="menu_export_selected_apps">Export selected apps</string>
-    <string name="menu_feedback">Send feedback</string>
-    <string name="menu_info_developer">Created by Nicola Serlonghi</string>
-    <string name="menu_application_version">Application version \u2022 %1$s</string>
-</resources>
+    <path
+        android:pathData="M0 0h24v24H0V0z" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M20 2H4c-1.1 0-1.99 0.9 -1.99 2L2 22l4-4h14c1.1 0 2-0.9 2-2V4c0-1.1-0.9-2-2-2zm0 14H5.17l-0.59 0.59 -0.58 0.58 V4h16v12zm-9-4h2v2h-2zm0-6h2v4h-2z" />
+</vector>

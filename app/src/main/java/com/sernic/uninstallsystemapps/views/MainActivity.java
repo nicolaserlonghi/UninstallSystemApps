@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity {
     protected void setBottomAppBar() {
         BottomAppBar bottomAppBar = binding.bar;
         setSupportActionBar(bottomAppBar);
-
     }
 
     @Override
@@ -94,9 +93,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(R.id.app_bar_settings == item.getItemId()) {
-            BottomSheetFragment fragment = new BottomSheetFragment();
-            fragment.show(getSupportFragmentManager(), "TAG");
+        switch (item.getItemId()) {
+            case R.id.app_bar_settings:
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.show(getSupportFragmentManager(), "TAG");
+                break;
+            case android.R.id.home:
+                NavigationDrawerFragment navigationDrawerFragment = new NavigationDrawerFragment();
+                navigationDrawerFragment.show(getSupportFragmentManager(), "TAG");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

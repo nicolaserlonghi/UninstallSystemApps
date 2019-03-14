@@ -49,4 +49,8 @@
     <dimen name="bottom_sheet_row_heigth">56dp</dimen>
     <dimen name="bottom_sheet_margin_left_title">28dp</dimen>
     <dimen name="bottom_sheet_margin_left_check_box">44dp</dimen>
+    <dimen name="bottom_sheet_image_title_dimension">32dp</dimen>
+    <dimen name="bottom_sheet_image_dimension">25dp</dimen>
+    <dimen name="bottom_sheet_title_size">16dp</dimen>
+    <dimen name="footer_text_dimension">13dp</dimen>
 </resources>

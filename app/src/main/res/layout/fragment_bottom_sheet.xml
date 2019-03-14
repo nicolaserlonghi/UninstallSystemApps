@@ -44,7 +44,7 @@
             android:gravity="center"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
             android:textColor="@color/secondary_text"
-            android:text="@string/order_by" />
+            android:text="@string/title_menu_order_by" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:layout_centerVertical="true"
                 android:maxLines="1"
                 android:textColor="@color/primary_text"
-                android:text="@string/alphabetical_order"/>
+                android:text="@string/menu_alphabetical_order"/>
 
             <CheckBox
                 android:id="@+id/checkbox_alphabetical_order"
@@ -88,7 +88,7 @@
                 android:layout_centerVertical="true"
                 android:maxLines="1"
                 android:textColor="@color/primary_text"
-                android:text="@string/installation_date"/>
+                android:text="@string/menu_installation_date"/>
 
             <CheckBox
                 android:id="@+id/checkbox_installation_date"
@@ -111,7 +111,7 @@
             android:gravity="center"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
             android:textColor="@color/secondary_text"
-            android:text="@string/hide" />
+            android:text="@string/title_menu_hide" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                 android:layout_centerVertical="true"
                 android:maxLines="1"
                 android:textColor="@color/primary_text"
-                android:text="@string/system_apps"/>
+                android:text="@string/menu_system_apps"/>
 
             <CheckBox
                 android:id="@+id/checkbox_system_apps"
@@ -155,7 +155,7 @@
                 android:layout_centerVertical="true"
                 android:maxLines="1"
                 android:textColor="@color/primary_text"
-                android:text="@string/user_apps"/>
+                android:text="@string/menu_user_apps"/>
 
             <CheckBox
                 android:id="@+id/checkbox_user_apps"
