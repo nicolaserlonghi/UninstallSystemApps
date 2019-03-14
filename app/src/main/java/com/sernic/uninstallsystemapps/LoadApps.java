@@ -38,18 +38,25 @@ import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class SearchApps {
+public class LoadApps {
 
+    private Context context;
+    private AppExecutors appExecutors;
     private MutableLiveData<List<App>> installedApps = new MutableLiveData<>();
     private List<App> installedAppList = new ArrayList<>();
     private PackageManager packageManager;
 
-    public SearchApps(Context context, AppExecutors appExecutors) {
-        appExecutors.mainThread().execute(() -> {
+    public LoadApps(Context context, AppExecutors appExecutors) {
+        this.context = context;
+        this.appExecutors = appExecutors;
+    }
+
+    public void searchInstalledApps() {
+        // TODO: Why have I to use diskio instead of mainThread?
+        appExecutors.diskIO().execute(() -> {
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
             updateInstalledApps();
-
         });
     }
 

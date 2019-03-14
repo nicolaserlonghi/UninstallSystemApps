@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getViewModel().getInstalledApps(getApplicationContext()).observe(this, installedApps -> {
+        getViewModel().getInstalledApps().observe(this, installedApps -> {
             if(installedApps == null)
                 return;
             updateRecyclerView((ArrayList<App>) installedApps);

@@ -28,7 +28,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.sernic.uninstallsystemapps.AppExecutors;
-import com.sernic.uninstallsystemapps.SearchApps;
+import com.sernic.uninstallsystemapps.DataRepository;
+import com.sernic.uninstallsystemapps.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
 
@@ -59,16 +60,17 @@ public class MainViewModel extends BaseViewModel {
         }
     }
 
-    public LiveData<List<App>> getInstalledApps(Context context) {
-        AppExecutors appExecutors = getAppExecutors();
-        SearchApps searchApps = new SearchApps(context, appExecutors);
-        LiveData<List<App>> installedApps = searchApps.getInstalledApps();
+    public LiveData<List<App>> getInstalledApps() {
+        LoadApps loadApps = getLoadApps();
+        loadApps.searchInstalledApps();
+        LiveData<List<App>> installedApps = loadApps.getInstalledApps();
         return installedApps;
     }
 
-    private AppExecutors getAppExecutors() {
+    private LoadApps getLoadApps() {
         UninstallSystemApps uninstallSystemApps = getApplication();
-        AppExecutors appExecutors = uninstallSystemApps.getAppExecutors();
-        return appExecutors;
+        DataRepository dataRepository = uninstallSystemApps.getDataRepository();
+        LoadApps loadApps = dataRepository.getLoadApps();
+        return loadApps;
     }
 }

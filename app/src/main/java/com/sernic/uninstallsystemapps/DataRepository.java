@@ -24,37 +24,28 @@
 
 package com.sernic.uninstallsystemapps;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.ContextWrapper;
 
-import com.pixplicity.easyprefs.library.Prefs;
+public class DataRepository {
 
-public class UninstallSystemApps extends Application {
+    private static DataRepository dataRepository;
+    private final LoadApps loadApps;
 
-    private AppExecutors appExecutors;
-
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        appExecutors = new AppExecutors();
-
-
-        // Library EasyPrefs
-        new Prefs.Builder()
-                .setContext(this)
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(BuildConfig.APPLICATION_ID)
-                .setUseDefaultSharedPreference(true)
-                .build();
+    public static DataRepository getDataRepository(final Context context, final AppExecutors appExecutors) {
+        if(dataRepository == null) {
+            synchronized (DataRepository.class) {
+                if(dataRepository == null)
+                    dataRepository = new DataRepository(context, appExecutors);
+            }
+        }
+        return dataRepository;
     }
 
-    public AppExecutors getAppExecutors() {
-        return appExecutors;
+    private DataRepository(final Context context, final AppExecutors appExecutors) {
+        loadApps = new LoadApps(context, appExecutors);
     }
 
-    public DataRepository getDataRepository() {
-        return DataRepository.getDataRepository(getApplicationContext(), appExecutors);
+    public LoadApps getLoadApps() {
+        return loadApps;
     }
 }
