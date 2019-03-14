@@ -38,7 +38,8 @@
         <activity
             android:name=".views.LaunchScreen"
             android:noHistory="true"
-            android:theme="@style/LaunchScreen">
+            android:theme="@style/LaunchScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +47,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.MainActivity" />
+            android:name=".views.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
