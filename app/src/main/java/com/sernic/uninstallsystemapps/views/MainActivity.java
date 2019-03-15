@@ -107,12 +107,19 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startLoadingAnimation();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         getViewModel().getInstalledApps().observe(this, installedApps -> {
             if(installedApps == null)
                 return;
             updateRecyclerView((ArrayList<App>) installedApps);
+            stopLoadingAnimation();
         });
     }
 
@@ -148,6 +155,16 @@ public class MainActivity extends BaseActivity {
                 .insets(marginLeft, 0)
                 .build();
         return insetDivider;
+    }
+
+    private void startLoadingAnimation() {
+        binding.progressCircular.setVisibility(View.VISIBLE);
+        binding.recyclerView.setVisibility(View.GONE);
+    }
+
+    private void stopLoadingAnimation() {
+        binding.progressCircular.setVisibility(View.GONE);
+        binding.recyclerView.setVisibility(View.VISIBLE);
     }
 
     // Called by AppRecyclerAdapter when an item is selected

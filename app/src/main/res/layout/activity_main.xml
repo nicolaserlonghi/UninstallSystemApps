@@ -88,5 +88,13 @@
             android:src="@drawable/ic_delete"
             app:tint="@color/accent"
             app:fabSize="normal" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="@dimen/progress_circular_dimension"
+            android:layout_height="@dimen/progress_circular_dimension"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
