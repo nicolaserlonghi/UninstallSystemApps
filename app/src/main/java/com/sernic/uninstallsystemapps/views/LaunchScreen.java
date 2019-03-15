@@ -27,6 +27,9 @@ package com.sernic.uninstallsystemapps.views;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.sernic.uninstallsystemapps.DataRepository;
+import com.sernic.uninstallsystemapps.LoadApps;
+import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
 
 public class LaunchScreen extends BaseActivity {
@@ -53,6 +56,14 @@ public class LaunchScreen extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLoadApps().searchInstalledApps();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private LoadApps getLoadApps() {
+        UninstallSystemApps uninstallSystemApps = ((UninstallSystemApps)getApplication());
+        DataRepository dataRepository = uninstallSystemApps.getDataRepository();
+        LoadApps loadApps = dataRepository.getLoadApps();
+        return loadApps;
     }
 }

@@ -62,7 +62,6 @@ public class MainViewModel extends BaseViewModel {
 
     public LiveData<List<App>> getInstalledApps() {
         LoadApps loadApps = getLoadApps();
-        loadApps.searchInstalledApps();
         LiveData<List<App>> installedApps = loadApps.getInstalledApps();
         return installedApps;
     }
