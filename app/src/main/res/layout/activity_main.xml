@@ -53,8 +53,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_heigth"
-                android:minHeight="30dp"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <TextView
                     android:id="@+id/toolbar_title"
