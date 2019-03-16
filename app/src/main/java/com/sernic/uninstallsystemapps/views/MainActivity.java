@@ -24,8 +24,6 @@
 
 package com.sernic.uninstallsystemapps.views;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,7 +34,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -141,7 +138,6 @@ public class MainActivity extends BaseActivity {
                 installedApps
         );
         recyclerView.setAdapter(appRecyclerAdapter);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
     }
 
     private RecyclerView.ItemDecoration getInsetDivider() {
