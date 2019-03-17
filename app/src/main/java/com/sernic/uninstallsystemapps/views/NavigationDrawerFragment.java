@@ -25,6 +25,8 @@
 package com.sernic.uninstallsystemapps.views;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.databinding.FragmentNavigationDrawerBinding;
 
@@ -40,7 +43,8 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 
-public class NavigationDrawerFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment {
+public class NavigationDrawerFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment
+        implements View.OnClickListener {
 
     private FragmentNavigationDrawerBinding binding;
 
@@ -61,6 +65,8 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.applicationVersion.setText(String.format(getString(R.string.menu_application_version), getString(R.string.app_version_code)));
+        setOnclickListener();
+
     }
 
     @Override
@@ -112,5 +118,47 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                 }
             });
         }
+    }
+
+    private void setOnclickListener() {
+        binding.infoDeveloper.setOnClickListener(this);
+        binding.leaveFeedback.setOnClickListener(this);
+        binding.importSelectedApps.setOnClickListener(this);
+        binding.exportSelectedApps.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.info_developer:
+                String url = Constants.myWebSite;
+                openWebSite(url);
+                break;
+            case R.id.leave_feedback:
+                String mail = Constants.mail;
+                String subject = Constants.subject;
+                openMailFeedback(mail, subject);
+                break;
+            case R.id.import_selected_apps:
+                break;
+            case R.id.export_selected_apps:
+                break;
+        }
+    }
+
+    private void openWebSite(String url) {
+        Uri uri = Uri.parse(url);
+        Intent openWebsite = new Intent(Intent.ACTION_VIEW);
+        openWebsite.setData(uri);
+        startActivity(openWebsite);
+    }
+
+    private void openMailFeedback(String mailtTo, String subject) {
+        String subjectEncode = Uri.encode(subject);
+        String uriText = "mailto:" + mailtTo + "?subject=" + subjectEncode;
+        Uri uri = Uri.parse(uriText);
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        sendIntent.setData(uri);
+        startActivity(Intent.createChooser(sendIntent, "Send email"));
     }
 }
