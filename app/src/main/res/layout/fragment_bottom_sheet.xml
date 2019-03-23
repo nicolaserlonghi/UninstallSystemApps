@@ -48,7 +48,7 @@
 
         <RelativeLayout
             android:id="@+id/alphabetical_order"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
@@ -75,7 +75,7 @@
 
         <RelativeLayout
             android:id="@+id/installation_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
@@ -113,7 +113,7 @@
 
         <RelativeLayout
             android:id="@+id/system_apps"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
@@ -140,7 +140,7 @@
 
         <RelativeLayout
             android:id="@+id/user_apps"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
