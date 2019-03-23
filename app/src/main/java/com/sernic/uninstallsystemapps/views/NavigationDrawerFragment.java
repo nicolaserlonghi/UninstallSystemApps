@@ -66,7 +66,6 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
         super.onViewCreated(view, savedInstanceState);
         binding.applicationVersion.setText(String.format(getString(R.string.menu_application_version), getString(R.string.app_version_code)));
         setOnclickListener();
-
     }
 
     @Override

@@ -33,7 +33,9 @@ import android.graphics.drawable.Drawable;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -52,7 +54,6 @@ public class LoadApps {
     }
 
     public void searchInstalledApps() {
-        // TODO: Why have I to use diskio instead of mainThread?
         appExecutors.diskIO().execute(() -> {
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
@@ -63,17 +64,11 @@ public class LoadApps {
     private List<ApplicationInfo> getInstalledApplication(Context context) {
         getPackageManager(context);
         List<ApplicationInfo> installedApps = packageManager.getInstalledApplications(0);
-        sortAppInAlphabeticalOrder(installedApps);
         return installedApps;
     }
 
     private void getPackageManager(Context context) {
         packageManager = context.getPackageManager();
-    }
-
-    private List<ApplicationInfo> sortAppInAlphabeticalOrder(List<ApplicationInfo> installedApps) {
-        Collections.sort(installedApps, new ApplicationInfo.DisplayNameComparator(packageManager));
-        return installedApps;
     }
 
     private void appDetails(List<ApplicationInfo> installedApplicationsInfo) {
@@ -88,12 +83,14 @@ public class LoadApps {
         String sourceDir = getApplicationSourceDir(applicationInfo);
         String packageName = getApplicationPackageName(applicationInfo);
         Drawable icon = getAppliactionIcon(applicationInfo);
+        Date installedDate = getInstalledDate(packageName);
         App app = new App(
                 label,
                 sourceDir,
                 packageName,
                 icon,
-                systemApp
+                systemApp,
+                installedDate
         );
         addAppToArrayList(app);
     }
@@ -135,6 +132,17 @@ public class LoadApps {
     private Drawable getDefaultApplicationIcon() {
         Drawable defaultApplicationIcon = packageManager.getDefaultActivityIcon();
         return defaultApplicationIcon;
+    }
+
+    private Date getInstalledDate(String packageName) {
+        Long installDate = null;
+        try {
+            installDate = packageManager.getPackageInfo(packageName, 0).firstInstallTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            installDate = Calendar.getInstance().getTimeInMillis();
+        }
+        Date date = new Date(installDate);
+        return date;
     }
 
     private void addAppToArrayList(App app) {

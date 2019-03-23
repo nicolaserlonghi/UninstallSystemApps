@@ -26,20 +26,24 @@ package com.sernic.uninstallsystemapps.models;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.Date;
+
 public class App {
     private String name;
     private String path;
     private String packageName;
     private Drawable icon;
     private boolean systemApp;
+    private Date installedDate;
     private boolean selected;
 
-    public App(String name, String path, String packageName, Drawable icon, boolean systemApp) {
+    public App(String name, String path, String packageName, Drawable icon, boolean systemApp, Date installedDate) {
         this.name = name;
         this.path = path;
         this.packageName = packageName;
         this.icon = icon;
         this.systemApp = systemApp;
+        this.installedDate = installedDate;
     }
 
     public String getName() {
@@ -60,6 +64,10 @@ public class App {
 
     public boolean isSystemApp() {
         return systemApp;
+    }
+
+    public Date getInstalledDate() {
+        return installedDate;
     }
 
     public boolean isSelected() {

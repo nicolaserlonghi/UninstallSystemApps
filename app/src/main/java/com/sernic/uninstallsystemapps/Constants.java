@@ -29,4 +29,7 @@ public class Constants {
     public static final String mail = "nicolaserlonghi@gmail.com";
     public static final String subject ="Unistall System Apps - Feedback";
     public static final String myWebSite = "https://serlonghi.com";
+
+    public static final String flag_alphabetical_order = "alphabetical_order";
+    public static final String flag_installation_date = "installation_date";
 }

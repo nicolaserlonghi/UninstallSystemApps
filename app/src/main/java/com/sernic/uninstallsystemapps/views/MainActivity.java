@@ -36,7 +36,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.pixplicity.easyprefs.library.Prefs;
+import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.adapters.ControllerAppsSelected;
@@ -46,15 +47,16 @@ import com.sernic.uninstallsystemapps.helpers.InsetDivider;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BottomSheetFragment.IsSelectedBottomSheetFragment {
 
     private MainViewModel mainViewModel;
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
-    private BottomSheetBehavior bottomSheetBehavior;
     private AppRecyclerAdapter appRecyclerAdapter;
-    private ArrayList<App> selectedApps = new ArrayList<>();
+    private ArrayList<App> installedApps;
+    private List<App> selectedApps = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -115,19 +117,31 @@ public class MainActivity extends BaseActivity {
         getViewModel().getInstalledApps().observe(this, installedApps -> {
             if(installedApps == null)
                 return;
-            updateRecyclerView((ArrayList<App>) installedApps);
+            this.installedApps = (ArrayList) installedApps;
+            orderAppInStoredOrder();
+            updateRecyclerView();
             stopLoadingAnimation();
         });
     }
 
-    private void updateRecyclerView(ArrayList<App> installedApps) {
+    private void orderAppInStoredOrder() {
+        boolean isAlphabeticalOrder = Prefs.getBoolean(Constants.flag_alphabetical_order, true);
+        boolean isInstallationDateOrder = Prefs.getBoolean(Constants.flag_installation_date, false);
+        if(isAlphabeticalOrder && !isInstallationDateOrder) {
+            installedApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedApps);
+        } else {
+            installedApps  = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(installedApps);
+        }
+    }
+
+    private void updateRecyclerView() {
         if(recyclerView == null)
-            setRecyclerView(installedApps);
+            setRecyclerView();
         else
             appRecyclerAdapter.updataList(installedApps);
     }
 
-    private void setRecyclerView(ArrayList<App> installedApps) {
+    private void setRecyclerView() {
         recyclerView = binding.recyclerView;
         RecyclerView.ItemDecoration divider = getInsetDivider();
         recyclerView.addItemDecoration(divider);
@@ -178,5 +192,17 @@ public class MainActivity extends BaseActivity {
     // Called by AppRecyclerAdapter when an item is deselected
     public void isDeselectedApp(App app) {
         selectedApps.remove(app);
+    }
+
+    @Override
+    public void onSelectedAlphabeticalOrder() {
+        this.installedApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedApps);
+        updateRecyclerView();
+    }
+
+    @Override
+    public void onSelectInstallationDateOrder() {
+        this.installedApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(installedApps);
+        updateRecyclerView();
     }
 }

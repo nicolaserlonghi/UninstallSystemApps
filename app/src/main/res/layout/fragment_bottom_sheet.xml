@@ -30,7 +30,7 @@
     tools:context=".views.MainActivity">
     <data>
     </data>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,65 +41,63 @@
             android:id="@+id/order_by"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth"
-            android:gravity="center"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
-            android:textColor="@color/secondary_text"
-            android:text="@string/title_menu_order_by" />
+            android:gravity="center"
+            android:text="@string/title_menu_order_by"
+            android:textColor="@color/secondary_text" />
 
         <RelativeLayout
+            android:id="@+id/alphabetical_order"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
-                android:id="@+id/alphabetical_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/checkbox_alphabetical_order"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
-                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/checked_alphabetical_order"
                 android:maxLines="1"
-                android:textColor="@color/primary_text"
-                android:text="@string/menu_alphabetical_order"/>
+                android:text="@string/menu_alphabetical_order"
+                android:textColor="@color/primary_text" />
 
-            <CheckBox
-                android:id="@+id/checkbox_alphabetical_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/checked_alphabetical_order"
+                android:layout_width="@dimen/bottom_sheet_checked_icon_dimension"
+                android:layout_height="@dimen/bottom_sheet_checked_icon_dimension"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/checkbox_margin_right"
                 android:layout_centerVertical="true"
-                android:button="@drawable/ic_done"
-                android:checked="false"
-                tools:ignore="NotSibling" />
+                android:layout_marginRight="@dimen/bottom_sheet_checked_icon_margin_right"
+                android:src="@drawable/ic_done"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/installation_date"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
-                android:id="@+id/installation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/checkbox_installation_date"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
-                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/checked_installation_date"
                 android:maxLines="1"
-                android:textColor="@color/primary_text"
-                android:text="@string/menu_installation_date"/>
+                android:text="@string/menu_installation_date"
+                android:textColor="@color/primary_text" />
 
-            <CheckBox
-                android:id="@+id/checkbox_installation_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/checked_installation_date"
+                android:layout_width="@dimen/bottom_sheet_checked_icon_dimension"
+                android:layout_height="@dimen/bottom_sheet_checked_icon_dimension"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/checkbox_margin_right"
                 android:layout_centerVertical="true"
-                android:button="@drawable/ic_done"
-                android:checked="false"
-                tools:ignore="NotSibling" />
+                android:layout_marginRight="@dimen/bottom_sheet_checked_icon_margin_right"
+                android:src="@drawable/ic_done"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <include layout="@layout/horizontal_separator" />
@@ -108,65 +106,63 @@
             android:id="@+id/hide"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth"
-            android:gravity="center"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
-            android:textColor="@color/secondary_text"
-            android:text="@string/title_menu_hide" />
+            android:gravity="center"
+            android:text="@string/title_menu_hide"
+            android:textColor="@color/secondary_text" />
 
         <RelativeLayout
+            android:id="@+id/system_apps"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
-                android:id="@+id/system_apps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/checkbox_system_apps"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
-                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/checked_system_apps"
                 android:maxLines="1"
-                android:textColor="@color/primary_text"
-                android:text="@string/menu_system_apps"/>
+                android:text="@string/menu_system_apps"
+                android:textColor="@color/primary_text" />
 
-            <CheckBox
-                android:id="@+id/checkbox_system_apps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/checked_system_apps"
+                android:layout_width="@dimen/bottom_sheet_checked_icon_dimension"
+                android:layout_height="@dimen/bottom_sheet_checked_icon_dimension"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/checkbox_margin_right"
                 android:layout_centerVertical="true"
-                android:button="@drawable/ic_done"
-                android:checked="false"
-                tools:ignore="NotSibling" />
+                android:layout_marginRight="@dimen/bottom_sheet_checked_icon_margin_right"
+                android:src="@drawable/ic_done"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/user_apps"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_sheet_row_heigth">
 
             <TextView
-                android:id="@+id/user_apps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/checkbox_user_apps"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
-                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/checked_user_apps"
                 android:maxLines="1"
-                android:textColor="@color/primary_text"
-                android:text="@string/menu_user_apps"/>
+                android:text="@string/menu_user_apps"
+                android:textColor="@color/primary_text" />
 
-            <CheckBox
-                android:id="@+id/checkbox_user_apps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/checked_user_apps"
+                android:layout_width="@dimen/bottom_sheet_checked_icon_dimension"
+                android:layout_height="@dimen/bottom_sheet_checked_icon_dimension"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/checkbox_margin_right"
                 android:layout_centerVertical="true"
-                android:button="@drawable/ic_done"
-                android:checked="false"
-                tools:ignore="NotSibling" />
+                android:layout_marginRight="@dimen/bottom_sheet_checked_icon_margin_right"
+                android:src="@drawable/ic_done"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 </layout>

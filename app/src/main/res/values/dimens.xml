@@ -52,6 +52,8 @@
     <dimen name="bottom_sheet_image_title_dimension">32dp</dimen>
     <dimen name="bottom_sheet_image_dimension">25dp</dimen>
     <dimen name="bottom_sheet_title_size">16dp</dimen>
+    <dimen name="bottom_sheet_checked_icon_dimension">25dp</dimen>
+    <dimen name="bottom_sheet_checked_icon_margin_right">21dp</dimen>
     <dimen name="footer_text_dimension">13dp</dimen>
     <dimen name="progress_circular_dimension">48dp</dimen>
 </resources>

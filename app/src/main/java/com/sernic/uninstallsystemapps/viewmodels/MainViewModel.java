@@ -26,6 +26,7 @@ package com.sernic.uninstallsystemapps.viewmodels;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
 import com.sernic.uninstallsystemapps.AppExecutors;
 import com.sernic.uninstallsystemapps.DataRepository;
@@ -71,5 +72,20 @@ public class MainViewModel extends BaseViewModel {
         DataRepository dataRepository = uninstallSystemApps.getDataRepository();
         LoadApps loadApps = dataRepository.getLoadApps();
         return loadApps;
+    }
+
+    public List<App> orderAppForInstallationDateDesc(List<App> installedApps) {
+        // TODO: Check if I can remove this
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            installedApps.sort(((o1, o2) -> o2.getInstalledDate().compareTo(o1.getInstalledDate())));
+        }
+        return installedApps;
+    }
+
+    public List<App> orderAppInAlfabeticalOrder(List<App> installedApps) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            installedApps.sort(((o1, o2) -> o1.getName().compareTo(o2.getName())));
+        }
+        return installedApps;
     }
 }

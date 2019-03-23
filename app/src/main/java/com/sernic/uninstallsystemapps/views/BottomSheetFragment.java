@@ -25,75 +25,137 @@
 package com.sernic.uninstallsystemapps.views;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.pixplicity.easyprefs.library.Prefs;
+import com.sernic.uninstallsystemapps.Constants;
+import com.sernic.uninstallsystemapps.Logger;
 import com.sernic.uninstallsystemapps.R;
+import com.sernic.uninstallsystemapps.databinding.FragmentBottomSheetBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.databinding.DataBindingUtil;
 
-public class BottomSheetFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment {
+public class BottomSheetFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment
+        implements View.OnClickListener {
+
+    private FragmentBottomSheetBinding binding;
+    private IsSelectedBottomSheetFragment isSelectedBottomSheetFragment;
+
+    public interface IsSelectedBottomSheetFragment {
+        void onSelectedAlphabeticalOrder();
+        void onSelectInstallationDateOrder();
+    }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            isSelectedBottomSheetFragment = (IsSelectedBottomSheetFragment) getActivity();
+        }
+        catch (ClassCastException e) {
+            Logger.d(BottomSheetFragment.class.getSimpleName(), "Activity doesn't implement all interface method");
+        }
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme);
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @Override
     public void setupDialog(@NonNull Dialog dialog, int style) {
         super.setupDialog(dialog, style);
-
         //Set the custom view
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet, null);
         dialog.setContentView(view);
+    }
 
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
-        CoordinatorLayout.Behavior behavior = params.getBehavior();
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottom_sheet, container, false);
+        return binding.getRoot();
+    }
 
-        if (behavior != null && behavior instanceof BottomSheetBehavior) {
-            ((BottomSheetBehavior) behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                @Override
-                public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                    String state = "";
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        readCheckedStored();
+        setOnclickListener();
+    }
 
-                    switch (newState) {
-                        case BottomSheetBehavior.STATE_DRAGGING: {
-                            state = "DRAGGING";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_SETTLING: {
-                            state = "SETTLING";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_EXPANDED: {
-                            state = "EXPANDED";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_COLLAPSED: {
-                            state = "COLLAPSED";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_HIDDEN: {
-                            dismiss();
-                            state = "HIDDEN";
-                            break;
-                        }
-                    }
+    private void readCheckedStored() {
+        boolean storedStatusAlphabeticalOrder = Prefs.getBoolean(Constants.flag_alphabetical_order, true);
+        boolean storedStatusInstallationDate = Prefs.getBoolean(Constants.flag_installation_date, false);
+        setStateStoredOfcheckedAlphabeticalOrder(storedStatusAlphabeticalOrder);
+        setStateStoredOfcheckedInstallationDate(storedStatusInstallationDate);
+    }
 
-                    //Toast.makeText(getContext(), "Bottom Sheet State Changed to: " + state, Toast.LENGTH_SHORT).show();
-                }
+    private void setStateStoredOfcheckedAlphabeticalOrder(boolean status) {
+        if(status)
+            binding.checkedAlphabeticalOrder.setVisibility(View.VISIBLE);
+        else
+            binding.checkedAlphabeticalOrder.setVisibility(View.GONE);
+    }
 
-                @Override
-                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                }
-            });
+    private void setStateStoredOfcheckedInstallationDate(boolean status) {
+        if(status)
+            binding.checkedInstallationDate.setVisibility(View.VISIBLE);
+        else
+            binding.checkedInstallationDate.setVisibility(View.GONE);
+    }
+
+    private void setOnclickListener() {
+        binding.alphabeticalOrder.setOnClickListener(this);
+        binding.installationDate.setOnClickListener(this);
+        binding.systemApps.setOnClickListener(this);
+        binding.userApps.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.alphabetical_order:
+                manageClickAppOrder(binding.checkedAlphabeticalOrder, binding.checkedInstallationDate);
+                storedAlphabeticalOrderClicked();
+                isSelectedBottomSheetFragment.onSelectedAlphabeticalOrder();
+                dismiss();
+                break;
+            case R.id.installation_date:
+                manageClickAppOrder(binding.checkedInstallationDate, binding.checkedAlphabeticalOrder);
+                storedInstallationDateClicked();
+                isSelectedBottomSheetFragment.onSelectInstallationDateOrder();
+                dismiss();
+                break;
+            case R.id.system_apps:
+                break;
+            case R.id.user_apps:
+                break;
         }
+    }
+
+    private void manageClickAppOrder(ImageView clicked, ImageView alreadyClicked) {
+        if(clicked.getVisibility() == View.VISIBLE)
+            return;
+        clicked.setVisibility(View.VISIBLE);
+        alreadyClicked.setVisibility(View.GONE);
+    }
+
+    private void storedAlphabeticalOrderClicked() {
+        Prefs.putBoolean(Constants.flag_alphabetical_order, true);
+        Prefs.putBoolean(Constants.flag_installation_date, false);
+    }
+
+    private void storedInstallationDateClicked() {
+        Prefs.putBoolean(Constants.flag_alphabetical_order, false);
+        Prefs.putBoolean(Constants.flag_installation_date, true);
     }
 }
