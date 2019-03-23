@@ -95,6 +95,8 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
             else
                 controllerAppsSelected.isDeselctApp(app);
         });
+        boolean appIsSelected = app.isSelected();
+        holder.selected.setChecked(appIsSelected);
     }
 
     @Override
