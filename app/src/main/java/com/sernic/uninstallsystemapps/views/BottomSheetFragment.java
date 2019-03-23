@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, SUBJECT to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -51,6 +51,9 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
     public interface IsSelectedBottomSheetFragment {
         void onSelectedAlphabeticalOrder();
         void onSelectInstallationDateOrder();
+        void onSelectedHideSystemApps();
+        void onSelectedHideUserApps();
+        void onSelectedShowAllApps();
     }
 
     @Override
@@ -93,10 +96,14 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
     }
 
     private void readCheckedStored() {
-        boolean storedStatusAlphabeticalOrder = Prefs.getBoolean(Constants.flag_alphabetical_order, true);
-        boolean storedStatusInstallationDate = Prefs.getBoolean(Constants.flag_installation_date, false);
+        boolean storedStatusAlphabeticalOrder = Prefs.getBoolean(Constants.FLAG_ALPHABETICAL_ORDER, true);
+        boolean storedStatusInstallationDate = Prefs.getBoolean(Constants.FLAG_INSTALLATION_DATE, false);
+        boolean storedStatusHideSystemApps = Prefs.getBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, false);
+        boolean storedStatusHideUserApps = Prefs.getBoolean(Constants.FLAG_HIDE_USER_APPS, false);
         setStateStoredOfcheckedAlphabeticalOrder(storedStatusAlphabeticalOrder);
         setStateStoredOfcheckedInstallationDate(storedStatusInstallationDate);
+        setStateStoredOfHideSystemApps(storedStatusHideSystemApps);
+        setStateStoredOfHideUserApps(storedStatusHideUserApps);
     }
 
     private void setStateStoredOfcheckedAlphabeticalOrder(boolean status) {
@@ -111,6 +118,20 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
             binding.checkedInstallationDate.setVisibility(View.VISIBLE);
         else
             binding.checkedInstallationDate.setVisibility(View.GONE);
+    }
+
+    private void setStateStoredOfHideSystemApps(boolean status) {
+        if(status)
+            binding.checkedSystemApps.setVisibility(View.VISIBLE);
+        else
+            binding.checkedSystemApps.setVisibility(View.GONE);
+    }
+
+    private void setStateStoredOfHideUserApps(boolean status) {
+        if(status)
+            binding.checkedUserApps.setVisibility(View.VISIBLE);
+        else
+            binding.checkedUserApps.setVisibility(View.GONE);
     }
 
     private void setOnclickListener() {
@@ -136,8 +157,12 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
                 dismiss();
                 break;
             case R.id.system_apps:
+                hideSystemAppsClicked();
+                dismiss();
                 break;
             case R.id.user_apps:
+                hideUserAppsClicked();
+                dismiss();
                 break;
         }
     }
@@ -150,12 +175,44 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
     }
 
     private void storedAlphabeticalOrderClicked() {
-        Prefs.putBoolean(Constants.flag_alphabetical_order, true);
-        Prefs.putBoolean(Constants.flag_installation_date, false);
+        Prefs.putBoolean(Constants.FLAG_ALPHABETICAL_ORDER, true);
+        Prefs.putBoolean(Constants.FLAG_INSTALLATION_DATE, false);
     }
 
     private void storedInstallationDateClicked() {
-        Prefs.putBoolean(Constants.flag_alphabetical_order, false);
-        Prefs.putBoolean(Constants.flag_installation_date, true);
+        Prefs.putBoolean(Constants.FLAG_ALPHABETICAL_ORDER, false);
+        Prefs.putBoolean(Constants.FLAG_INSTALLATION_DATE, true);
+    }
+
+    private void hideSystemAppsClicked() {
+        ImageView systemApps = binding.checkedSystemApps;
+        ImageView userApps = binding.checkedUserApps;
+        if(systemApps.getVisibility() == View.VISIBLE) {
+            systemApps.setVisibility(View.GONE);
+            Prefs.putBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, false);
+            isSelectedBottomSheetFragment.onSelectedShowAllApps();
+        } else {
+            systemApps.setVisibility(View.VISIBLE);
+            userApps.setVisibility(View.GONE);
+            Prefs.putBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, true);
+            Prefs.putBoolean(Constants.FLAG_HIDE_USER_APPS, false);
+            isSelectedBottomSheetFragment.onSelectedHideSystemApps();
+        }
+    }
+
+    private void hideUserAppsClicked() {
+        ImageView systemApps = binding.checkedSystemApps;
+        ImageView userApps = binding.checkedUserApps;
+        if(userApps.getVisibility() == View.VISIBLE) {
+            userApps.setVisibility(View.GONE);
+            Prefs.putBoolean(Constants.FLAG_HIDE_USER_APPS, false);
+            isSelectedBottomSheetFragment.onSelectedShowAllApps();
+        } else {
+            userApps.setVisibility(View.VISIBLE);
+            systemApps.setVisibility(View.GONE);
+            Prefs.putBoolean(Constants.FLAG_HIDE_USER_APPS, true);
+            Prefs.putBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, false);
+            isSelectedBottomSheetFragment.onSelectedHideUserApps();
+        }
     }
 }

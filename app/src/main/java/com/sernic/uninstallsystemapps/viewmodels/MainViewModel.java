@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, SUBJECT to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -34,6 +34,7 @@ import com.sernic.uninstallsystemapps.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -87,5 +88,25 @@ public class MainViewModel extends BaseViewModel {
             installedApps.sort(((o1, o2) -> o1.getName().compareTo(o2.getName())));
         }
         return installedApps;
+    }
+
+    public List<App> hideSystemApps(List<App> installedApps) {
+        List<App> userApps = new ArrayList<>();
+        for(App app : installedApps) {
+            boolean isUserApp = !app.isSystemApp();
+            if(isUserApp)
+                userApps.add(app);
+        }
+        return userApps;
+    }
+
+    public List<App> hideUserApps(List<App> installedApps) {
+        List<App> systemApps = new ArrayList<>();
+        for(App app : installedApps) {
+            boolean isSystemApp = app.isSystemApp();
+            if(isSystemApp)
+                systemApps.add(app);
+        }
+        return systemApps;
     }
 }

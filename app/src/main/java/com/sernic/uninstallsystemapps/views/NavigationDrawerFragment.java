@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, SUBJECT to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sernic.uninstallsystemapps.Constants;
@@ -130,12 +129,12 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.info_developer:
-                String url = Constants.myWebSite;
+                String url = Constants.MY_WEB_SITE;
                 openWebSite(url);
                 break;
             case R.id.leave_feedback:
-                String mail = Constants.mail;
-                String subject = Constants.subject;
+                String mail = Constants.MAIL;
+                String subject = Constants.SUBJECT;
                 openMailFeedback(mail, subject);
                 break;
             case R.id.import_selected_apps:
@@ -154,7 +153,7 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
 
     private void openMailFeedback(String mailtTo, String subject) {
         String subjectEncode = Uri.encode(subject);
-        String uriText = "mailto:" + mailtTo + "?subject=" + subjectEncode;
+        String uriText = "mailto:" + mailtTo + "?SUBJECT=" + subjectEncode;
         Uri uri = Uri.parse(uriText);
         Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         sendIntent.setData(uri);
