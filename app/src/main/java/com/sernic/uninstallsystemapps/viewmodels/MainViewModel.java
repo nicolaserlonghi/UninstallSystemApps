@@ -109,4 +109,11 @@ public class MainViewModel extends BaseViewModel {
         }
         return systemApps;
     }
+
+    public List<App> uncheckedAllApps(List<App> installedApps) {
+        for (App app : installedApps) {
+            app.setSelected(false);
+        }
+        return installedApps;
+    }
 }

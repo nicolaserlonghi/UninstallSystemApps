@@ -191,6 +191,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectedAlphabeticalOrder() {
+        this.allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         this.installedAppsShow = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedAppsShow);
         this.allInstalledApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(allInstalledApps);
         updateRecyclerView();
@@ -198,6 +199,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectInstallationDateOrder() {
+        this.allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         this.installedAppsShow = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(installedAppsShow);
         this.allInstalledApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(allInstalledApps);
         updateRecyclerView();
@@ -205,21 +207,21 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectedHideSystemApps() {
-        //selectedApps.clear();
+        this.allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         installedAppsShow = (ArrayList<App>) getViewModel().hideSystemApps(allInstalledApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedHideUserApps() {
-        //selectedApps.clear();
+        this.allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         installedAppsShow = (ArrayList<App>) getViewModel().hideUserApps(allInstalledApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedShowAllApps() {
-        //selectedApps.clear();
+        this.allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         installedAppsShow = allInstalledApps;
         updateRecyclerView();
     }
