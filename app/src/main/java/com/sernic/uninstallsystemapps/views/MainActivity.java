@@ -40,7 +40,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
-import com.sernic.uninstallsystemapps.adapters.ControllerAppsSelected;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.helpers.InsetDivider;
@@ -57,7 +56,6 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
     private AppRecyclerAdapter appRecyclerAdapter;
     private ArrayList<App> installedAppsShow;
     private ArrayList<App> allInstalledApps;
-    private List<App> selectedApps = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -163,7 +161,6 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         appRecyclerAdapter = new AppRecyclerAdapter(
-                new ControllerAppsSelected(this),
                 installedAppsShow
         );
         recyclerView.setAdapter(appRecyclerAdapter);
@@ -192,23 +189,6 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         binding.recyclerView.setVisibility(View.VISIBLE);
     }
 
-    // Called by AppRecyclerAdapter when an item is selected
-    public void isSelectedApp(App app) {
-        boolean appAlreadySelected = appIsAlreadySelected(app);
-        if(!appAlreadySelected)
-            selectedApps.add(app);
-    }
-
-    private boolean appIsAlreadySelected(App app) {
-        boolean alreadySelected = selectedApps.contains(app);
-        return alreadySelected;
-    }
-
-    // Called by AppRecyclerAdapter when an item is deselected
-    public void isDeselectedApp(App app) {
-        selectedApps.remove(app);
-    }
-
     @Override
     public void onSelectedAlphabeticalOrder() {
         this.installedAppsShow = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedAppsShow);
@@ -225,21 +205,21 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectedHideSystemApps() {
-        selectedApps.clear();
+        //selectedApps.clear();
         installedAppsShow = (ArrayList<App>) getViewModel().hideSystemApps(allInstalledApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedHideUserApps() {
-        selectedApps.clear();
+        //selectedApps.clear();
         installedAppsShow = (ArrayList<App>) getViewModel().hideUserApps(allInstalledApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedShowAllApps() {
-        selectedApps.clear();
+        //selectedApps.clear();
         installedAppsShow = allInstalledApps;
         updateRecyclerView();
     }

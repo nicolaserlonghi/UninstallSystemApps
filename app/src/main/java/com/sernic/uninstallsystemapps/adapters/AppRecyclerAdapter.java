@@ -45,11 +45,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.ViewHolder> {
 
     private RecyclerRowItemBinding binding;
-    private ControllerAppsSelected controllerAppsSelected;
     private ArrayList<App> installedApps;
 
-    public AppRecyclerAdapter(ControllerAppsSelected controllerAppsSelected, ArrayList<App> installedApps) {
-        this.controllerAppsSelected = controllerAppsSelected;
+    public AppRecyclerAdapter(ArrayList<App> installedApps) {
         this.installedApps = installedApps;
     }
 
@@ -90,10 +88,6 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
         holder.appPackage.setText(app.getPackageName());
         holder.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
             app.setSelected(isChecked);
-            if(isChecked)
-                controllerAppsSelected.isSelectApp(app);
-            else
-                controllerAppsSelected.isDeselctApp(app);
         });
         boolean appIsSelected = app.isSelected();
         holder.selected.setChecked(appIsSelected);
