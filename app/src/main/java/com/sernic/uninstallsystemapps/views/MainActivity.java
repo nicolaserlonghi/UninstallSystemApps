@@ -24,6 +24,7 @@
 
 package com.sernic.uninstallsystemapps.views;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -86,7 +87,27 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottomappbar_menu, menu);
+        MenuItem actionSearch = menu.findItem(R.id.app_bar_search);
+        manageSearch(actionSearch);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void manageSearch(MenuItem searchItem) {
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String query = newText.toLowerCase().trim();
+                List<App> filteredApps = getViewModel().filterApps(query, installedAppsShow);
+                appRecyclerAdapter.updataList((ArrayList<App>) filteredApps);
+                return true;
+            }
+        });
     }
 
     @Override

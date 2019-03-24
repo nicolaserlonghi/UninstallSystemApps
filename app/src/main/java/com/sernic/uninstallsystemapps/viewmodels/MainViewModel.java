@@ -114,4 +114,17 @@ public class MainViewModel extends BaseViewModel {
         }
         return installedApps;
     }
+
+    public List<App> filterApps(String query, List<App> installedApp) {
+        List<App> filteredApps = new ArrayList<>();
+        if(query.isEmpty())
+            return installedApp;
+        else {
+            for(App app : installedApp) {
+                if(app.getName().toLowerCase().contains(query))
+                    filteredApps.add(app);
+            }
+            return filteredApps;
+        }
+    }
 }

@@ -31,7 +31,8 @@
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search"
         android:title="@string/menu_search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
     <item
         android:id="@+id/app_bar_settings"
         android:icon="@drawable/ic_setting"
