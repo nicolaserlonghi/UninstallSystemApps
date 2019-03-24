@@ -25,12 +25,10 @@
 package com.sernic.uninstallsystemapps.viewmodels;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
 
-import com.sernic.uninstallsystemapps.AppExecutors;
 import com.sernic.uninstallsystemapps.DataRepository;
-import com.sernic.uninstallsystemapps.LoadApps;
+import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
 

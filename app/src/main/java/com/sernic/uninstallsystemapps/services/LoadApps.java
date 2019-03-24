@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, SUBJECT to the following conditions:
+ * furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.services;
 
 import android.app.Application;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import com.sernic.uninstallsystemapps.AppExecutors;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;

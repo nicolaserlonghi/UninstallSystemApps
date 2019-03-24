@@ -26,6 +26,8 @@ package com.sernic.uninstallsystemapps;
 
 import android.content.Context;
 
+import com.sernic.uninstallsystemapps.services.LoadApps;
+
 public class DataRepository {
 
     private static DataRepository dataRepository;

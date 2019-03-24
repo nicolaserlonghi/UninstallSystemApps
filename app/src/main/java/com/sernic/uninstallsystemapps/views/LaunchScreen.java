@@ -28,7 +28,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.sernic.uninstallsystemapps.DataRepository;
-import com.sernic.uninstallsystemapps.LoadApps;
+import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;
 
