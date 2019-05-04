@@ -94,6 +94,27 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     private void manageSearch(MenuItem searchItem) {
         SearchView searchView = (SearchView) searchItem.getActionView();
+        manageFabOnSearchItemStatus(searchItem);
+        manageInputTextInSearchView(searchView);
+    }
+
+    private void manageFabOnSearchItemStatus(MenuItem searchItem) {
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                binding.fab.hide();
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                binding.fab.show();
+                return true;
+            }
+        });
+    }
+
+    private void manageInputTextInSearchView(SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
