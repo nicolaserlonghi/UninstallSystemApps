@@ -119,25 +119,25 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
     }
 
     private void setOnclickListener() {
-        binding.infoDeveloper.setOnClickListener(this);
-        binding.leaveFeedback.setOnClickListener(this);
-        binding.importSelectedApps.setOnClickListener(this);
-        binding.exportSelectedApps.setOnClickListener(this);
+        binding.boxInfoDeveloper.setOnClickListener(this);
+        binding.boxLeaveFeedback.setOnClickListener(this);
+        binding.boxImportSelected.setOnClickListener(this);
+        binding.boxExportSelected.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.info_developer:
+            case R.id.box_info_developer:
                 String url = Constants.MY_WEB_SITE;
                 openWebSite(url);
                 break;
-            case R.id.leave_feedback:
+            case R.id.box_leave_feedback:
                 String mail = Constants.MAIL;
                 String subject = Constants.SUBJECT;
                 openMailFeedback(mail, subject);
                 break;
-            case R.id.import_selected_apps:
+            case R.id.box_import_selected:
                 break;
             case R.id.export_selected_apps:
                 break;
