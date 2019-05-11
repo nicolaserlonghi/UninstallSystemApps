@@ -123,6 +123,8 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(installedAppsShow == null)
+                    return false;
                 String query = newText.toLowerCase().trim();
                 List<App> filteredApps = getViewModel().filterApps(query, installedAppsShow);
                 appRecyclerAdapter.updataList((ArrayList<App>) filteredApps);
