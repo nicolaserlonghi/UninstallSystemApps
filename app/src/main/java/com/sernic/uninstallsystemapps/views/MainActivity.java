@@ -269,4 +269,14 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         installedAppsShow = allInstalledApps;
         updateRecyclerView();
     }
+
+    public ArrayList<App> getAllInstalledApps() {
+        return allInstalledApps;
+    }
+
+    public void setAllInstalledApps(ArrayList<App> allInstalledApps) {
+        this.allInstalledApps = allInstalledApps;
+        hideAppStoredFlag();
+        orderAppInStoredOrder();
+    }
 }

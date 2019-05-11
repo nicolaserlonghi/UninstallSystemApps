@@ -24,26 +24,45 @@
 
 package com.sernic.uninstallsystemapps.views;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.snackbar.Snackbar;
 import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.databinding.FragmentNavigationDrawerBinding;
+import com.sernic.uninstallsystemapps.models.App;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
+
 public class NavigationDrawerFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment
         implements View.OnClickListener {
+
+    private static final int WRITE_REQUEST_CODE = 43;
+    private static final int READ_REQUEST_CODE = 42;
 
     private FragmentNavigationDrawerBinding binding;
 
@@ -70,52 +89,8 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
     @Override
     public void setupDialog(@NonNull Dialog dialog, int style) {
         super.setupDialog(dialog, style);
-
-        //Set the custom view
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_navigation_drawer, null);
         dialog.setContentView(view);
-
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
-        CoordinatorLayout.Behavior behavior = params.getBehavior();
-
-        if (behavior != null && behavior instanceof BottomSheetBehavior) {
-            ((BottomSheetBehavior) behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                @Override
-                public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                    String state = "";
-
-                    switch (newState) {
-                        case BottomSheetBehavior.STATE_DRAGGING: {
-                            state = "DRAGGING";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_SETTLING: {
-                            state = "SETTLING";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_EXPANDED: {
-                            state = "EXPANDED";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_COLLAPSED: {
-                            state = "COLLAPSED";
-                            break;
-                        }
-                        case BottomSheetBehavior.STATE_HIDDEN: {
-                            dismiss();
-                            state = "HIDDEN";
-                            break;
-                        }
-                    }
-
-                    //Toast.makeText(getContext(), "Bottom Sheet State Changed to: " + state, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                }
-            });
-        }
     }
 
     private void setOnclickListener() {
@@ -138,9 +113,17 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                 openMailFeedback(mail, subject);
                 break;
             case R.id.box_import_selected:
+                performFileSearch();
                 break;
-            case R.id.export_selected_apps:
-                break;
+            case R.id.box_export_selected:
+                if(atLeasOneAppSelected()) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss", Locale.ITALY);
+                    Date now = new Date();
+                    createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
+                } else {
+                    Snackbar.make(getView(), getResources().getString(R.string.snackBar_no_app_Selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+                    break;
         }
     }
 
@@ -158,5 +141,101 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
         Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
         sendIntent.setData(uri);
         startActivity(Intent.createChooser(sendIntent, "Send email"));
+    }
+
+    private boolean atLeasOneAppSelected() {
+        ArrayList<App> apps = ((MainActivity)getActivity()).getAllInstalledApps();
+        for(App app : apps) {
+            if(app.isSelected())
+                return true;
+        }
+        return false;
+    }
+    private void performFileSearch() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        // Filter to show only images, using the image MIME data type.
+        intent.setType("*/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+    }
+
+    // Open browser to save the file
+    private void createFile(String mimeType, String fileName) {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        // Filter to only show results that can be "opened"
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        // Create a file with the requested MIME type.
+        intent.setType(mimeType);
+        intent.putExtra(Intent.EXTRA_TITLE, fileName);
+        startActivityForResult(intent, WRITE_REQUEST_CODE);
+    }
+
+    // Create or upload the file according to the code shown
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if(resultCode == Activity.RESULT_OK && resultData != null) {
+            switch (requestCode) {
+                case READ_REQUEST_CODE:
+                    try {
+                        readFileContent(resultData.getData(), ((MainActivity)getActivity()).getAllInstalledApps());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case WRITE_REQUEST_CODE:
+                    writeFileContent(resultData.getData(), ((MainActivity)getActivity()).getAllInstalledApps());
+                    break;
+            }
+        }
+    }
+
+    // I write the selected apps within the newly created file
+    private void writeFileContent(Uri uri, ArrayList<App> apps) {
+        String selectedApp = "";
+        int count = 0;
+        for(App app : apps) {
+            if(app.isSelected()) {
+                selectedApp = selectedApp + app.getPackageName() + ",";
+                count++;
+            }
+        }
+        try{
+            ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uri, "w");
+            FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
+            fileOutputStream.write(selectedApp.getBytes());
+            fileOutputStream.close();
+            pfd.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Snackbar.make(getView(), count + " " + getResources().getString(R.string.snackBar_export), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    // I read the selected apps in the file that is passed to me and update the recyclerView
+    private void readFileContent(Uri uri, ArrayList<App> apps) throws IOException {
+        InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+        String currentline;
+        while ((currentline = reader.readLine()) != null) {
+            stringBuilder.append(currentline);
+        }
+        inputStream.close();
+        ArrayList<String> selectedApp = new ArrayList<String>(Arrays.asList(stringBuilder.toString().split(",")));
+        int count = 0;
+        for(App app : apps) {
+            if(selectedApp.contains(app.getPackageName())) {
+                app.setSelected(true);
+                count++;
+            }
+        }
+        ((MainActivity)getActivity()).setAllInstalledApps(apps);
+        if(count == 0) {
+            Snackbar.make(getView(), getResources().getString(R.string.snackBar_no_app_selected_present), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        } else {
+            Snackbar.make(getView(), count + " " + getResources().getString(R.string.snackBar_import), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 }

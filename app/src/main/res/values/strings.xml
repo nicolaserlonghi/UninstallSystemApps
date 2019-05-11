@@ -41,4 +41,9 @@
     <string name="menu_feedback">Send feedback</string>
     <string name="menu_info_developer">Created by Nicola Serlonghi</string>
     <string name="menu_application_version">Application version \u2022 %1$s</string>
+    
+    <string name="snackBar_export">applications have been exported correctly!</string>
+    <string name="snackBar_no_app_selected_present">No applications selected present!</string>  ///////////////////////////////////////////////////////////////////
+    <string name="snackBar_import">imported applications!</string>  //////////////////////////////////////////////////////
+    <string name="snackBar_no_app_Selected">No apps selected!</string>
 </resources>
