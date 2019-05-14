@@ -56,4 +56,8 @@
     <dimen name="bottom_sheet_checked_icon_margin_right">21dp</dimen>
     <dimen name="footer_text_dimension">13dp</dimen>
     <dimen name="progress_circular_dimension">48dp</dimen>
+
+    <dimen name="alert_dialg_title_size">15sp</dimen>
+    <dimen name="alert_dialg_message_size">14sp</dimen>
+    <dimen name="alert_dialg_text_button_size">13sp</dimen>
 </resources>
