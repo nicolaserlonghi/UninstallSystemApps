@@ -37,6 +37,7 @@ import com.sernic.uninstallsystemapps.databinding.RecyclerRowItemBinding;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -49,6 +50,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
 
     public AppRecyclerAdapter(ArrayList<App> installedApps) {
         this.installedApps = installedApps;
+        removeInvisibleApps();
     }
 
     @NonNull
@@ -100,6 +102,17 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
 
     public void updataList(ArrayList<App> installedApps) {
         this.installedApps = installedApps;
+        removeInvisibleApps();
         notifyDataSetChanged();
+    }
+
+    private void removeInvisibleApps() {
+        List<App> visibleApps = new ArrayList<>();
+        for (App app : installedApps) {
+            boolean isVisble = app.isVisible();
+            if(isVisble)
+                visibleApps.add(app);
+        }
+        installedApps = (ArrayList<App>) visibleApps;
     }
 }

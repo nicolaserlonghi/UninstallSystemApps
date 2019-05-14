@@ -36,6 +36,7 @@ public class App {
     private boolean systemApp;
     private Date installedDate;
     private boolean selected;
+    private boolean visible;
 
     public App(String name, String path, String packageName, Drawable icon, boolean systemApp, Date installedDate) {
         this.name = name;
@@ -44,6 +45,7 @@ public class App {
         this.icon = icon;
         this.systemApp = systemApp;
         this.installedDate = installedDate;
+        this.visible = true;
     }
 
     public String getName() {
@@ -76,5 +78,13 @@ public class App {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

@@ -89,23 +89,32 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public List<App> hideSystemApps(List<App> installedApps) {
-        List<App> userApps = new ArrayList<>();
         for(App app : installedApps) {
             boolean isUserApp = !app.isSystemApp();
             if(isUserApp)
-                userApps.add(app);
+                app.setVisible(true);
+            else
+                app.setVisible(false);
         }
-        return userApps;
+        return installedApps;
     }
 
     public List<App> hideUserApps(List<App> installedApps) {
-        List<App> systemApps = new ArrayList<>();
         for(App app : installedApps) {
             boolean isSystemApp = app.isSystemApp();
             if(isSystemApp)
-                systemApps.add(app);
+                app.setVisible(true);
+            else
+                app.setVisible(false);
         }
-        return systemApps;
+        return installedApps;
+    }
+
+    public List<App> showAllApps(List<App> installedApps) {
+        for(App app : installedApps) {
+            app.setVisible(true);
+        }
+        return installedApps;
     }
 
     public List<App> uncheckedAllApps(List<App> installedApps) {
