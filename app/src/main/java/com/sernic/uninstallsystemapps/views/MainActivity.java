@@ -229,14 +229,12 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectedAlphabeticalOrder() {
-        allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         allInstalledApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(allInstalledApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectInstallationDateOrder() {
-        allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
         allInstalledApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(allInstalledApps);
         updateRecyclerView();
     }
