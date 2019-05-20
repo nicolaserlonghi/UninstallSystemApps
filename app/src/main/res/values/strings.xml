@@ -41,9 +41,15 @@
     <string name="menu_feedback">Send feedback</string>
     <string name="menu_info_developer">Created by Nicola Serlonghi</string>
     <string name="menu_application_version">Application version \u2022 %1$s</string>
-    
-    <string name="snackBar_export">applications have been exported correctly!</string>
-    <string name="snackBar_no_app_selected_present">No applications selected present!</string>  ///////////////////////////////////////////////////////////////////
-    <string name="snackBar_import">imported applications!</string>  //////////////////////////////////////////////////////
-    <string name="snackBar_no_app_Selected">No apps selected!</string>
+
+    <string name="alert_dialog_title_no_app_selected">No apps selected!</string>
+    <string name="alert_dialog_message_no_app_select">You should select at least an app to use this function.</string>
+    <string name="alert_dialog_title_exported_correctly">Applications have been exported!</string>
+    <string name="alert_dialog_message_exported_correctly">applications have been exported correctly.</string>
+    <string name="alert_dialog_title_no_app_selected_present">There\'re no applications selected installed!</string>
+    <string name="alert_dialog_message_no_app_selected_present">No applications installed are present in the file.</string>
+    <string name="alert_dialog_title_imported_correctly">Applications have been imported!</string>
+    <string name="alert_dialog_message_imported_correctly">applications have been imported correctly.</string>
+
+    <string name="button_ok">Ok</string>
 </resources>

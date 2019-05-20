@@ -34,16 +34,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.snackbar.Snackbar;
 import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.databinding.FragmentNavigationDrawerBinding;
+import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.models.App;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.databinding.DataBindingUtil;
 
 import java.io.BufferedReader;
@@ -121,9 +119,13 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                     Date now = new Date();
                     createFile("text/uninsSystemApp", formatter.format(now) + ".uninsSystemApp");
                 } else {
-                    Snackbar.make(getView(), getResources().getString(R.string.snackBar_no_app_Selected), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    CustomAlertDialog.showAlertDialogWithOneButton(
+                            getContext(),
+                            getResources().getString(R.string.alert_dialog_title_no_app_selected),
+                            getResources().getString(R.string.alert_dialog_message_no_app_select),
+                            getResources().getString(R.string.button_ok));
                 }
-                    break;
+                break;
         }
     }
 
@@ -210,7 +212,12 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Snackbar.make(getView(), count + " " + getResources().getString(R.string.snackBar_export), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        CustomAlertDialog.showAlertDialogWithOneButton(
+                getContext(),
+                getResources().getString(R.string.alert_dialog_title_exported_correctly),
+                getResources().getString(R.string.alert_dialog_message_exported_correctly),
+                getResources().getString(R.string.button_ok)
+        );
     }
 
     // I read the selected apps in the file that is passed to me and update the recyclerView
@@ -233,9 +240,19 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
         }
         ((MainActivity)getActivity()).setAllInstalledApps(apps);
         if(count == 0) {
-            Snackbar.make(getView(), getResources().getString(R.string.snackBar_no_app_selected_present), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            CustomAlertDialog.showAlertDialogWithOneButton(
+                    getContext(),
+                    getResources().getString(R.string.alert_dialog_title_no_app_selected_present),
+                    getResources().getString(R.string.alert_dialog_message_no_app_selected_present),
+                    getResources().getString(R.string.button_ok)
+            );
         } else {
-            Snackbar.make(getView(), count + " " + getResources().getString(R.string.snackBar_import), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            CustomAlertDialog.showAlertDialogWithOneButton(
+                    getContext(),
+                    getResources().getString(R.string.alert_dialog_title_imported_correctly),
+                    count + " " + getResources().getString(R.string.alert_dialog_message_imported_correctly),
+                    getResources().getString(R.string.button_ok)
+            );
         }
     }
 }
