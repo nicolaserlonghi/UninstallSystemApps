@@ -25,6 +25,7 @@
 package com.sernic.uninstallsystemapps.views;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.sernic.uninstallsystemapps.Logger;
 import com.sernic.uninstallsystemapps.viewmodels.BaseViewModel;

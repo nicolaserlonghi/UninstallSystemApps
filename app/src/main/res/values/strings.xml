@@ -42,14 +42,18 @@
     <string name="menu_info_developer">Created by Nicola Serlonghi</string>
     <string name="menu_application_version">Application version \u2022 %1$s</string>
 
-    <string name="alert_dialog_title_no_app_selected">No apps selected!</string>
-    <string name="alert_dialog_message_no_app_select">You should select at least an app to use this function.</string>
+    <string name="alert_dialog_no_app_selected_title">There are no apps selected!</string>
+    <string name="alert_dialog_no_app_selected_message">You have to select at least an app to use this function.</string>
     <string name="alert_dialog_title_exported_correctly">Applications have been exported!</string>
     <string name="alert_dialog_message_exported_correctly">applications have been exported correctly.</string>
     <string name="alert_dialog_title_no_app_selected_present">There\'re no applications selected installed!</string>
     <string name="alert_dialog_message_no_app_selected_present">No applications installed are present in the file.</string>
     <string name="alert_dialog_title_imported_correctly">Applications have been imported!</string>
     <string name="alert_dialog_message_imported_correctly">applications have been imported correctly.</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_title">Do you want to REMOVE selected apps?</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_message">You are going to remove selected apps. It\'s an irreversible action, pay attention.</string>
 
     <string name="button_ok">Ok</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
 </resources>

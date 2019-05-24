@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
+import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.helpers.InsetDivider;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
@@ -49,13 +51,13 @@ import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements BottomSheetFragment.IsSelectedBottomSheetFragment {
+public class MainActivity extends BaseActivity implements View.OnClickListener, BottomSheetFragment.IsSelectedBottomSheetFragment {
 
     private MainViewModel mainViewModel;
     private ActivityMainBinding binding;
     private RecyclerView recyclerView;
     private AppRecyclerAdapter appRecyclerAdapter;
-    private ArrayList<App> allInstalledApps;
+    private ArrayList<App> installedApps;
 
     @Override
     protected int getLayoutId() {
@@ -81,6 +83,46 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
     @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    }
+
+    private void setOnclickListener() {
+        binding.fab.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                removeAppClick();
+                break;
+        }
+    }
+
+    private void removeAppClick() {
+        boolean anAppIsSelected = getViewModel().atLeastAnAppIsSelected(installedApps);
+        if(anAppIsSelected)
+            askPermissionToUninstallSelectedApps();
+        else
+            CustomAlertDialog.showAlertDialogWithOneButton(
+                    this,
+                    getResources().getString(R.string.alert_dialog_no_app_selected_title),
+                    getResources().getString(R.string.alert_dialog_no_app_selected_message),
+                    getResources().getString(R.string.button_ok),
+                    null
+            );
+    }
+
+    private void askPermissionToUninstallSelectedApps() {
+        DialogInterface.OnClickListener positveListner = (dialog, which) -> getViewModel().removeApps(installedApps);
+        CustomAlertDialog.showAlertDialogWithTwoButton(
+                this,
+                getResources().getString(R.string.alert_dialog_ask_permission_to_remove_apps_title),
+                getResources().getString(R.string.alert_dialog_ask_permission_to_remove_apps_message),
+                getResources().getString(R.string.button_yes),
+                positveListner,
+                getResources().getString(R.string.button_no),
+                null
+        );
     }
 
     @Override
@@ -122,10 +164,10 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(allInstalledApps == null)
+                if(installedApps == null)
                     return false;
                 String query = newText.toLowerCase().trim();
-                List<App> filteredApps = getViewModel().filterApps(query, allInstalledApps);
+                List<App> filteredApps = getViewModel().filterApps(query, installedApps);
                 appRecyclerAdapter.updataList((ArrayList<App>) filteredApps);
                 return true;
             }
@@ -150,6 +192,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setOnclickListener();
         startLoadingAnimation();
     }
 
@@ -159,7 +202,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         getViewModel().getInstalledApps().observe(this, installedApps -> {
             if(installedApps == null)
                 return;
-            this.allInstalledApps = (ArrayList) installedApps;
+            this.installedApps = (ArrayList) installedApps;
             hideAppStoredFlag();
             orderAppInStoredOrder();
             updateRecyclerView();
@@ -171,9 +214,9 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         boolean isHideSystemApps = Prefs.getBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, false);
         boolean isHideUserApps = Prefs.getBoolean(Constants.FLAG_HIDE_USER_APPS, false);
         if(isHideSystemApps && !isHideUserApps) {
-            this.allInstalledApps = (ArrayList<App>) getViewModel().hideSystemApps(allInstalledApps);
+            this.installedApps = (ArrayList<App>) getViewModel().hideSystemApps(installedApps);
         } else if(isHideUserApps && !isHideSystemApps) {
-            this.allInstalledApps = (ArrayList<App>) getViewModel().hideUserApps(allInstalledApps);
+            this.installedApps = (ArrayList<App>) getViewModel().hideUserApps(installedApps);
         }
     }
 
@@ -181,9 +224,9 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         boolean isAlphabeticalOrder = Prefs.getBoolean(Constants.FLAG_ALPHABETICAL_ORDER, true);
         boolean isInstallationDateOrder = Prefs.getBoolean(Constants.FLAG_INSTALLATION_DATE, false);
         if(isAlphabeticalOrder && !isInstallationDateOrder) {
-            allInstalledApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(allInstalledApps);
+            installedApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedApps);
         } else {
-            allInstalledApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(allInstalledApps);
+            installedApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(installedApps);
         }
     }
 
@@ -191,7 +234,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         if(recyclerView == null)
             setRecyclerView();
         else
-            appRecyclerAdapter.updataList(allInstalledApps);
+            appRecyclerAdapter.updataList(installedApps);
     }
 
     private void setRecyclerView() {
@@ -200,7 +243,7 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
         recyclerView.addItemDecoration(divider);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        appRecyclerAdapter = new AppRecyclerAdapter(allInstalledApps);
+        appRecyclerAdapter = new AppRecyclerAdapter(installedApps);
         recyclerView.setAdapter(appRecyclerAdapter);
     }
 
@@ -229,43 +272,43 @@ public class MainActivity extends BaseActivity implements BottomSheetFragment.Is
 
     @Override
     public void onSelectedAlphabeticalOrder() {
-        allInstalledApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(allInstalledApps);
+        installedApps = (ArrayList<App>) getViewModel().orderAppInAlfabeticalOrder(installedApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectInstallationDateOrder() {
-        allInstalledApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(allInstalledApps);
+        installedApps = (ArrayList<App>) getViewModel().orderAppForInstallationDateDesc(installedApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedHideSystemApps() {
-        allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
-        allInstalledApps = (ArrayList<App>) getViewModel().hideSystemApps(allInstalledApps);
+        installedApps = (ArrayList<App>) getViewModel().uncheckedAllApps(installedApps);
+        installedApps = (ArrayList<App>) getViewModel().hideSystemApps(installedApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedHideUserApps() {
-        allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
-        allInstalledApps = (ArrayList<App>) getViewModel().hideUserApps(allInstalledApps);
+        installedApps = (ArrayList<App>) getViewModel().uncheckedAllApps(installedApps);
+        installedApps = (ArrayList<App>) getViewModel().hideUserApps(installedApps);
         updateRecyclerView();
     }
 
     @Override
     public void onSelectedShowAllApps() {
-        allInstalledApps = (ArrayList<App>) getViewModel().uncheckedAllApps(allInstalledApps);
-        allInstalledApps = (ArrayList<App>) getViewModel().showAllApps(allInstalledApps);
+        installedApps = (ArrayList<App>) getViewModel().uncheckedAllApps(installedApps);
+        installedApps = (ArrayList<App>) getViewModel().showAllApps(installedApps);
         updateRecyclerView();
     }
 
-    public ArrayList<App> getAllInstalledApps() {
-        return allInstalledApps;
+    public ArrayList<App> getInstalledApps() {
+        return installedApps;
     }
 
-    public void setAllInstalledApps(ArrayList<App> allInstalledApps) {
-        this.allInstalledApps = allInstalledApps;
+    public void setInstalledApps(ArrayList<App> installedApps) {
+        this.installedApps = installedApps;
         hideAppStoredFlag();
         orderAppInStoredOrder();
     }

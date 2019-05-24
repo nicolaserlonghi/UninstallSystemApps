@@ -25,6 +25,7 @@
 package com.sernic.uninstallsystemapps.helpers;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.TypedValue;
 import android.widget.TextView;
 
@@ -35,11 +36,30 @@ public class CustomAlertDialog {
     public static void showAlertDialogWithOneButton(Context context,
                                                     String title,
                                                     String message,
-                                                    String textButton) {
+                                                    String textButton,
+                                                    DialogInterface.OnClickListener buttonListener) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton(textButton, null);
+        builder.setPositiveButton(textButton, buttonListener);
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
+        TextView textView = (TextView) dialog.findViewById(android.R.id.message);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.alert_dialg_message_size));
+    }
+
+    public static void showAlertDialogWithTwoButton(Context context,
+                                                    String title,
+                                                    String message,
+                                                    String textPositiveButton,
+                                                    DialogInterface.OnClickListener positveButtonListener,
+                                                    String textNegativeButton,
+                                                    DialogInterface.OnClickListener negativeButtonListener) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(textPositiveButton, positveButtonListener);
+        builder.setNegativeButton(textNegativeButton, negativeButtonListener);
         androidx.appcompat.app.AlertDialog dialog = builder.create();
         dialog.show();
         TextView textView = (TextView) dialog.findViewById(android.R.id.message);

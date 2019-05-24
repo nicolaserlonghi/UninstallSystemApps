@@ -121,9 +121,10 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                 } else {
                     CustomAlertDialog.showAlertDialogWithOneButton(
                             getContext(),
-                            getResources().getString(R.string.alert_dialog_title_no_app_selected),
-                            getResources().getString(R.string.alert_dialog_message_no_app_select),
-                            getResources().getString(R.string.button_ok));
+                            getResources().getString(R.string.alert_dialog_no_app_selected_title),
+                            getResources().getString(R.string.alert_dialog_no_app_selected_message),
+                            getResources().getString(R.string.button_ok),
+                            null);
                 }
                 break;
         }
@@ -146,7 +147,7 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
     }
 
     private boolean atLeasOneAppSelected() {
-        ArrayList<App> apps = ((MainActivity)getActivity()).getAllInstalledApps();
+        ArrayList<App> apps = ((MainActivity)getActivity()).getInstalledApps();
         for(App app : apps) {
             if(app.isSelected())
                 return true;
@@ -179,13 +180,13 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
             switch (requestCode) {
                 case READ_REQUEST_CODE:
                     try {
-                        readFileContent(resultData.getData(), ((MainActivity)getActivity()).getAllInstalledApps());
+                        readFileContent(resultData.getData(), ((MainActivity)getActivity()).getInstalledApps());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case WRITE_REQUEST_CODE:
-                    writeFileContent(resultData.getData(), ((MainActivity)getActivity()).getAllInstalledApps());
+                    writeFileContent(resultData.getData(), ((MainActivity)getActivity()).getInstalledApps());
                     break;
             }
         }
@@ -216,7 +217,8 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                 getContext(),
                 getResources().getString(R.string.alert_dialog_title_exported_correctly),
                 getResources().getString(R.string.alert_dialog_message_exported_correctly),
-                getResources().getString(R.string.button_ok)
+                getResources().getString(R.string.button_ok),
+                null
         );
     }
 
@@ -238,20 +240,22 @@ public class NavigationDrawerFragment extends com.google.android.material.bottom
                 count++;
             }
         }
-        ((MainActivity)getActivity()).setAllInstalledApps(apps);
+        ((MainActivity)getActivity()).setInstalledApps(apps);
         if(count == 0) {
             CustomAlertDialog.showAlertDialogWithOneButton(
                     getContext(),
                     getResources().getString(R.string.alert_dialog_title_no_app_selected_present),
                     getResources().getString(R.string.alert_dialog_message_no_app_selected_present),
-                    getResources().getString(R.string.button_ok)
+                    getResources().getString(R.string.button_ok),
+                    null
             );
         } else {
             CustomAlertDialog.showAlertDialogWithOneButton(
                     getContext(),
                     getResources().getString(R.string.alert_dialog_title_imported_correctly),
                     count + " " + getResources().getString(R.string.alert_dialog_message_imported_correctly),
-                    getResources().getString(R.string.button_ok)
+                    getResources().getString(R.string.button_ok),
+                    null
             );
         }
     }

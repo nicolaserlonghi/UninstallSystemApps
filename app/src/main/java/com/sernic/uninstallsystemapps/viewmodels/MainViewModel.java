@@ -24,10 +24,13 @@
 
 package com.sernic.uninstallsystemapps.viewmodels;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.os.Build;
+import android.widget.Toast;
 
 import com.sernic.uninstallsystemapps.DataRepository;
+import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
@@ -135,5 +138,29 @@ public class MainViewModel extends BaseViewModel {
             }
             return filteredApps;
         }
+    }
+
+    public void removeApps(List<App> installedApps) {
+        List<App> selectedApps = getSelectedApps(installedApps);
+        // TODO: Rimuovere app
+    }
+
+    private List<App> getSelectedApps(List<App> installedApps) {
+        List<App> selectedApps = new ArrayList<>();
+        for (App app : installedApps) {
+            if (app.isVisible())
+                if (app.isSelected())
+                    selectedApps.add(app);
+        }
+        return selectedApps;
+    }
+
+    public boolean atLeastAnAppIsSelected(List<App> installedApps) {
+        for(App app : installedApps) {
+            if(app.isVisible())
+                if(app.isSelected())
+                    return true;
+        }
+        return false;
     }
 }
