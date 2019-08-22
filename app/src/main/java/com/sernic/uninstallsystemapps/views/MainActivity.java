@@ -40,12 +40,15 @@ import android.view.View;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sernic.uninstallsystemapps.Constants;
+import com.sernic.uninstallsystemapps.DataRepository;
 import com.sernic.uninstallsystemapps.R;
+import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.helpers.InsetDivider;
+import com.sernic.uninstallsystemapps.services.RootManager;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 
 import java.util.ArrayList;
@@ -74,7 +77,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected MainViewModel getViewModel() {
         if(mainViewModel == null) {
             Application application = getApplication();
-            MainViewModel.Factory factory = new MainViewModel.Factory(application);
+            DataRepository dataRepository = ((UninstallSystemApps)application).getDataRepository();
+            RootManager rootManager = dataRepository.getRootManager();
+            MainViewModel.Factory factory = new MainViewModel.Factory(application, rootManager);
             mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
         }
         return mainViewModel;

@@ -24,16 +24,14 @@
 
 package com.sernic.uninstallsystemapps.viewmodels;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.os.Build;
-import android.widget.Toast;
 
 import com.sernic.uninstallsystemapps.DataRepository;
-import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
+import com.sernic.uninstallsystemapps.services.RootManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,21 +43,26 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class MainViewModel extends BaseViewModel {
 
-    public MainViewModel(@NonNull Application application) {
+    private final RootManager rootManager;
+
+    public MainViewModel(@NonNull Application application, RootManager rootManager) {
         super(application);
+        this.rootManager = rootManager;
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         private final Application application;
+        private final RootManager rootManager;
 
-        public Factory(Application application) {
+        public Factory(Application application, RootManager rootManager) {
             this.application = application;
+            this.rootManager = rootManager;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new MainViewModel(application);
+            return (T) new MainViewModel(application, rootManager);
         }
     }
 
@@ -142,7 +145,8 @@ public class MainViewModel extends BaseViewModel {
 
     public void removeApps(List<App> installedApps) {
         List<App> selectedApps = getSelectedApps(installedApps);
-        // TODO: Rimuovere app
+        rootManager.hasRootedPermision();
+        rootManager.removeApps(selectedApps);
     }
 
     private List<App> getSelectedApps(List<App> installedApps) {

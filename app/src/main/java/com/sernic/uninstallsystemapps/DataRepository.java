@@ -27,11 +27,13 @@ package com.sernic.uninstallsystemapps;
 import android.content.Context;
 
 import com.sernic.uninstallsystemapps.services.LoadApps;
+import com.sernic.uninstallsystemapps.services.RootManager;
 
 public class DataRepository {
 
     private static DataRepository dataRepository;
     private final LoadApps loadApps;
+    private final RootManager rootManager;
 
     public static DataRepository getDataRepository(final Context context, final AppExecutors appExecutors) {
         if(dataRepository == null) {
@@ -45,9 +47,14 @@ public class DataRepository {
 
     private DataRepository(final Context context, final AppExecutors appExecutors) {
         loadApps = new LoadApps(context, appExecutors);
+        rootManager = new RootManager();
     }
 
     public LoadApps getLoadApps() {
         return loadApps;
+    }
+
+    public RootManager getRootManager() {
+        return rootManager;
     }
 }
