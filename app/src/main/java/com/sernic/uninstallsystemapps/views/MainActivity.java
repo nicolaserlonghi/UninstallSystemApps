@@ -48,6 +48,7 @@ import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.helpers.InsetDivider;
+import com.sernic.uninstallsystemapps.models.RootState;
 import com.sernic.uninstallsystemapps.services.RootManager;
 import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 
@@ -104,6 +105,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void removeAppClick() {
+        RootState rootState = checkRootState();
+        if(rootState == RootState.HAVE_ROOT)
+            checkAppsAreSelected();
+    }
+
+    private void checkAppsAreSelected() {
         boolean anAppIsSelected = getViewModel().atLeastAnAppIsSelected(installedApps);
         if(anAppIsSelected)
             askPermissionToUninstallSelectedApps();
@@ -213,6 +220,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             updateRecyclerView();
             stopLoadingAnimation();
         });
+        checkRootState();
     }
 
     private void hideAppStoredFlag() {
@@ -273,6 +281,58 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void stopLoadingAnimation() {
         binding.progressCircular.setVisibility(View.GONE);
         binding.recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private RootState checkRootState() {
+        RootState rootState = getViewModel().checkRootPermission();
+        switch (rootState) {
+            case NO_ROOT:
+                setRootAccessAlreadyObtained(false);
+                generateRootStateAlertDialog(
+                        getResources().getString(R.string.alert_dialog_title_no_root_permission),
+                        getResources().getString(R.string.alert_dialog_message_no_root_permission)
+                );
+                break;
+            case BE_ROOT:
+                setRootAccessAlreadyObtained(false);
+                generateRootStateAlertDialog(
+                        getResources().getString(R.string.alert_dialog_title_be_root),
+                        getResources().getString(R.string.alert_dialog_message_be_root)
+                );
+                break;
+            case HAVE_ROOT:
+                boolean rootAccessAlreadyObtained = isRootAccessAlreadyObtained();
+                if(rootAccessAlreadyObtained)
+                    break;
+                setRootAccessAlreadyObtained(true);
+                generateRootStateAlertDialog(
+                        getResources().getString(R.string.alert_dialog_title_have_root),
+                        getResources().getString(R.string.alert_dialog_message_have_root)
+                );
+                break;
+        }
+        return rootState;
+    }
+
+    private void setRootAccessAlreadyObtained(boolean status) {
+        String key = Constants.FLAG_ROOT_ACCESS_ALREADY_OBTAINED;
+        Prefs.putBoolean(key, status);
+    }
+
+    private boolean isRootAccessAlreadyObtained() {
+        String key = Constants.FLAG_ROOT_ACCESS_ALREADY_OBTAINED;
+        boolean rootAccessAlreadyObtained = Prefs.getBoolean(key, false);
+        return rootAccessAlreadyObtained;
+    }
+
+    private void generateRootStateAlertDialog(String title, String message) {
+        CustomAlertDialog.showAlertDialogWithOneButton(
+                this,
+                title,
+                message,
+                getResources().getString(R.string.button_ok),
+                null
+        );
     }
 
     @Override

@@ -52,6 +52,14 @@
     <string name="alert_dialog_message_imported_correctly">applications have been imported correctly.</string>
     <string name="alert_dialog_ask_permission_to_remove_apps_title">Do you want to REMOVE selected apps?</string>
     <string name="alert_dialog_ask_permission_to_remove_apps_message">You are going to remove selected apps. It\'s an irreversible action, pay attention.</string>
+    <string name="alert_dialog_title_no_root_permission">Sorry! Root access is not installed on this device!</string>
+    <string name="alert_dialog_message_no_root_permission">Root access is required in order to uninstall
+        apps from the device. Until you don\'t get it you can only visualize all apps (included system apps) installed on your device.</string>
+    <string name="alert_dialog_title_be_root">Ops...you don\'t guaranteed root access for this app!</string>
+    <string name="alert_dialog_message_be_root">Root access is installed on your device, but
+        to uninstall the apps, you have to grant root access for this app from your root manager app.</string>
+    <string name="alert_dialog_title_have_root">Root access obtained!</string>
+    <string name="alert_dialog_message_have_root">Root access is properly installed on this device.</string>
 
     <string name="button_ok">Ok</string>
     <string name="button_yes">Yes</string>

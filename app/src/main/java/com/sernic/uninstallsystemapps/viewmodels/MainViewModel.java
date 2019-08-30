@@ -28,6 +28,7 @@ import android.app.Application;
 import android.os.Build;
 
 import com.sernic.uninstallsystemapps.DataRepository;
+import com.sernic.uninstallsystemapps.models.RootState;
 import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.models.App;
@@ -145,8 +146,19 @@ public class MainViewModel extends BaseViewModel {
 
     public void removeApps(List<App> installedApps) {
         List<App> selectedApps = getSelectedApps(installedApps);
-        rootManager.hasRootedPermision();
-        rootManager.removeApps(selectedApps);
+        RootState rootState = checkRootPermission();
+        if(rootState == RootState.HAVE_ROOT)
+            rootManager.removeApps(selectedApps);
+    }
+
+    public RootState checkRootPermission() {
+        boolean hasRootedPermission =  rootManager.hasRootedPermision();
+        if(hasRootedPermission)
+            return RootState.HAVE_ROOT;
+        boolean wasRooted = rootManager.wasRooted();
+        if(wasRooted)
+            return RootState.BE_ROOT;
+        return RootState.NO_ROOT;
     }
 
     private List<App> getSelectedApps(List<App> installedApps) {

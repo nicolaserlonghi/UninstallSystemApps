@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, SUBJECT to the following conditions:
+ * furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -22,17 +22,10 @@
  * SOFTWARE.
  */
 
-package com.sernic.uninstallsystemapps;
+package com.sernic.uninstallsystemapps.models;
 
-public class Constants {
-
-    public static final String MAIL = "nicolaserlonghi@gmail.com";
-    public static final String SUBJECT ="Unistall System Apps - Feedback";
-    public static final String MY_WEB_SITE = "https://serlonghi.com";
-
-    public static final String FLAG_ALPHABETICAL_ORDER = "alphabetical_order";
-    public static final String FLAG_INSTALLATION_DATE = "installation_date";
-    public static final String FLAG_HIDE_SYSTEM_APPS = "hide_system_apps";
-    public static final String FLAG_HIDE_USER_APPS = "hide_user_apps";
-    public static final String FLAG_ROOT_ACCESS_ALREADY_OBTAINED = "root_access_already_obtained";
+public enum RootState {
+    HAVE_ROOT,
+    BE_ROOT,
+    NO_ROOT,
 }
