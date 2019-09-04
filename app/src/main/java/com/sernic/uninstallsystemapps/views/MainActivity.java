@@ -29,6 +29,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Application;
 import android.content.DialogInterface;
@@ -55,7 +56,10 @@ import com.sernic.uninstallsystemapps.viewmodels.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, BottomSheetFragment.IsSelectedBottomSheetFragment {
+public class MainActivity extends BaseActivity implements
+        View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        BottomSheetFragment.IsSelectedBottomSheetFragment {
 
     private MainViewModel mainViewModel;
     private ActivityMainBinding binding;
@@ -89,10 +93,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-    }
-
-    private void setOnclickListener() {
-        binding.fab.setOnClickListener(this);
     }
 
     @Override
@@ -205,7 +205,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setOnclickListener();
+        setOnRefreshListener();
         startLoadingAnimation();
+    }
+
+    private void setOnclickListener() {
+        binding.fab.setOnClickListener(this);
+    }
+
+    private void setOnRefreshListener() {
+        binding.swipeRefresh.setOnRefreshListener(this);
     }
 
     @Override
@@ -333,6 +342,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 getResources().getString(R.string.button_ok),
                 null
         );
+    }
+
+    @Override
+    public void onRefresh() {
+        getViewModel().getInstalledApps().observe(this, installedApps -> {
+            if(installedApps == null)
+                return;
+            this.installedApps = (ArrayList) installedApps;
+            hideAppStoredFlag();
+            orderAppInStoredOrder();
+            this.installedApps = (ArrayList<App>) getViewModel().uncheckedAllApps(installedApps);
+            updateRecyclerView();
+            binding.swipeRefresh.setRefreshing(false);
+        });
     }
 
     @Override
