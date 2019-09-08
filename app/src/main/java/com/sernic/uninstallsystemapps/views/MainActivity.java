@@ -24,6 +24,7 @@
 
 package com.sernic.uninstallsystemapps.views;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -47,6 +48,7 @@ import com.sernic.uninstallsystemapps.UninstallSystemApps;
 import com.sernic.uninstallsystemapps.adapters.AppRecyclerAdapter;
 import com.sernic.uninstallsystemapps.databinding.ActivityMainBinding;
 import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
+import com.sernic.uninstallsystemapps.helpers.SingleLiveEvent;
 import com.sernic.uninstallsystemapps.models.App;
 import com.sernic.uninstallsystemapps.helpers.InsetDivider;
 import com.sernic.uninstallsystemapps.models.RootState;
@@ -125,16 +127,48 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void askPermissionToUninstallSelectedApps() {
-        DialogInterface.OnClickListener positveListner = (dialog, which) -> getViewModel().removeApps(installedApps);
+        DialogInterface.OnClickListener positiveListener = (dialog, which) -> startUninstallProcess();
         CustomAlertDialog.showAlertDialogWithTwoButton(
                 this,
                 getResources().getString(R.string.alert_dialog_ask_permission_to_remove_apps_title),
                 getResources().getString(R.string.alert_dialog_ask_permission_to_remove_apps_message),
                 getResources().getString(R.string.button_yes),
-                positveListner,
+                positiveListener,
                 getResources().getString(R.string.button_no),
                 null
         );
+    }
+
+    private void startUninstallProcess() {
+        AlertDialog uninstallAnimation = CustomAlertDialog.showProgressDialog(
+                this,
+                getResources().getString(R.string.progress_dialog_removing_apps)
+        );
+        SingleLiveEvent<Boolean> uninstallResult = getViewModel().removeApps(installedApps);
+        uninstallResult.observe(this, uninstall -> {
+            if(uninstall == null)
+                return;
+            stopUninstallProcess(uninstall, uninstallAnimation);
+        });
+    }
+
+    private void stopUninstallProcess(Boolean uninstallResult, AlertDialog uninstallAnimation) {
+        CustomAlertDialog.stopProgressDialog(uninstallAnimation);
+        binding.swipeRefresh.setRefreshing(true);
+        onRefresh();
+        if(uninstallResult)
+            uninstallSuccessful();
+        else
+            uninstallError();
+
+    }
+
+    private void uninstallSuccessful() {
+
+    }
+
+    private void uninstallError() {
+
     }
 
     @Override
@@ -214,6 +248,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setOnRefreshListener() {
+        binding.swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeRefresh.setOnRefreshListener(this);
     }
 
@@ -228,6 +263,7 @@ public class MainActivity extends BaseActivity implements
             orderAppInStoredOrder();
             updateRecyclerView();
             stopLoadingAnimation();
+            binding.swipeRefresh.setRefreshing(false);
         });
         checkRootState();
     }
@@ -346,17 +382,9 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onRefresh() {
-        getViewModel().getInstalledApps().observe(this, installedApps -> {
-            if(installedApps == null)
-                return;
-            this.installedApps = (ArrayList) installedApps;
-            hideAppStoredFlag();
-            orderAppInStoredOrder();
-            this.installedApps = (ArrayList<App>) getViewModel().uncheckedAllApps(installedApps);
-            updateRecyclerView();
-            binding.swipeRefresh.setRefreshing(false);
-        });
+        getViewModel().reloadAppsList();
     }
+
 
     @Override
     public void onSelectedAlphabeticalOrder() {

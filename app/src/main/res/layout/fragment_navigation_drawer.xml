@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title">
 
             <ImageView
@@ -68,7 +68,7 @@
         <RelativeLayout
             android:id="@+id/box_import_selected"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title" >
 
             <ImageView
@@ -92,7 +92,7 @@
         <RelativeLayout
             android:id="@+id/box_export_selected"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title" >
 
             <ImageView
@@ -118,7 +118,7 @@
         <RelativeLayout
             android:id="@+id/box_leave_feedback"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title" >
 
             <ImageView
@@ -144,7 +144,7 @@
         <RelativeLayout
             android:id="@+id/box_info_developer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title" >
 
             <ImageView

@@ -56,6 +56,7 @@ public class LoadApps {
 
     public void searchInstalledApps() {
         appExecutors.diskIO().execute(() -> {
+            installedAppList = new ArrayList<>();
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
             updateInstalledApps();

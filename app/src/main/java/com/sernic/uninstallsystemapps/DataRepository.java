@@ -47,7 +47,7 @@ public class DataRepository {
 
     private DataRepository(final Context context, final AppExecutors appExecutors) {
         loadApps = new LoadApps(context, appExecutors);
-        rootManager = new RootManager();
+        rootManager = new RootManager(appExecutors);
     }
 
     public LoadApps getLoadApps() {

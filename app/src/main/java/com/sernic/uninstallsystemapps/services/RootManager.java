@@ -26,6 +26,8 @@ package com.sernic.uninstallsystemapps.services;
 
 import androidx.annotation.Nullable;
 
+import com.sernic.uninstallsystemapps.AppExecutors;
+import com.sernic.uninstallsystemapps.helpers.SingleLiveEvent;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.io.File;
@@ -43,6 +45,12 @@ public class RootManager {
             "/vendor/bin",
             "/sbin",
     };
+    private AppExecutors appExecutors;
+    SingleLiveEvent<Boolean> uninstallResult = new SingleLiveEvent<>();
+
+    public RootManager(AppExecutors appExecutors) {
+        this.appExecutors = appExecutors;
+    }
 
     public boolean hasRootedPermision() {
         return Shell.SU.available();
@@ -62,21 +70,23 @@ public class RootManager {
         return hasRooted;
     }
 
-    public boolean removeApps(List<App> appsToRemove) {
-        boolean uninstalledNoProblems = true;
-        for(App app : appsToRemove) {
-            boolean result = true;
-            if(app.isSystemApp()) {
-                result = uninstallSystemApp(app.getPath());
+    public void removeApps(List<App> appsToRemove) {
+        appExecutors.diskIO().execute(() -> {
+            boolean uninstalledNoProblems = true;
+            for(App app : appsToRemove) {
+                boolean result = true;
+                if(app.isSystemApp()) {
+                    result = uninstallSystemApp(app.getPath());
+                    if(!result)
+                        result = uninstallSystemAppAlternativeMethod(app.getPackageName());
+                }
+                else
+                    result = uninstallUserApp(app.getPackageName());
                 if(!result)
-                    result = uninstallSystemAppAlternativeMethod(app.getPackageName());
+                    uninstalledNoProblems = false;
             }
-            else
-                result = uninstallUserApp(app.getPackageName());
-            if(!result)
-                uninstalledNoProblems = false;
-        }
-        return uninstalledNoProblems;
+            uninstallResult.postValue(uninstalledNoProblems);
+        });
     }
 
     private boolean uninstallSystemApp(String appApk) {
@@ -125,5 +135,9 @@ public class RootManager {
     private boolean checkPMCommandSuccesfull(String commandOutput) {
         boolean result = commandOutput != null && commandOutput.toLowerCase().contains("success");
         return result;
+    }
+
+    public SingleLiveEvent<Boolean> getUninstallResult() {
+        return uninstallResult;
     }
 }

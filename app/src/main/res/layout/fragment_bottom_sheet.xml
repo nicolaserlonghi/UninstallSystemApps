@@ -40,7 +40,7 @@
         <TextView
             android:id="@+id/order_by"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
             android:gravity="center"
             android:text="@string/title_menu_order_by"
@@ -49,7 +49,7 @@
         <RelativeLayout
             android:id="@+id/alphabetical_order"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth">
+            android:layout_height="@dimen/bottom_sheet_row_height">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
         <RelativeLayout
             android:id="@+id/installation_date"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth">
+            android:layout_height="@dimen/bottom_sheet_row_height">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
         <TextView
             android:id="@+id/hide"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/bottom_sheet_row_heigth"
+            android:layout_height="@dimen/bottom_sheet_row_height"
             android:layout_marginLeft="@dimen/bottom_sheet_margin_left_title"
             android:gravity="center"
             android:text="@string/title_menu_hide"
@@ -114,7 +114,7 @@
         <RelativeLayout
             android:id="@+id/system_apps"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth">
+            android:layout_height="@dimen/bottom_sheet_row_height">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
         <RelativeLayout
             android:id="@+id/user_apps"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_sheet_row_heigth">
+            android:layout_height="@dimen/bottom_sheet_row_height">
 
             <TextView
                 android:layout_width="wrap_content"

@@ -60,6 +60,12 @@
         to uninstall the apps, you have to grant root access for this app from your root manager app.</string>
     <string name="alert_dialog_title_have_root">Root access obtained!</string>
     <string name="alert_dialog_message_have_root">Root access is properly installed on this device.</string>
+    <string name="alert_dialog_title_error_remove_apps">Ops...something gone wrong</string>
+    <string name="alert_dialog_message_error_remove_apps">There was a problem, some apps may not have been removed.</string>
+    <string name="alert_dialgo_title_reboot_now">Would you like to reboot now?</string>
+    <string name="alert_dialog_message_reboot_now">Reboot required to remove all apps.</string>
+
+    <string name="progress_dialog_removing_apps">Removing apps</string>
 
     <string name="button_ok">Ok</string>
     <string name="button_yes">Yes</string>

@@ -28,6 +28,7 @@ import android.app.Application;
 import android.os.Build;
 
 import com.sernic.uninstallsystemapps.DataRepository;
+import com.sernic.uninstallsystemapps.helpers.SingleLiveEvent;
 import com.sernic.uninstallsystemapps.models.RootState;
 import com.sernic.uninstallsystemapps.services.LoadApps;
 import com.sernic.uninstallsystemapps.UninstallSystemApps;
@@ -65,6 +66,11 @@ public class MainViewModel extends BaseViewModel {
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             return (T) new MainViewModel(application, rootManager);
         }
+    }
+
+    public void reloadAppsList() {
+        LoadApps loadApps = getLoadApps();
+        loadApps.searchInstalledApps();
     }
 
     public LiveData<List<App>> getInstalledApps() {
@@ -144,11 +150,11 @@ public class MainViewModel extends BaseViewModel {
         }
     }
 
-    public void removeApps(List<App> installedApps) {
+    public SingleLiveEvent<Boolean> removeApps(List<App> installedApps) {
         List<App> selectedApps = getSelectedApps(installedApps);
-        RootState rootState = checkRootPermission();
-        if(rootState == RootState.HAVE_ROOT)
-            rootManager.removeApps(selectedApps);
+        rootManager.removeApps(selectedApps);
+        SingleLiveEvent<Boolean> uninstallResult = rootManager.getUninstallResult();
+        return uninstallResult;
     }
 
     public RootState checkRootPermission() {
