@@ -164,11 +164,26 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void uninstallSuccessful() {
-
+        DialogInterface.OnClickListener rebootButton = (dialog, which) -> getViewModel().rebootDevice();
+        CustomAlertDialog.showAlertDialogWithTwoButton(
+                this,
+                getResources().getString(R.string.alert_dialgo_title_reboot_now),
+                getResources().getString(R.string.alert_dialog_message_reboot_now),
+                getResources().getString(R.string.button_reboot),
+                rebootButton,
+                getResources().getString(R.string.button_no),
+                null
+        );
     }
 
     private void uninstallError() {
-
+        CustomAlertDialog.showAlertDialogWithOneButton(
+                this,
+                getResources().getString(R.string.alert_dialog_title_error_remove_apps),
+                getResources().getString(R.string.alert_dialog_message_error_remove_apps),
+                getResources().getString(R.string.button_ok),
+                null
+        );
     }
 
     @Override

@@ -185,4 +185,8 @@ public class MainViewModel extends BaseViewModel {
         }
         return false;
     }
+
+    public void rebootDevice() {
+        rootManager.rebootDevice();
+    }
 }

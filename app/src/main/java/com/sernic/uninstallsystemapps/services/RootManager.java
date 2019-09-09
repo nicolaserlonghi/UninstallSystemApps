@@ -90,31 +90,49 @@ public class RootManager {
     }
 
     private boolean uninstallSystemApp(String appApk) {
-        executeCommand("mount -o rw,remount /system");
-        executeCommand("rm " + appApk);
-        executeCommand("mount -o ro,remount /system");
+        executeCommandSU("mount -o rw,remount /system");
+        executeCommandSU("rm " + appApk);
+        executeCommandSU("mount -o ro,remount /system");
         boolean result = checkUninstallSuccessful(appApk);
         return result;
     }
 
     private boolean uninstallSystemAppAlternativeMethod(String packageName) {
-        String commandOutput = executeCommand("pm uninstall --user 0 " + packageName);
+        String commandOutput = executeCommandSU("pm uninstall --user 0 " + packageName);
         boolean result = checkPMCommandSuccesfull(commandOutput);
         return result;
     }
 
     private boolean uninstallUserApp(String packageName) {
-        String commandOutput = executeCommand("pm uninstall " + packageName);
+        String commandOutput = executeCommandSU("pm uninstall " + packageName);
         boolean result = checkPMCommandSuccesfull(commandOutput);
         return result;
     }
 
     @Nullable
-    private String executeCommand(String command) {
+    private String executeCommandSU(String command) {
         List<String> stdout = new ArrayList<>();
         List<String> stderr = new ArrayList<>();
         try {
-           Shell.Pool.SU.run(command, stdout, stderr, true);
+            Shell.Pool.SU.run(command, stdout, stderr, true);
+        } catch (Shell.ShellDiedException e) {
+            e.printStackTrace();
+        }
+        if (stdout == null)
+            return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String line : stdout) {
+            stringBuilder.append(line).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    @Nullable
+    private String executeCommandSH(String command) {
+        List<String> stdout = new ArrayList<>();
+        List<String> stderr = new ArrayList<>();
+        try {
+            Shell.Pool.SH.run(command, stdout, stderr, true);
         } catch (Shell.ShellDiedException e) {
             e.printStackTrace();
         }
@@ -128,7 +146,7 @@ public class RootManager {
     }
 
     private boolean checkUninstallSuccessful(String appApk) {
-        String output = executeCommand("ls " + appApk);
+        String output = executeCommandSH("ls " + appApk);
         return output != null && output.trim().isEmpty();
     }
 
@@ -139,5 +157,10 @@ public class RootManager {
 
     public SingleLiveEvent<Boolean> getUninstallResult() {
         return uninstallResult;
+    }
+
+    public String rebootDevice() {
+        String result = executeCommandSU("reboot");
+        return result;
     }
 }
