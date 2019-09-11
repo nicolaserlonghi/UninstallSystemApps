@@ -49,7 +49,7 @@
     <string name="alert_dialog_title_no_app_selected_present">There\'re no applications selected installed!</string>
     <string name="alert_dialog_message_no_app_selected_present">No applications installed are present in the file.</string>
     <string name="alert_dialog_title_imported_correctly">Applications have been imported!</string>
-    <string name="alert_dialog_message_imported_correctly">applications have been imported correctly.</string>
+    <string name="alert_dialog_message_imported_correctly">Applications have been imported correctly.</string>
     <string name="alert_dialog_ask_permission_to_remove_apps_title">Do you want to REMOVE selected apps?</string>
     <string name="alert_dialog_ask_permission_to_remove_apps_message">You are going to remove selected apps. It\'s an irreversible action, pay attention.</string>
     <string name="alert_dialog_title_no_root_permission">Sorry! Root access is not installed on this device!</string>
