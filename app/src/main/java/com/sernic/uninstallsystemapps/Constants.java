@@ -26,8 +26,8 @@ package com.sernic.uninstallsystemapps;
 
 public class Constants {
 
-    public static final String MAIL = "nicolaserlonghi@gmail.com";
-    public static final String SUBJECT ="Unistall System Apps - Feedback";
+    public static final String MAIL = "nicola@serlonghi.com";
+    public static final String SUBJECT ="Uninstall System Apps - Feedback";
     public static final String MY_WEB_SITE = "https://serlonghi.com";
 
     public static final String FLAG_ALPHABETICAL_ORDER = "alphabetical_order";
