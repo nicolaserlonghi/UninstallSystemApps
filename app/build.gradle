@@ -23,12 +23,13 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.firebase-perf' // Firebase Performance Monitoring plugin
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.sernic.uninstallsystemapps"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -38,6 +39,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
+        }
+        debug {
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
         }
     }
     dataBinding.enabled = true
@@ -72,8 +79,14 @@ dependencies {
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.0' //Analytics
+    implementation 'com.google.firebase:firebase-perf:19.0.0' //Performance
+
     // External library
     // EasyPref: https://github.com/Pixplicity/EasyPrefs
     implementation 'com.pixplicity.easyprefs:library:1.9.0'
     implementation 'eu.chainfire:libsuperuser:1.1.0.+'
 }
+
+apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin (Firebase)

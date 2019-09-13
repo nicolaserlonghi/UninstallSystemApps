@@ -30,7 +30,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.sernic.uninstallsystemapps.AppExecutors;
+import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
@@ -56,10 +59,14 @@ public class LoadApps {
 
     public void searchInstalledApps() {
         appExecutors.diskIO().execute(() -> {
+            // Firebase Monitoring Performance
+            Trace searchAppsTrace = FirebasePerformance.getInstance().newTrace(Constants.FIREBASE_PERFORMANCE_TRACE);
+            searchAppsTrace.stop();
             installedAppList = new ArrayList<>();
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
             updateInstalledApps();
+            searchAppsTrace.stop();
         });
     }
 
