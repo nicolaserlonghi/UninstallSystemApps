@@ -37,12 +37,15 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
         }
         debug {
+            debuggable true
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
         }
