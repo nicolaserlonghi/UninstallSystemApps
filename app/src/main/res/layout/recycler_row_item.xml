@@ -26,8 +26,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.LoginActivity">
-    <data>
-    </data>
 
     <RelativeLayout
         android:layout_width="wrap_content"

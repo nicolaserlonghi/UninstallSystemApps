@@ -24,7 +24,6 @@
 
 package com.sernic.uninstallsystemapps.services;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -38,7 +37,6 @@ import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 

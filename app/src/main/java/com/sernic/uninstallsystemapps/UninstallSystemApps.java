@@ -25,7 +25,6 @@
 package com.sernic.uninstallsystemapps;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.ContextWrapper;
 
 import com.pixplicity.easyprefs.library.Prefs;
