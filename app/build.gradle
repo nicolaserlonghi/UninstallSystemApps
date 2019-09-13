@@ -1,14 +1,14 @@
 /*
- * MIT License
+ * The MIT License (MIT)
  *
- * Copyright (c) 2018 Nicola Serlonghi
+ * Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, SUBJECT to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -23,19 +23,17 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.firebase-perf'  // Firebase
-
+apply plugin: 'com.google.firebase.firebase-perf' // Firebase Performance Monitoring plugin
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.sernic.uninstallsystemapps"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 7
-        versionName "1.6"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 9
+        versionName "2.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -44,37 +42,50 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
-            resValue("bool", "firebase_analytics_collection_enabled", "true")
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
         }
         debug {
+            debuggable true
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
-            resValue("bool", "firebase_analytics_collection_enabled", "false")
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
         }
+    }
+    dataBinding.enabled = true
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "app_version_code", variant.versionName
     }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:preference-v14:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0"
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:15.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
-    implementation 'com.google.firebase:firebase-perf:15.0.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.0' //Analytics
+    implementation 'com.google.firebase:firebase-perf:19.0.0' //Performance
 
-
-    testImplementation 'junit:junit:4.12'
+    // External library
+    // EasyPref
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'
+    // LibSuperUser
+    implementation 'eu.chainfire:libsuperuser:1.1.0.+'
 }
 
-// Firebase
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin (Firebase)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ MIT License
+  ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2018 Nicola Serlonghi
+  ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,52 @@
   -->
 
 <resources>
-    <string name="app_name">Uninstall system apps</string>      // Name app
+    <string name="app_name">Uninstall System Apps</string>
 
-    <string name="snackBar_no_app_selected">Nessuna app selezionata!</string>
-    <string name="snackBar_no_app_selected_present">Nessuna app selezionata presente!</string>
-    <string name="snackBar_no_root_remove_apps">Non posso eliminare le app senza i permessi di root!</string>
-    <string name="snackBar_export">app sono state esportate correttamente!</string>
-    <string name="snackBar_import">app importate!</string>
-    <string name="snackBar_yes_root">Root ottenuto!</string>
-    <string name="snackBar_no_root">Non ho ottenuto i privilegi di root!</string>
-    <string name="snackBar_ok_remove_apps">Le app selezionate sono state rimosse!</string>
-    <string name="snackBar_no_busyBox">Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente!</string>
-    <string name="no_busyBox_message">ATTENZIONE: Non ho individuato BUSYBOX quindi l\'app potrebbe non funzionare correttamente! Continuare con la rimozione?</string>
-    <string name="reboot_now">Riavviare ora per completare la disinstallazione?</string>
-    <string name="button_install">Installa!</string>
-    <string name="button_obtain">Riprova</string>
+    <string name="title_main_activity">App Installate</string>
+
+    <string name="menu_setting">Altre opzioni</string>
+    <string name="menu_search">Cerca</string>
+
+    <string name="title_menu_order_by">Ordina per</string>
+    <string name="menu_alphabetical_order">Ordine alfabetico</string>
+    <string name="menu_installation_date">Data d\'installazione</string>
+    <string name="title_menu_hide">Nascondi</string>
+    <string name="menu_system_apps">App di sistema</string>
+    <string name="menu_user_apps">App utente</string>
+    <string name="menu_import_selected_apps">Importa le app selezionate</string>
+    <string name="menu_export_selected_apps">Esporta le app selezionate</string>
+    <string name="menu_feedback">Invia feedback</string>
+    <string name="menu_info_developer">Creata da Nicola Serlonghi</string>
+    <string name="menu_application_version">Versione applicazione \u2022 %1$s</string>
+
+    <string name="alert_dialog_no_app_selected_title">Non ci sono app selezionate!</string>
+    <string name="alert_dialog_no_app_selected_message">Devi selezionare almeno un\'applicazione per utilizzare questa funzione.</string>
+    <string name="alert_dialog_title_exported_correctly">Applicazioni esportate!</string>
+    <string name="alert_dialog_message_exported_correctly">Le applicazioni sono state esportate correttamente.</string>
+    <string name="alert_dialog_title_no_app_selected_present">Nessuna applicazine trovata!</string>
+    <string name="alert_dialog_message_no_app_selected_present">Nessuna applicazione installata è presente nel file.</string>
+    <string name="alert_dialog_title_imported_correctly">Applicazioni importate!</string>
+    <string name="alert_dialog_message_imported_correctly">Le applicazionis sono state importate correttamente.</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_title">Vuoi RIMUOVERE le app selezionate?</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_message">Stai per rimuovere le app selezionate. È un azzione irreversibile, fai attenzione.</string>
+    <string name="alert_dialog_title_no_root_permission">I permessi di root non sono installati su questo dispositivo!</string>
+    <string name="alert_dialog_message_no_root_permission"> I permessi di root sono necessari per disinstallare le app dal dispositivo.
+        Senza di essi potrai solamente visualizzare tutte le applicazioni (anche quelle di sistema) installate.</string>
+    <string name="alert_dialog_title_be_root">Ops...non hai concesso i privilegi di root per questa app!</string>
+    <string name="alert_dialog_message_be_root">I permessi di root sono disponibili sul tuo device ma,
+        per disinstallare le app, devi concederli a questa applicazione attraverso l\'app che utilizzi per gestirli.</string>
+    <string name="alert_dialog_title_have_root">Permessi di root ottenuti!</string>
+    <string name="alert_dialog_message_have_root">I permessi di root sono installati correttamente su questo dispositivo.</string>
+    <string name="alert_dialog_title_error_remove_apps">Ops...qualcosa è andato storto!</string>
+    <string name="alert_dialog_message_error_remove_apps">C\'è stato un problema durante la disinstallazione, alcunea app potrebbero essere ancora presenti.</string>
+    <string name="alert_dialgo_title_reboot_now">Vuoi riavviare ora?</string>
+    <string name="alert_dialog_message_reboot_now">Il riavvio è necessario per completare la rimozione delle app.</string>
+
+    <string name="progress_dialog_removing_apps">Rimozione app</string>
+
+    <string name="button_ok">Ok</string>
     <string name="button_yes">Sì</string>
     <string name="button_no">No</string>
-    <string name="button_install_busybox">Installa BusyBox</string>
-    <string name="num_apps_of"> di </string>
-    <string name="toast_to_exit">Premi ancora una volta per uscire!</string>
-    <string name="menu_settings">Informazioni</string>
-    <string name="menu_hide_system_apps">Nasc. app sistema</string>
-    <string name="menu_export">Esporta selezionati</string>
-    <string name="menu_import">Importa selezionati</string>
-    <string name="settings_leave_feedback_title">Dubbi, domande, angosce, perplessità?</string>
-    <string name="settings_leave_feedback_summary">Vuoi segnalare un malfunzionamento o hai un idea per migliorare l\'app? Clicca e mandami un email!</string>
-    <string name="settings_info_title">Info</string>
-    <string name="settings_info_summary">Uninstall System Apps è stata creata da Nicola Serlonghi</string>
-    <string name="settings_app_version_title">Versione applicazione</string>
-    <string name="title_actionBar_settings">Informazioni</string>
-    <string name="loading_animation">Cerco le app installate...</string>
-    <string name="confirm_remove">Conferma rimozione</string>
+    <string name="button_reboot">Riavvio</string>
 </resources>
