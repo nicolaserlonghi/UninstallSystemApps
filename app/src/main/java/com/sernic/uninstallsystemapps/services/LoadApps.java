@@ -61,7 +61,7 @@ public class LoadApps {
         appExecutors.diskIO().execute(() -> {
             // Firebase Monitoring Performance
             Trace searchAppsTrace = FirebasePerformance.getInstance().newTrace(Constants.FIREBASE_PERFORMANCE_TRACE);
-            searchAppsTrace.stop();
+            searchAppsTrace.start();
             installedAppList = new ArrayList<>();
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
