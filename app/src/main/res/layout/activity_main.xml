@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
-  ~ MIT License
+  ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2018 Nicola Serlonghi
+  ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
   ~ in the Software without restriction, including without limitation the rights
   ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
+  ~ furnished to do so, SUBJECT to the following conditions:
   ~
   ~ The above copyright notice and this permission notice shall be included in all
   ~ copies or substantial portions of the Software.
@@ -24,145 +23,79 @@
   ~ SOFTWARE.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:application="http://schemas.android.com/tools">
-    <data>
-    </data>
-    <RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.MainActivity">
 
-        android:orientation="vertical"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"> <!-- Height row -->
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/layout_toolbar"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            application:elevation="0dp"
-            android:visibility="gone">
+            android:background="@color/primary"
+            app:elevation="0dp">
 
-            <android.support.v7.widget.Toolbar
+            <LinearLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                application:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:layout_height="@dimen/toolbar_heigth"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
-        </android.support.design.widget.AppBarLayout>
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/toolbar_title_padding_top"
+                    android:paddingLeft="@dimen/toolbar_title_padding_left"
+                    android:text="@string/title_main_activity"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/toolbar_title_size"
+                    app:fontFamily="@font/open_sans_semibold" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                style="@style/SpinKitView.Large"
-                android:layout_gravity="center"
-                android:fitsSystemWindows="true"
-                android:indeterminate="true"
-                android:layout_marginBottom="80dp"/>
-
-            <TextView
-                android:id="@+id/text_search_animation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/loading_animation"
-                android:layout_gravity="center"
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="@color/primary_light"
-                android:textStyle="bold"
-                android:layout_marginTop="44dp"/>
-        </FrameLayout>
-
-        <RelativeLayout
-            android:id="@+id/info_layout"
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_toolbar"
-            android:background="@color/primary"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_gravity="bottom"
+            app:navigationIcon="@drawable/ic_menu"
+            style="@style/Widget.MaterialComponents.BottomAppBar" />
 
-            <TextView
-                android:id="@+id/num_apps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="17dp"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/primary"
+            app:layout_anchor="@id/bar"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/accent"
+            app:fabSize="normal" />
 
-            <ImageButton
-                android:id="@+id/select_all"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="7dp"
-                android:layout_centerVertical="true"
-                style="?android:attr/borderlessButtonStyle"
-                android:src="@drawable/select_all_white_24px" />
-
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_below="@+id/info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            application:fastScrollEnabled="true"
-            application:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-            application:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
-            application:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-            application:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
-            android:visibility="invisible"/>
-
-        <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/coordinatorLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:visibility="invisible"
-                application:srcCompat="@drawable/delete_forever" />
-
-        </android.support.design.widget.CoordinatorLayout>
-
-        <FrameLayout
-            android:id="@+id/progressBarHolder"
-            android:animateLayoutChanges="true"
-            android:visibility="gone"
-            android:alpha="0.4"
-            android:background="#000000"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center" />
-        </FrameLayout>
-
-    </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="@dimen/progress_circular_dimension"
+            android:layout_height="@dimen/progress_circular_dimension"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
-

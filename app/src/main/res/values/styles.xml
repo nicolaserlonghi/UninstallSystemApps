@@ -1,14 +1,14 @@
 <!--
-  ~ MIT License
+  ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2018 Nicola Serlonghi
+  ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
   ~ in the Software without restriction, including without limitation the rights
   ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
+  ~ furnished to do so, SUBJECT to the following conditions:
   ~
   ~ The above copyright notice and this permission notice shall be included in all
   ~ copies or substantial portions of the Software.
@@ -22,42 +22,68 @@
   ~ SOFTWARE.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <!--   darker variant of colorPrimary (for status bar, contextual application bars) -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
-        
-        <item name="android:textCursorDrawable">@color/icons</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyle</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="AppTheme.NoActionBar" parent="@style/AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <!-- Alert Dialog style-->
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/primary_dark</item>
-        <item name="android:textColorPrimary">#000000</item>
-        <item name="android:background">#FFFFFF</item>
-    </style>
-
+    <!-- Settings theme-->
     <style name="AppTheme.SettingsTheme" parent="AppTheme">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <!-- Splash screen-->
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_theme</item>
+    <style name="LaunchScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
-    
+
+    <!-- Alert Dialog style-->
+    <style name="AlertDialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColorPrimary">@color/secondary_text</item>
+        <item name="android:textSize">@dimen/alert_dialog_title_size</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:windowBackground">@drawable/round_corner_alert_dialog</item>
+        <item name="buttonBarButtonStyle">@style/AlertDialogButton</item>
+    </style>
+
+    <!-- Alert Dialog button style -->
+    <style name="AlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">@dimen/alert_dialog_text_button_size</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <!-- set the rounded drawable as background to your bottom sheet -->
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
 </resources>

@@ -1,14 +1,14 @@
 <!--
-  ~ MIT License
+  ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2018 Nicola Serlonghi
+  ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
   ~ in the Software without restriction, including without limitation the rights
   ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
+  ~ furnished to do so, SUBJECT to the following conditions:
   ~
   ~ The above copyright notice and this permission notice shall be included in all
   ~ copies or substantial portions of the Software.
@@ -23,36 +23,52 @@
   -->
 
 <resources>
-    <string name="app_name">Uninstall system applications</string>      // Name application
+    <string name="app_name">Uninstall System Apps</string>
 
-    <string name="snackBar_no_app_selected">No applications selected!</string>
-    <string name="snackBar_no_app_selected_present">No applications selected present!</string>
-    <string name="snackBar_no_root_remove_apps">I can\'t remove applications without root permission!</string>
-    <string name="snackBar_export">applications have been exported correctly!</string>
-    <string name="snackBar_import">imported applications!</string>
-    <string name="snackBar_yes_root">root obtained!</string>
-    <string name="snackBar_no_root">I didn\'t get root permission!</string>
-    <string name="snackBar_no_busyBox">I haven\'t found BUSYBOX so the application may not work properly!</string>
-    <string name="snackBar_ok_remove_apps">The selected applications have been removed!</string>
-    <string name="no_busyBox_message">ATTENTION: I haven\'t found BUSYBOX so the application may not work properly! Continue with removal?</string>
-    <string name="reboot_now">Reboot now to complete the uninstall?</string>
-    <string name="button_install">Install!</string>
-    <string name="button_obtain">Retry!</string>
+    <string name="title_main_activity">Installed Apps</string>
+
+    <string name="menu_setting">Other option</string>
+    <string name="menu_search">Search</string>
+    
+    <string name="title_menu_order_by">Order by</string>
+    <string name="menu_alphabetical_order">Alphabetical order</string>
+    <string name="menu_installation_date">Installation date</string>
+    <string name="title_menu_hide">Hide</string>
+    <string name="menu_system_apps">System apps</string>
+    <string name="menu_user_apps">User apps</string>
+    <string name="menu_import_selected_apps">Import selected apps</string>
+    <string name="menu_export_selected_apps">Export selected apps</string>
+    <string name="menu_feedback">Send feedback</string>
+    <string name="menu_info_developer">Created by Nicola Serlonghi</string>
+    <string name="menu_application_version">Application version \u2022 %1$s</string>
+
+    <string name="alert_dialog_no_app_selected_title">There are no apps selected!</string>
+    <string name="alert_dialog_no_app_selected_message">You have to select at least an app to use this function.</string>
+    <string name="alert_dialog_title_exported_correctly">Applications have been exported!</string>
+    <string name="alert_dialog_message_exported_correctly">applications have been exported correctly.</string>
+    <string name="alert_dialog_title_no_app_selected_present">There\'re no applications selected installed!</string>
+    <string name="alert_dialog_message_no_app_selected_present">No applications installed are present in the file.</string>
+    <string name="alert_dialog_title_imported_correctly">Applications have been imported!</string>
+    <string name="alert_dialog_message_imported_correctly">Applications have been imported correctly.</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_title">Do you want to REMOVE selected apps?</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_message">You are going to remove selected apps. It\'s an irreversible action, pay attention.</string>
+    <string name="alert_dialog_title_no_root_permission">Sorry! Root access is not installed on this device!</string>
+    <string name="alert_dialog_message_no_root_permission">Root access is required in order to uninstall
+        apps from the device. Until you don\'t get it you can only visualize all apps (included system apps) installed on your device.</string>
+    <string name="alert_dialog_title_be_root">Ops...you don\'t guaranteed root access for this app!</string>
+    <string name="alert_dialog_message_be_root">Root access is installed on your device, but
+        to uninstall the apps, you have to grant root access for this app from your root manager app.</string>
+    <string name="alert_dialog_title_have_root">Root access obtained!</string>
+    <string name="alert_dialog_message_have_root">Root access is properly installed on this device.</string>
+    <string name="alert_dialog_title_error_remove_apps">Ops...something gone wrong!</string>
+    <string name="alert_dialog_message_error_remove_apps">There was a problem, some apps may not have been removed.</string>
+    <string name="alert_dialgo_title_reboot_now">Would you like to reboot now?</string>
+    <string name="alert_dialog_message_reboot_now">Reboot required to remove all apps.</string>
+
+    <string name="progress_dialog_removing_apps">Removing apps</string>
+
+    <string name="button_ok">Ok</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
-    <string name="button_install_busybox">Install BusyBox</string>
-    <string name="num_apps_of"> of </string>
-    <string name="toast_to_exit">Press once again to exit!</string>
-    <string name="menu_settings">Information</string>
-    <string name="menu_hide_system_apps">Hide system applications</string>
-    <string name="menu_export">Export selected</string>
-    <string name="menu_import">Import selected</string>
-    <string name="settings_leave_feedback_title">Doubts, questions, distresses, perplexity?</string>
-    <string name="settings_leave_feedback_summary">You want to report a malfunction or you have an idea to improve the application? Click and send me an email!</string>
-    <string name="settings_info_title">Info</string>
-    <string name="settings_info_summary">Uninstall System Apps was created by Nicola Serlonghi</string>
-    <string name="settings_app_version_title">Application Version</string>
-    <string name="title_actionBar_settings">Information</string>
-    <string name="loading_animation">I\'m searching for the installed applications...</string>
-    <string name="confirm_remove">Confirm remove?</string>
+    <string name="button_reboot">Reboot</string>
 </resources>
