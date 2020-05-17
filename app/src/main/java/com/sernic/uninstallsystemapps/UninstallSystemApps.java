@@ -27,6 +27,8 @@ package com.sernic.uninstallsystemapps;
 import android.app.Application;
 import android.content.ContextWrapper;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.pixplicity.easyprefs.library.Prefs;
 
 public class UninstallSystemApps extends Application {
@@ -39,6 +41,7 @@ public class UninstallSystemApps extends Application {
         super.onCreate();
         appExecutors = new AppExecutors();
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Library EasyPrefs
         new Prefs.Builder()
@@ -47,6 +50,8 @@ public class UninstallSystemApps extends Application {
                 .setPrefsName(BuildConfig.APPLICATION_ID)
                 .setUseDefaultSharedPreference(true)
                 .build();
+
+        setSaveNightMode();
     }
 
     public AppExecutors getAppExecutors() {
@@ -55,5 +60,10 @@ public class UninstallSystemApps extends Application {
 
     public DataRepository getDataRepository() {
         return DataRepository.getDataRepository(getApplicationContext(), appExecutors);
+    }
+
+    private void setSaveNightMode() {
+        int modeSave = Prefs.getInt(Constants.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(modeSave);
     }
 }

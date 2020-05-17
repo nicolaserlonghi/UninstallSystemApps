@@ -24,6 +24,6 @@
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FFFFFF" />
+    <solid android:color="@color/backgroundDialog" />
     <corners android:radius="8dp" />
 </shape>

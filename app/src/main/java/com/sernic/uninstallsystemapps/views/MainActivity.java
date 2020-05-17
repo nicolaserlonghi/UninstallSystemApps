@@ -34,6 +34,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Application;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -263,6 +264,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setOnRefreshListener() {
+        binding.swipeRefresh.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.progressCircularBackground));
         binding.swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeRefresh.setOnRefreshListener(this);
     }

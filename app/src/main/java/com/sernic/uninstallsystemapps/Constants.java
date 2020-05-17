@@ -36,5 +36,7 @@ public class Constants {
     public static final String FLAG_HIDE_USER_APPS = "hide_user_apps";
     public static final String FLAG_ROOT_ACCESS_ALREADY_OBTAINED = "root_access_already_obtained";
 
+    public static final String NIGHT_MODE = "night_mode_set";
+
     public static final String FIREBASE_PERFORMANCE_TRACE = "Search_app";
 }

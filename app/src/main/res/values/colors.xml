@@ -33,4 +33,8 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#E6E6E6</color>
     <color name="icon_color">#757575</color>
+    <color name="backgroundFAB">#FFFFFF</color>
+    <color name="backgroundRecyclerRow">@android:color/white</color>
+    <color name="progressCircularBackground">#FFFFFF</color>
+    <color name="backgroundDialog">#FFFFFF</color>
 </resources>

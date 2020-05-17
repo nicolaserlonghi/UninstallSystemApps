@@ -29,6 +29,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
+        android:background="@color/backgroundRecyclerRow"
         android:layout_height="@dimen/recycler_row_item_heigth">
 
         <ImageView
