@@ -37,4 +37,5 @@
     <color name="backgroundRecyclerRow">#202124</color>
     <color name="progressCircularBackground">#202124</color>
     <color name="backgroundDialog">#202124</color>
+    <color name="disable_text">#66FFFFFF</color>
 </resources>

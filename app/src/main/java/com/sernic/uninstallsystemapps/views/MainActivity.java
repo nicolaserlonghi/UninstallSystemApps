@@ -34,7 +34,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Application;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -168,7 +167,7 @@ public class MainActivity extends BaseActivity implements
         DialogInterface.OnClickListener rebootButton = (dialog, which) -> getViewModel().rebootDevice();
         CustomAlertDialog.showAlertDialogWithTwoButton(
                 this,
-                getResources().getString(R.string.alert_dialgo_title_reboot_now),
+                getResources().getString(R.string.alert_dialog_title_reboot_now),
                 getResources().getString(R.string.alert_dialog_message_reboot_now),
                 getResources().getString(R.string.button_reboot),
                 rebootButton,

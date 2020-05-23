@@ -166,19 +166,32 @@
         <include layout="@layout/horizontal_separator" />
 
         <RelativeLayout
-            android:id="@+id/app_theme"
+            android:id="@+id/choose_app_theme"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_sheet_row_height">
 
             <TextView
+                android:id="@+id/title_app_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
                 android:maxLines="1"
-                android:text="@string/menu_system_apps"
+                android:text="@string/menu_app_theme"
                 android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/subtitle_app_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/bottom_sheet_row_height"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/bottom_sheet_margin_left_check_box"
+                android:layout_below="@id/title_app_theme"
+                android:maxLines="1"
+                android:textColor="@color/disable_text"
+                android:textSize="@dimen/bottom_sheet_secondary_text_size"
+            />
         </RelativeLayout>
     </LinearLayout>
 </layout>

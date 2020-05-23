@@ -82,4 +82,20 @@ public class CustomAlertDialog {
             return;
         dialog.hide();
     }
+
+    public static AlertDialog showAlertDialogWithRadio(
+            Context context,
+            String title,
+            String[] items,
+            int positionOfCheckedItem,
+            DialogInterface.OnClickListener itemsClickListener
+    ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setSingleChoiceItems(items, positionOfCheckedItem, itemsClickListener);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        return dialog;
+    }
 }

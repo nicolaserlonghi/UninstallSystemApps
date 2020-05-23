@@ -51,7 +51,7 @@ public class UninstallSystemApps extends Application {
                 .setUseDefaultSharedPreference(true)
                 .build();
 
-        setSaveNightMode();
+        setSavedNightMode();
     }
 
     public AppExecutors getAppExecutors() {
@@ -62,7 +62,7 @@ public class UninstallSystemApps extends Application {
         return DataRepository.getDataRepository(getApplicationContext(), appExecutors);
     }
 
-    private void setSaveNightMode() {
+    private void setSavedNightMode() {
         int modeSave = Prefs.getInt(Constants.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         AppCompatDelegate.setDefaultNightMode(modeSave);
     }

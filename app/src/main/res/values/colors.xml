@@ -37,4 +37,5 @@
     <color name="backgroundRecyclerRow">@android:color/white</color>
     <color name="progressCircularBackground">#FFFFFF</color>
     <color name="backgroundDialog">#FFFFFF</color>
+    <color name="disable_text">#66000000</color>
 </resources>

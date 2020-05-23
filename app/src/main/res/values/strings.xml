@@ -35,6 +35,7 @@
     <string name="menu_installation_date">Installation date</string>
     <string name="title_menu_hide">Hide</string>
     <string name="menu_system_apps">System apps</string>
+    <string name="menu_app_theme">Theme</string>
     <string name="menu_user_apps">User apps</string>
     <string name="menu_import_selected_apps">Import selected apps</string>
     <string name="menu_export_selected_apps">Export selected apps</string>
@@ -62,8 +63,14 @@
     <string name="alert_dialog_message_have_root">Root access is properly installed on this device.</string>
     <string name="alert_dialog_title_error_remove_apps">Ops...something gone wrong!</string>
     <string name="alert_dialog_message_error_remove_apps">There was a problem, some apps may not have been removed.</string>
-    <string name="alert_dialgo_title_reboot_now">Would you like to reboot now?</string>
+    <string name="alert_dialog_title_reboot_now">Would you like to reboot now?</string>
     <string name="alert_dialog_message_reboot_now">Reboot required to remove all apps.</string>
+    <string name="alert_dialog_app_theme_title">Choose theme</string>
+    <string-array name="alert_dialog_app_theme_options">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System default</item>
+    </string-array>
 
     <string name="progress_dialog_removing_apps">Removing apps</string>
 
@@ -71,4 +78,6 @@
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
     <string name="button_reboot">Reboot</string>
+
+
 </resources>
