@@ -1,0 +1,9 @@
+Uninstall System Apps is an application that allows you to uninstall any application on your phone, even system applications, quickly and easily!
+Your list of deleted applications can be exported and shared with your friends.
+
+WHY UNINSTALL SYSTEM APPS?
+  • DELETE MORE THAN ONE APP AT THE SAME TIME: one click is enough to remove all selected applications.
+  • EXPORT YOUR CONFIGURATION: your custom list can be exported and imported on every device running Android.
+  • SHARE YOUR LIST WITH EVERYONE: you can share your custom list with your friends and let them use it on their devices.
+
+  Note: root permissions is required to uninstall system applications.
