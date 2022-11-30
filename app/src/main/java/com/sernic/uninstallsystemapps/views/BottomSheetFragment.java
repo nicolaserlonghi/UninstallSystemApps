@@ -26,6 +26,7 @@ package com.sernic.uninstallsystemapps.views;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +38,11 @@ import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.Logger;
 import com.sernic.uninstallsystemapps.R;
 import com.sernic.uninstallsystemapps.databinding.FragmentBottomSheetBinding;
+import com.sernic.uninstallsystemapps.helpers.CustomAlertDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 
 public class BottomSheetFragment extends com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -92,6 +95,7 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         readCheckedStored();
+        setSavedAppTheme();
         setOnclickListener();
     }
 
@@ -134,11 +138,18 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
             binding.checkedUserApps.setVisibility(View.GONE);
     }
 
+    private void setSavedAppTheme() {
+        int index = getIndexOfSavingNightMode();
+        String[] appThemeOptions =  getResources().getStringArray(R.array.alert_dialog_app_theme_options);
+        binding.subtitleAppTheme.setText(appThemeOptions[index]);
+    }
+
     private void setOnclickListener() {
         binding.alphabeticalOrder.setOnClickListener(this);
         binding.installationDate.setOnClickListener(this);
         binding.systemApps.setOnClickListener(this);
         binding.userApps.setOnClickListener(this);
+        binding.chooseAppTheme.setOnClickListener(this);
     }
 
     @Override
@@ -162,6 +173,10 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
                 break;
             case R.id.user_apps:
                 hideUserAppsClicked();
+                dismiss();
+                break;
+            case R.id.choose_app_theme:
+                manageClickChooseAppTheme();
                 dismiss();
                 break;
         }
@@ -214,5 +229,55 @@ public class BottomSheetFragment extends com.google.android.material.bottomsheet
             Prefs.putBoolean(Constants.FLAG_HIDE_SYSTEM_APPS, false);
             isSelectedBottomSheetFragment.onSelectedHideUserApps();
         }
+    }
+
+    private void manageClickChooseAppTheme() {
+        String title = getResources().getString(R.string.alert_dialog_app_theme_title);
+        String[] appThemeOptions =  getResources().getStringArray(R.array.alert_dialog_app_theme_options);
+        int itemSelected = getIndexOfSavingNightMode();
+        DialogInterface.OnClickListener onClickListener = (dialogInterface, i) -> {
+            setAppThemeFromIndex(i);
+            dialogInterface.dismiss();
+        };
+
+        CustomAlertDialog.showAlertDialogWithRadio(
+                getContext(),
+                title,
+                appThemeOptions,
+                itemSelected,
+                onClickListener
+        );
+    }
+
+    private int getIndexOfSavingNightMode() {
+        int itemSelected = Prefs.getInt(Constants.NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        switch (itemSelected) {
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                return 1;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                return 0;
+            default:
+                return 2;
+        }
+    }
+
+    private void setAppThemeFromIndex(int index) {
+        int themeToSet;
+        switch (index) {
+            case 0:
+                themeToSet = AppCompatDelegate.MODE_NIGHT_NO;
+                break;
+            case 1:
+                themeToSet = AppCompatDelegate.MODE_NIGHT_YES;
+                break;
+            default:
+                themeToSet = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
+        AppCompatDelegate.setDefaultNightMode(themeToSet);
+        savingNighMode(themeToSet);
+    }
+
+    private void savingNighMode(int mode) {
+        Prefs.putInt(Constants.NIGHT_MODE, mode);
     }
 }

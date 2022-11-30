@@ -36,6 +36,7 @@
     <string name="menu_installation_date">Data d\'installazione</string>
     <string name="title_menu_hide">Nascondi</string>
     <string name="menu_system_apps">App di sistema</string>
+    <string name="menu_app_theme">Tema</string>
     <string name="menu_user_apps">App utente</string>
     <string name="menu_import_selected_apps">Importa le app selezionate</string>
     <string name="menu_export_selected_apps">Esporta le app selezionate</string>
@@ -63,8 +64,14 @@
     <string name="alert_dialog_message_have_root">I permessi di root sono installati correttamente su questo dispositivo.</string>
     <string name="alert_dialog_title_error_remove_apps">Ops...qualcosa è andato storto!</string>
     <string name="alert_dialog_message_error_remove_apps">C\'è stato un problema durante la disinstallazione, alcunea app potrebbero essere ancora presenti.</string>
-    <string name="alert_dialgo_title_reboot_now">Vuoi riavviare ora?</string>
+    <string name="alert_dialog_title_reboot_now">Vuoi riavviare ora?</string>
     <string name="alert_dialog_message_reboot_now">Il riavvio è necessario per completare la rimozione delle app.</string>
+    <string name="alert_dialog_app_theme_title">Scegli il tema</string>
+    <string-array name="alert_dialog_app_theme_options">
+        <item>Chiaro</item>
+        <item>Scuro</item>
+        <item>Predefinito di sistema</item>
+    </string-array>
 
     <string name="progress_dialog_removing_apps">Rimozione app</string>
 

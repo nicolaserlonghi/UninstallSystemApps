@@ -3,13 +3,13 @@
   ~ The MIT License (MIT)
   ~
   ~ Copyright (c) 2019 Nicola Serlonghi <nicolaserlonghi@gmail.com>
-  ~
+  ~w
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
   ~ in the Software without restriction, including without limitation the rights
   ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
+  ~ furnished to do so, SUBJECT to the following conditions:
   ~
   ~ The above copyright notice and this permission notice shall be included in all
   ~ copies or substantial portions of the Software.
@@ -23,19 +23,19 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary"
-    >
-
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        android:layout_width="@dimen/progress_circular_dimension"
-        android:layout_height="@dimen/progress_circular_dimension"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:layout_margin="@dimen/progress_dialog_margin"
-        />
-</LinearLayout>
+<resources>
+    <color name="primary">#202124</color>
+    <color name="primary_dark">#C43C00</color>
+    <color name="primary_light">#FF9E40</color>
+    <color name="accent">#FF6D00</color>
+    <color name="primary_text">#DEFFFFFF</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#37373B</color>
+    <color name="icon_color">#757575</color>
+    <color name="backgroundFAB">#353639</color>
+    <color name="backgroundRecyclerRow">#202124</color>
+    <color name="progressCircularBackground">#202124</color>
+    <color name="backgroundDialog">#202124</color>
+    <color name="disable_text">#66FFFFFF</color>
+</resources>

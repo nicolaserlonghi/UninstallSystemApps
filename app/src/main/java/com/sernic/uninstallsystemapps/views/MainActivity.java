@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity implements
         DialogInterface.OnClickListener rebootButton = (dialog, which) -> getViewModel().rebootDevice();
         CustomAlertDialog.showAlertDialogWithTwoButton(
                 this,
-                getResources().getString(R.string.alert_dialgo_title_reboot_now),
+                getResources().getString(R.string.alert_dialog_title_reboot_now),
                 getResources().getString(R.string.alert_dialog_message_reboot_now),
                 getResources().getString(R.string.button_reboot),
                 rebootButton,
@@ -263,6 +263,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setOnRefreshListener() {
+        binding.swipeRefresh.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.progressCircularBackground));
         binding.swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeRefresh.setOnRefreshListener(this);
     }
