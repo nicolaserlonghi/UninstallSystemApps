@@ -23,7 +23,7 @@
   -->
 
 <resources>
-    <string name="app_name">Uninstall System Apps</string>
+    <string name="app_name" translatable="false">Uninstall System Apps</string>
 
     <string name="title_main_activity">Installed Apps</string>
 
@@ -46,8 +46,8 @@
     <string name="alert_dialog_no_app_selected_title">There are no apps selected!</string>
     <string name="alert_dialog_no_app_selected_message">You have to select at least an app to use this function.</string>
     <string name="alert_dialog_title_exported_correctly">Applications have been exported!</string>
-    <string name="alert_dialog_message_exported_correctly">applications have been exported correctly.</string>
-    <string name="alert_dialog_title_no_app_selected_present">There\'re no applications selected installed!</string>
+    <string name="alert_dialog_message_exported_correctly">Applications have been exported correctly.</string>
+    <string name="alert_dialog_title_no_app_selected_present">There are no applications selected installed!</string>
     <string name="alert_dialog_message_no_app_selected_present">No applications installed are present in the file.</string>
     <string name="alert_dialog_title_imported_correctly">Applications have been imported!</string>
     <string name="alert_dialog_message_imported_correctly">Applications have been imported correctly.</string>
@@ -56,12 +56,12 @@
     <string name="alert_dialog_title_no_root_permission">Sorry! Root access is not installed on this device!</string>
     <string name="alert_dialog_message_no_root_permission">Root access is required in order to uninstall
         apps from the device. Until you don\'t get it you can only visualize all apps (included system apps) installed on your device.</string>
-    <string name="alert_dialog_title_be_root">Ops...you don\'t guaranteed root access for this app!</string>
+    <string name="alert_dialog_title_be_root">Ops…you do not guaranteed root access for this app!</string>
     <string name="alert_dialog_message_be_root">Root access is installed on your device, but
         to uninstall the apps, you have to grant root access for this app from your root manager app.</string>
     <string name="alert_dialog_title_have_root">Root access obtained!</string>
     <string name="alert_dialog_message_have_root">Root access is properly installed on this device.</string>
-    <string name="alert_dialog_title_error_remove_apps">Ops...something gone wrong!</string>
+    <string name="alert_dialog_title_error_remove_apps">Ops…something gone wrong!</string>
     <string name="alert_dialog_message_error_remove_apps">There was a problem, some apps may not have been removed.</string>
     <string name="alert_dialog_title_reboot_now">Would you like to reboot now?</string>
     <string name="alert_dialog_message_reboot_now">Reboot required to remove all apps.</string>
@@ -74,7 +74,7 @@
 
     <string name="progress_dialog_removing_apps">Removing apps</string>
 
-    <string name="button_ok">Ok</string>
+    <string name="button_ok">OK</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
     <string name="button_reboot">Reboot</string>

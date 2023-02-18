@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_main_activity">Installierte Apps</string>
+    <string name="menu_setting">Weitere Optionen</string>
+    <string name="menu_search">Suchen</string>
+    <string name="title_menu_order_by">Sortieren nach</string>
+    <string name="menu_alphabetical_order">Alphabetisch</string>
+    <string name="menu_installation_date">Installationsdatum</string>
+    <string name="title_menu_hide">Ausblenden</string>
+    <string name="menu_system_apps">System Apps</string>
+    <string name="menu_app_theme">Theme</string>
+    <string name="menu_user_apps">Benutzer Apps</string>
+    <string name="menu_import_selected_apps">Ausgewählte Apps importieren</string>
+    <string name="menu_export_selected_apps">Ausgewählte Apps exportieren</string>
+    <string name="menu_feedback">Feedback senden</string>
+    <string name="menu_info_developer">Erstellt von Nicola Serlonghi</string>
+    <string name="menu_application_version">App-Version \u2022 %1$s</string>
+    <string name="alert_dialog_no_app_selected_title">Keine Apps ausgewählt!</string>
+    <string name="alert_dialog_no_app_selected_message">Sie müssen mindestens eine App auswählen.</string>
+    <string name="alert_dialog_title_exported_correctly">Apps wurden exportiert!</string>
+    <string name="alert_dialog_message_exported_correctly">Apps wurden korrekt exportiert.</string>
+    <string name="alert_dialog_title_no_app_selected_present">Es sind keine der ausgewählten Apps installiert!</string>
+    <string name="alert_dialog_message_no_app_selected_present">Keine der installierten Apps sind in dieser Datei enthalten.</string>
+    <string name="alert_dialog_title_imported_correctly">Apps wurden importiert!</string>
+    <string name="alert_dialog_message_imported_correctly">Apps wurden korrekt importiert!</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_title">Sollen alle ausgewählten Apps GELÖSCHT werden?</string>
+    <string name="alert_dialog_ask_permission_to_remove_apps_message">Es werden alle ausgewählten Apps gelöscht, dies kann nicht rückgängig gemacht werden.</string>
+    <string name="alert_dialog_title_no_root_permission">Entschuldigung! Diese Gerät ist nicht gerootet!</string>
+    <string name="alert_dialog_message_no_root_permission">Root-Rechte werden benötigt um Apps zu deinstallieren. Solange diese nicht gewährt werden, können ausschließlich die installierten Apps betrachtet werden.</string>
+    <string name="alert_dialog_title_be_root">Oops…es wurden die Root-Rechte für diese App verweigert!</string>
+    <string name="alert_dialog_message_be_root">Dein Gerät ist gerootet, um jedoch Apps zu deinstallieren, müssen sie gewährt werden.</string>
+    <string name="alert_dialog_title_have_root">Root-Rechte gewährt!</string>
+    <string name="alert_dialog_message_have_root">Das Gerät wurde korrekt gerootet</string>
+    <string name="alert_dialog_title_error_remove_apps">Oops…etwas lief schief!</string>
+    <string name="alert_dialog_message_error_remove_apps">Es ist ein Fehler aufgetreten, manche Apps wurden eventuell nicht deinstalliert.</string>
+    <string name="alert_dialog_title_reboot_now">Soll ein Neustart durchgeführt werden?</string>
+    <string name="alert_dialog_message_reboot_now">Es muss ein Neustart durchgeführt werden, um alle Apps zu entfernen.</string>
+    <string name="alert_dialog_app_theme_title">Theme auswählen</string>
+    <string name="progress_dialog_removing_apps">Deinstalliere Apps</string>
+    <string name="button_ok">OK</string>
+    <string name="button_yes">Ja</string>
+    <string name="button_no">Nein</string>
+    <string name="button_reboot">Neustart</string>
+    <string-array name="alert_dialog_app_theme_options">
+        <item>Hell</item>
+        <item>Dunkel</item>
+        <item>Systemstandard</item>
+    </string-array>
+</resources>
