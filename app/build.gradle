@@ -64,28 +64,28 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc01'
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
     // Firebase
-    implementation 'com.google.firebase:firebase-analytics:17.2.0' //Analytics
-    implementation 'com.google.firebase:firebase-perf:19.0.0' //Performance
+    implementation 'com.google.firebase:firebase-analytics:17.4.3' //Analytics
+    implementation 'com.google.firebase:firebase-perf:19.0.7' //Performance
 
     // External library
     // EasyPref
     implementation 'com.pixplicity.easyprefs:library:1.9.0'
     // LibSuperUser
-    implementation 'eu.chainfire:libsuperuser:1.1.0.+'
+    implementation 'eu.chainfire:libsuperuser:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin (Firebase)
