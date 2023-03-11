@@ -29,18 +29,15 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
-import com.google.firebase.perf.FirebasePerformance;
-import com.google.firebase.perf.metrics.Trace;
+import androidx.lifecycle.MutableLiveData;
+
 import com.sernic.uninstallsystemapps.AppExecutors;
-import com.sernic.uninstallsystemapps.Constants;
 import com.sernic.uninstallsystemapps.models.App;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import androidx.lifecycle.MutableLiveData;
 
 public class LoadApps {
 
@@ -57,21 +54,16 @@ public class LoadApps {
 
     public void searchInstalledApps() {
         appExecutors.diskIO().execute(() -> {
-            // Firebase Monitoring Performance
-            Trace searchAppsTrace = FirebasePerformance.getInstance().newTrace(Constants.FIREBASE_PERFORMANCE_TRACE);
-            searchAppsTrace.start();
             installedAppList = new ArrayList<>();
             List<ApplicationInfo> installedApplicationsInfo = getInstalledApplication(context);
             appDetails(installedApplicationsInfo);
             updateInstalledApps();
-            searchAppsTrace.stop();
         });
     }
 
     private List<ApplicationInfo> getInstalledApplication(Context context) {
         getPackageManager(context);
-        List<ApplicationInfo> installedApps = packageManager.getInstalledApplications(0);
-        return installedApps;
+        return packageManager.getInstalledApplications(0);
     }
 
     private void getPackageManager(Context context) {
